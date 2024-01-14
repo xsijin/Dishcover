@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 
 function MyRecipeForm({ handleSaveNewRecipe }) {
-    const [title, setTitle] = useState('');
-    const [tags, setTags] = useState('');
-    const [ingredients, setIngredients] = useState('');
-    const [preptime, setPreptime] = useState('');
-    const [instructions, setInstructions] = useState('');
+    const [form, setForm] = useState({
+        title: '',
+        tags: [],
+        ingredients: [],
+        preptime: '',
+        instructions: ''
+    });
+
+    const handleInputChange = (event) => {
+        setForm({
+            ...form,
+            [event.target.name]: event.target.value
+        });
+    };
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
@@ -16,11 +25,11 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                title,
-                tags: tags.split(',').map(tag => tag.trim()),
-                ingredients: ingredients.split(',').map(ingredient => ingredient.trim()),
-                preptime,
-                instructions,
+                title: form.title,
+                tags: form.tags,
+                ingredients: form.ingredients,
+                preptime: form.preptime,
+                instructions: form.instructions,
             }),
         });
 
@@ -40,36 +49,47 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
                 Title:
                 <input
                     type="text"
-                    value={title}
-                    onChange={(evt) => setTitle(evt.target.value)} required />
+                    name="title"
+                    value={form.title}
+                    onChange={handleInputChange} />
             </div>
             <div>
                 Tags (comma separated):
-                <input
+                <textarea
                     type="text"
-                    value={tags}
-                    onChange={(evt) => setTags(evt.target.value)} />
+                    name="tags"
+                    value={form.tags.join(', ')}
+                    onChange={(evt) => setForm({
+                        ...form,
+                        tags: evt.target.value.split(', ')
+                    })} />
             </div>
             <div>
                 Ingredients (comma separated):
-                <input
+                <textarea
                     type="text"
-                    value={ingredients}
-                    onChange={(evt) => setIngredients(evt.target.value)} />
+                    name="ingredients"
+                    value={form.ingredients.join(', ')}
+                    onChange={(evt) => setForm({
+                        ...form,
+                        ingredients: evt.target.value.split(', ')
+                    })} />
             </div>
             <div>
                 Prep Time:
                 <input
                     type="text"
-                    value={preptime}
-                    onChange={(evt) => setPreptime(evt.target.value)} />
+                    name="preptime"
+                    value={form.preptime}
+                    onChange={handleInputChange} />
             </div>
             <div>
                 Instructions:
-                <input
+                <textarea
                     type="text"
-                    value={instructions}
-                    onChange={(evt) => setInstructions(evt.target.value)} />
+                    name="instructions"
+                    value={form.instructions}
+                    onChange={handleInputChange} />
             </div>
             <button type="submit">Create Recipe</button>
         </form>
