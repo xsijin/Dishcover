@@ -16,7 +16,7 @@ const StarRating = ({ star }) => {
     return stars;
   };
 
-  return <div>{renderStars()}</div>;
+  return <span>{renderStars()}</span>;
 };
 
 export default StarRating;
