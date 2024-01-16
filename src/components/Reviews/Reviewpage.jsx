@@ -69,11 +69,19 @@ const calculateAverageRating = () => {
         <div><StarRating star={calculateAverageRating()} /> ({reviews.length} reviews) | <Link to="/users/show">View Recipe</Link></div>
         <ul>
           {reviews.map((review) => (
-            <div key={review._id} className="card w-96 bg-base-100 shadow-xl">
+            <div key={review._id} className="card w-96 bg-base-100 shadow-xl bottommargin">
                     <div className="card-actions justify-end">
-      <button className="btn btn-square btn-sm btn-primary btn-outline">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-      </button>
+                    <button className="btn btn-square btn-sm btn-primary btn-outline" onClick={()=>document.getElementById('my_modal_3').showModal()}>Edit</button>
+<dialog id="my_modal_3" className="modal">
+  <div className="modal-box">
+    <form method="dialog">
+      {/* if there is a button in form, it will close the modal */}
+      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <h3 className="font-bold text-lg">Hello!</h3>
+    <p className="py-4">Press ESC key or click on ✕ button to close</p>
+  </div>
+</dialog>
       <button className="btn btn-square btn-sm btn-secondary btn-outline">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
       </button>

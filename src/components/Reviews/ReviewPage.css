@@ -6,3 +6,7 @@
 .alignleft {
     text-align: left;
 }
+
+.bottommargin {
+    margin-bottom: 16px;
+}
