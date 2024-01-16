@@ -6,7 +6,8 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
         tags: [],
         ingredients: [],
         preptime: '',
-        instructions: ''
+        instructions: '',
+        picture_url: ''
     });
 
     const handleInputChange = (event) => {
@@ -30,6 +31,7 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
                 ingredients: form.ingredients,
                 preptime: form.preptime,
                 instructions: form.instructions,
+                picture_url: form.picture_url,
             }),
         });
 
@@ -44,18 +46,24 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                Title:
-                <input
+        <form onSubmit={handleSubmit} className="bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="title">
+                    Title:
+                </label>
+                <input className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="title"
                     type="text"
                     name="title"
                     value={form.title}
                     onChange={handleInputChange} />
             </div>
-            <div>
-                Tags (comma separated):
-                <textarea
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="tags">
+                    Tags (comma separated):
+                </label>
+                <textarea className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="tags"
                     type="text"
                     name="tags"
                     value={form.tags.join(', ')}
@@ -64,9 +72,12 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
                         tags: evt.target.value.split(', ')
                     })} />
             </div>
-            <div>
-                Ingredients (comma separated):
-                <textarea
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="ingredients">
+                    Ingredients (comma separated):
+                </label>
+                <textarea className="shadow appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="ingredients"
                     type="text"
                     name="ingredients"
                     value={form.ingredients.join(', ')}
@@ -75,23 +86,42 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
                         ingredients: evt.target.value.split(', ')
                     })} />
             </div>
-            <div>
-                Prep Time:
-                <input
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="preptime">
+                    Prep Time:
+                </label>
+                <input className="shadow appearance-none border rounded w-1/10 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="preptime"
                     type="text"
                     name="preptime"
                     value={form.preptime}
                     onChange={handleInputChange} />
             </div>
-            <div>
-                Instructions:
-                <textarea
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="instructions">
+                    Instructions:
+                </label>
+                <textarea className="shadow appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="instructions"
                     type="text"
                     name="instructions"
                     value={form.instructions}
                     onChange={handleInputChange} />
             </div>
-            <button type="submit">Create Recipe</button>
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="picture_url">
+                    Picture URL:
+                </label>
+                <input className="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="picture_url"
+                    type="text"
+                    name="picture_url"
+                    value={form.picture_url}
+                    onChange={handleInputChange} />
+            </div>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                Save Recipe
+            </button>
         </form>
     );
 }
