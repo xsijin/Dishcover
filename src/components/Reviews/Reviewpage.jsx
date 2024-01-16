@@ -80,6 +80,14 @@ const calculateAverageRating = () => {
     });
   };
 
+  const handleStarChange = (value) => {
+    // Update the editedReview state for star rating changes
+    setEditedReview((prevReview) => ({
+      ...prevReview,
+      rating: value,
+    }));
+  };
+
   const handlePatchSubmit = async (e) => {
     e.preventDefault();
 
@@ -136,7 +144,7 @@ const calculateAverageRating = () => {
     </form>
     <form onSubmit={handlePatchSubmit}>
     <h3 className="font-bold text-lg">Edit Review</h3>
-    <p className="py-4">
+    <div className="py-4">
     <label htmlFor="editTitle">Title:</label>
     <input
               type="text"
@@ -154,32 +162,36 @@ const calculateAverageRating = () => {
               required
             ></textarea><br />
             <label htmlFor="editRating">Rating:</label>
-            <input
-              type="number"
-              id="editRating"
-              name="rating"
-              value={editedReview.rating}
-              onChange={handleInputChange}
-              min="1"
-              max="5"
-              required
-            /><br /><br />
+<div className="rating">
+  {[1, 2, 3, 4, 5].map((value) => (
+    <input
+      key={value}
+      type="radio"
+      name="editRating"
+      className="mask mask-star-2 bg-yellow-400"
+      value={value}
+      checked={parseInt(editedReview.rating) === value}
+      onChange={() => handleStarChange(value)}
+    />
+  ))}
+</div><br /><br />
             <button type="submit">Save Changes</button>
-            </p></form>
+            </div></form>
   </div>
 </dialog>
-      <button className="btn btn-square btn-sm btn-secondary btn-outline">
+      <button className="btn btn-square btn-sm btn-secondary btn-outline ">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
-      <button className="btn btn-square btn-sm btn-accent btn-outline">
-  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
-</button>
     </div>
             <li className="alignleft">
-              <div>Username: {review.username}</div>
-              <div><StarRating star={review.rating} /> <span className="badge badge-md">{formatDate(review.createdAt)}</span>{review.createdAt !== review.updatedAt && (
-        <span className="badge badge-ghost badge-sm inline">Last Updated: {formatDate(review.updatedAt)}</span>
-      )}</div>
+              <span>Username: {review.username}</span>
+              <div><StarRating star={review.rating} /> <span className="badge badge-md">{formatDate(review.createdAt)}</span>
+              {review.createdAt !== review.updatedAt && (
+        <span className="badge badge-ghost badge-sm inline">
+            Last Updated: {formatDate(review.updatedAt)}
+            </span>
+      )}
+      </div>
               <div className="card-title">{review.title}</div>
               <div>{review.content}</div>
               
