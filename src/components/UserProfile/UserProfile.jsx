@@ -25,11 +25,21 @@ export default function UserProfile() {
             {users.length === 0 ? (
                 <p>Loading...</p>
             ) : (
-                <ul>
+                <ul role="list" className="divide-y divide-gray-100">
                     {users.map((user) => 
-                        <li key={user._id}>
-                            <p><b>{user.name}</b></p>
-                            <p>{user.email}</p>
+                        <li key={user._id} className="flex justify-between gap-x-6 py-5">
+
+                            <div className="card card-side bg-base-100 shadow-xl">
+                            <figure><img src="https://www.mob.co.uk/_next/image?url=https%3A%2F%2Ffiles.mob-cdn.co.uk%2Ffiles%2FIMG_0699.jpg&w=1536&q=75" alt="Movie"/></figure>
+                            <div className="card-body">
+                                <h2 className="card-title">{user.name}</h2>
+                                <p>{user.email}</p>
+                                <div className="card-actions justify-end">
+                                <button className="btn btn-primary">Favourite</button>
+                                </div>
+                            </div>
+                            </div>
+
                         </li>
                     )}
                 </ul>
