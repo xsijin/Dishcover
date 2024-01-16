@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import { Routes, Route } from "react-router-dom";
 import UserProfile from './components/UserProfile/UserProfile';
+import ReviewPage from './components/Reviews/ReviewPage';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,6 +17,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/users/show" element={<UserProfile />} />
+          <Route path="/ReviewPage" element={<ReviewPage />} />
         </Routes>
       </main>
     </>
