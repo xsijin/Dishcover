@@ -5,12 +5,20 @@ function MyRecipeEditing() {
     const params = useParams();
     const navigate = useNavigate();
 
-    const [title, setTitle] = useState('');
-    const [tags, setTags] = useState([]);
-    const [ingredients, setIngredients] = useState([]);
-    const [preptime, setPreptime] = useState('');
-    const [instructions, setInstructions] = useState('');
+    const [form, setForm] = useState({
+        title: '',
+        tags: [],
+        ingredients: [],
+        preptime: '',
+        instructions: ''
+    });
 
+    const handleInputChange = (event) => {
+        setForm({
+            ...form,
+            [event.target.name]: event.target.value
+        });
+    };
 
     const fetchCurrentRecipeDetails = async () => {
 
@@ -26,11 +34,13 @@ function MyRecipeEditing() {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
-                setTitle(data.recipe.title);
-                setTags(data.recipe.tags ? data.recipe.tags : []);
-                setIngredients(data.recipe.ingredients ? data.recipe.ingredients : []);
-                setPreptime(data.recipe.preptime);
-                setInstructions(data.recipe.instructions);
+                setForm({
+                    title: data.recipe.title,
+                    tags: data.recipe.tags ? data.recipe.tags : [],
+                    ingredients: data.recipe.ingredients ? data.recipe.ingredients : [],
+                    preptime: data.recipe.preptime,
+                    instructions: data.recipe.instructions
+                });
             }
 
         } catch (error) {
@@ -54,11 +64,11 @@ function MyRecipeEditing() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    title,
-                    tags: tags.join(', '), // convert tags to a string
-                    ingredients: ingredients.join(', '), // convert ingredients to a string
-                    preptime,
-                    instructions,
+                    title: form.title,
+                    tags: form.tags,
+                    ingredients: form.ingredients,
+                    preptime: form.preptime,
+                    instructions: form.instructions,
                 }),
             });
 
@@ -81,40 +91,51 @@ function MyRecipeEditing() {
                 <div>Recipe Title:</div>
                 <input
                     type="text"
-                    value={title}
-                    onChange={(evt) => setTitle(evt.target.value)} />
+                    name="title"
+                    value={form.title}
+                    onChange={handleInputChange} />
             </div>
 
             <div>
                 <div>Tags: </div>
                 <textarea
                     type="text"
-                    value={tags ? tags.join(', ') : ''}
-                    onChange={(evt) => setTags(evt.target.value.split(', '))} />
+                    name="tags"
+                    value={form.tags ? form.tags.join(', ') : ''}
+                    onChange={(evt) => setForm({
+                        ...form,
+                        tags: evt.target.value.split(', ')
+                    })} />
             </div>
 
             <div>
                 <div>Ingredients: </div>
                 <textarea
                     type="text"
-                    value={ingredients ? ingredients.join(', ') : ''}
-                    onChange={(evt) => setIngredients(evt.target.value.split(', '))} />
+                    name="ingredients"
+                    value={form.ingredients ? form.ingredients.join(', ') : ''}
+                    onChange={(evt) => setForm({
+                        ...form,
+                        ingredients: evt.target.value.split(', ')
+                    })} />
             </div>
 
             <div>
                 <div>Prep Time:</div>
                 <textarea
                     type="text"
-                    value={preptime}
-                    onChange={(evt) => setPreptime(evt.target.value)} />
+                    name='preptime'
+                    value={form.preptime}
+                    onChange={handleInputChange} />
             </div>
 
             <div>
                 <div>Instructions:</div>
                 <textarea
                     type="text"
-                    value={instructions}
-                    onChange={(evt) => setInstructions(evt.target.value)} />
+                    name='instructions'
+                    value={form.instructions}
+                    onChange={handleInputChange} />
             </div>
 
             {/* triggers the handleSaveChanges function, which sends a PATCH request to update the recipe details. */}
