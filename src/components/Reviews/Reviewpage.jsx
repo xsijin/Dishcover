@@ -1,4 +1,12 @@
 import React, { useEffect, useState } from "react";
+import StarRating from './StarRating'
+
+// re-format generated date/time
+const formatDate = (dateString) => {
+    const options = { day: '2-digit', month: 'short', year: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+    return formattedDate;
+  };
 
 const ReviewPage = () => {
   const [reviews, setReviews] = useState([]);
@@ -34,12 +42,12 @@ const ReviewPage = () => {
             <li key={review._id}>
               <p>Username: {review.username}</p>
               <p>Title: {review.title}</p>
-              <p>Rating: {review.rating}</p>
+              <p>Rating: <StarRating star={review.rating} /></p>
               <p>Content: {review.content}</p>
               <br />
-              Date: {review.createdAt}
+              Review Date: {formatDate(review.createdAt)}
               <br />
-              Last Updated: {review.updatedAt}
+              Last Updated: {formatDate(review.updatedAt)}
               {/* Add image display logic if needed */}
               <hr />
             </li>

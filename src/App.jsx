@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import { Routes, Route } from "react-router-dom";
+import BreadCrumb from './components/BreadCrumb/BreadCrumb';
 import UserProfile from './components/UserProfile/UserProfile';
 import ReviewPage from './components/Reviews/ReviewPage';
 
@@ -13,6 +14,7 @@ function App() {
         <a href="/">
           <h1>DISHCOVER</h1>
         </a>
+        <BreadCrumb />
       </nav>
       <main>
         <Routes>
