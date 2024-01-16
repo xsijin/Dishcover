@@ -10,7 +10,8 @@ function MyRecipeEditing() {
         tags: [],
         ingredients: [],
         preptime: '',
-        instructions: ''
+        instructions: '',
+        picture_url: ''
     });
 
     const handleInputChange = (event) => {
@@ -39,7 +40,8 @@ function MyRecipeEditing() {
                     tags: data.recipe.tags ? data.recipe.tags : [],
                     ingredients: data.recipe.ingredients ? data.recipe.ingredients : [],
                     preptime: data.recipe.preptime,
-                    instructions: data.recipe.instructions
+                    instructions: data.recipe.instructions,
+                    picture_url: data.recipe.picture_url
                 });
             }
 
@@ -69,6 +71,7 @@ function MyRecipeEditing() {
                     ingredients: form.ingredients,
                     preptime: form.preptime,
                     instructions: form.instructions,
+                    picture_url: form.picture_url,
                 }),
             });
 
@@ -138,6 +141,14 @@ function MyRecipeEditing() {
                     onChange={handleInputChange} />
             </div>
 
+            <div>
+                <div>Picture URL:</div>
+                <textarea
+                    type="text"
+                    name='picture_url'
+                    value={form.picture_url}
+                    onChange={handleInputChange} />
+            </div>
             {/* triggers the handleSaveChanges function, which sends a PATCH request to update the recipe details. */}
             <button onClick={handleSaveChanges}>Save Changes</button>
         </div>
