@@ -10,3 +10,7 @@
 .bottommargin {
     margin-bottom: 16px;
 }
+
+.inline {
+    display: inline;
+}
