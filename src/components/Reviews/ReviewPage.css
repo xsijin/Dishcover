@@ -1,0 +1,12 @@
+.recipename {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+.alignleft {
+    text-align: left;
+}
+
+.bottommargin {
+    margin-bottom: 16px;
+}
