@@ -78,7 +78,11 @@ function MyRecipeDetails() {
                         </div>
                         <div className='mb-8'>
                             <p className="mb-2 font-bold text-gray-300">Instructions: </p>
-                            <span className="text-gray-300 block break-words">{recipeDetails.instructions}</span>
+                            <ol className="list-decimal list-inside text-gray-300 block break-words">
+                                {recipeDetails.instructions.map((instruction, index) => (
+                                    <li key={index}>{instruction}</li>
+                                ))}
+                            </ol>
                         </div>
                         <div className='flex'>
                             <button className="btn btn-accent mr-3" onClick={handleEditButtonClick}>Edit Recipe</button>
@@ -94,7 +98,7 @@ function MyRecipeDetails() {
                 This can be done with a logical AND (&&) operation. Or else it'd treat picture_url 
                 as null and error will occur. */}
                 {recipeDetails && recipeDetails.picture_url
-                    ? <img src={recipeDetails.picture_url} alt="Picture Unavailable" className="w-full h-auto rounded-lg" />
+                    ? <img src={recipeDetails.picture_url} alt="Picture Unavailable" className="w-3/4 h-auto rounded-lg" />
                     : <p className="text-gray-300"></p>
                 }
             </div>
