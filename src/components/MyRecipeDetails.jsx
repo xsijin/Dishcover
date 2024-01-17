@@ -88,14 +88,14 @@ function MyRecipeDetails() {
                     </div>
                 )}
             </div>
-            <div className='mb-8 w-1/2'>
+            <div className='mb-8 w-1/2 rounded-lg'>
 
                 {/* Checks if recipeDetails exists before trying to access its properties. 
                 This can be done with a logical AND (&&) operation. Or else it'd treat picture_url 
                 as null and error will occur. */}
                 {recipeDetails && recipeDetails.picture_url
-                    ? <img src={recipeDetails.picture_url} alt="Picture Unavailable" className="w-full h-auto" />
-                    : <p className="text-gray-300">No picture available</p>
+                    ? <img src={recipeDetails.picture_url} alt="Picture Unavailable" className="w-full h-auto rounded-lg" />
+                    : <p className="text-gray-300"></p>
                 }
             </div>
         </div>
