@@ -10,14 +10,15 @@ function MyRecipeEditing() {
         tags: [],
         ingredients: [],
         preptime: '',
-        instructions: '',
+        instructions: [],
         picture_url: ''
     });
 
     const handleInputChange = (event) => {
+        const { name, value } = event.target;
         setForm({
             ...form,
-            [event.target.name]: event.target.value
+            [name]: name === 'instructions' ? value.split('\n') : value
         });
     };
 
@@ -40,7 +41,7 @@ function MyRecipeEditing() {
                     tags: data.recipe.tags ? data.recipe.tags : [],
                     ingredients: data.recipe.ingredients ? data.recipe.ingredients : [],
                     preptime: data.recipe.preptime,
-                    instructions: data.recipe.instructions,
+                    instructions: data.recipe.instructions ? data.recipe.instructions : [],
                     picture_url: data.recipe.picture_url
                 });
             }
@@ -146,14 +147,17 @@ function MyRecipeEditing() {
 
             <div className="mb-4">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="instructions">
-                    Instructions:
+                    Instructions (each step on a new line):
                 </label>
                 <textarea placeholder="Type here" className="input input-bordered input-primary w-1/2 h-[15rem]"
                     id="instructions"
                     type="text"
                     name="instructions"
-                    value={form.instructions}
-                    onChange={handleInputChange} />
+                    value={form.instructions.join('\n')}
+                    onChange={(evt) => setForm({
+                        ...form,
+                        instructions: evt.target.value.split('\n')
+                    })} />
             </div>
 
             <div className="mb-4">
