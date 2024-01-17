@@ -6,7 +6,7 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
         tags: [],
         ingredients: [],
         preptime: '',
-        instructions: '',
+        instructions: [],
         picture_url: ''
     });
 
@@ -104,14 +104,17 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
 
             <div className="mb-4">
                 <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="instructions">
-                    Instructions:
+                    Instructions (each step on a new line):
                 </label>
                 <textarea placeholder="Type here" className="input input-bordered input-primary w-1/2 h-[15rem]"
                     id="instructions"
                     type="text"
                     name="instructions"
-                    value={form.instructions}
-                    onChange={handleInputChange} />
+                    value={form.instructions.join('\n')}
+                    onChange={(evt) => setForm({
+                        ...form,
+                        instructions: evt.target.value.split('\n')
+                    })} />
             </div>
 
             <div className="mb-4">
