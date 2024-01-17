@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MyRecipeForm from './MyRecipeForm';
 import MyRecipesList from './MyRecipesList';
+import MyRecipeDetails from './MyRecipeDetails';
 
 function MyRecipes() {
 
@@ -14,13 +15,15 @@ function MyRecipes() {
 
     return (
         <div>
-            <h1>Create Your Own Recipe</h1>
+            <h1 className='font-bold text-xl mb-4 ml-4'>Create Your Own Recipe</h1>
 
             {/* callback function passed as prop to MyRecipeForm */}
             <MyRecipeForm handleSaveNewRecipe={handleSaveNewRecipe} />
 
             {/* userRecipes and setUserRecipes passed as props to MyRecipesList */}
             <MyRecipesList userRecipes={userRecipes} setUserRecipes={setUserRecipes} />
+
+            <MyRecipeDetails userRecipes={userRecipes} setUserRecipes={setUserRecipes} />
         </div>
     );
 }
