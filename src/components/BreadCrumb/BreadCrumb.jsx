@@ -5,7 +5,7 @@ export default function BreadCrumb() {
     <nav>
       <Link to="/users/show">User Profile</Link>
       &nbsp; | &nbsp;
-      <Link to="/ReviewPage">ReviewPage</Link>
+      <Link to="/ReviewLanding">ReviewLanding</Link>
       &nbsp; | &nbsp;
       <Link to="/MyRecipes">My Recipes</Link>
     </nav>

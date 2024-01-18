@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import CreateReviewForm from "./CreateReviewForm";
 import "./ReviewPage.css";
 
-const ReviewPage = () => {
+const ReviewLanding = () => {
   const [reviews, setReviews] = useState([]);
   const [recipeId, setRecipeId] = useState("65a22d112404af18c1bcf97a");
   const [recipeName, setRecipeName] = useState("");
@@ -13,9 +13,12 @@ const ReviewPage = () => {
     _id: "",
     title: "",
     content: "",
-    rating: 0,
+    rating: 1,
   });
   const [selectedReviewId, setSelectedReviewId] = useState(null);
+
+  // Convert object values to an array
+  const reviewsArray = Object.values(reviews);
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -64,11 +67,10 @@ const ReviewPage = () => {
 
   // calculate the average rating of this recipe
   const calculateAverageRating = () => {
-    if (reviews.length === 0) {
-      return 0; // Default to 0 if there are no reviews
+    if (!Array.isArray(reviewsArray) || reviews.length === 0) {
+      return 0; // Default to 0 if reviews is not an array or is empty
     }
-
-    const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+    const totalRating = reviewsArray.reduce((sum, review) => sum + review.rating, 0);
     return totalRating / reviews.length;
   };
 
@@ -137,6 +139,7 @@ const ReviewPage = () => {
   // Delete feature
 
   const handleDeleteClick = async (reviewId) => {
+
     try {
       const response = await fetch(
         `http://localhost:3000/reviews/delete/${reviewId}`,
@@ -160,6 +163,7 @@ const ReviewPage = () => {
   };
 
   const handleAddReview = async (newReview) => {
+
     try {
       const response = await fetch(
         `http://localhost:3000/reviews/create/${recipeId}`,
@@ -199,24 +203,18 @@ const ReviewPage = () => {
     <div>
       <h2 className="recipename">Reviews for Recipe: {recipeName}</h2>
       <div>
-        <StarRating star={calculateAverageRating()} /> ({reviews.length}{" "}
-        reviews) | <Link to={`/myrecipedetails/${recipeId}`}>View Recipe</Link>
+        <StarRating star={calculateAverageRating()} /> {reviewsArray.every(review => !review._id) ? 0 : reviews.length} reviews | <Link to={`/myrecipedetails/${recipeId}`}>View Recipe</Link>
       </div>
       <div className="flex-container">
         <div className="reviews-container">
-          {reviews.length === 0 ? (
-            <p>No reviews available for this recipe.</p>
+          {reviewsArray.every(review => !review._id) ? (
+            <div key="no-reviews-message">No reviews available for this recipe.</div>
           ) : (
-            <div>
-              <div>
-                <StarRating star={calculateAverageRating()} /> ({reviews.length}{" "}
-                reviews) | <Link to="/users/show">View Recipe</Link>
-              </div>
               <ul>
-                {reviews.map((review) => (
-                  <div
+                {reviewsArray.map((review) => (
+                  <li
                     key={review._id}
-                    className="card w-96 bg-base-100 shadow-xl bottommargin"
+                    className="card max-w-xl mx-auto bg-base-100 shadow-xl bottommargin"
                   >
                     <div className="card-actions justify-end">
                       <button
@@ -283,7 +281,7 @@ const ReviewPage = () => {
                           </form>
                         </div>
                       </dialog>
-                      <button className="btn btn-square btn-sm btn-secondary btn-outline ">
+                      <button className="btn btn-square btn-sm btn-secondary btn-outline" onClick={() => handleDeleteClick(review._id)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="h-6 w-6"
@@ -300,7 +298,7 @@ const ReviewPage = () => {
                         </svg>
                       </button>
                     </div>
-                    <li className="alignleft">
+                    <div className="alignleft">
                       <span>Username: {review.username}</span>
                       <div>
                         <StarRating star={review.rating} />{" "}
@@ -317,11 +315,11 @@ const ReviewPage = () => {
                       <div>{review.content}</div>
 
                       {/* Add image display logic if needed */}
-                    </li>
-                  </div>
+                    </div>
+                  </li>
                 ))}
               </ul>
-            </div>
+           
           )}
         </div>
         <div className="form-container">
@@ -332,4 +330,4 @@ const ReviewPage = () => {
   );
 };
 
-export default ReviewPage;
+export default ReviewLanding;

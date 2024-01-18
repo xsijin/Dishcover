@@ -6,7 +6,7 @@ const CreateReviewForm = ({ recipeId, onAddReview }) => {
   const [newReview, setNewReview] = useState({
     title: "",
     content: "",
-    rating: 0,
+    rating: 5,
   });
 
   const handleInputChange = (e) => {
@@ -34,7 +34,7 @@ const CreateReviewForm = ({ recipeId, onAddReview }) => {
     setNewReview({
       title: "",
       content: "",
-      rating: 0,
+      rating: 5,
     });
   };
 
