@@ -168,7 +168,7 @@ const handleAddReview = async (newReview) => {
       
         <ul>
           {reviews.map((review) => (
-            <div key={review._id} className="card w-96 bg-base-100 shadow-xl bottommargin centercard">
+            <div key={review._id} className="card max-w-xl mx-auto bg-base-100 shadow-xl bottommargin">
                     <div className="card-actions justify-end">
                     <button className="btn btn-square btn-sm btn-primary btn-outline"  onClick={() => handleEditClick(review)}>Edit</button>
 <dialog id="my_modal_3" className="modal">

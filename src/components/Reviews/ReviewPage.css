@@ -29,8 +29,6 @@
     margin-left: 20px; /* Add some margin between the two containers */
   }
 
-  .centercard {
-    margin: auto;
-    width: 50%;
+  .bottommargin {
     margin-bottom: 16px;
   }
