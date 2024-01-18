@@ -64,6 +64,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
                                 <Card>
                                     <Link to={`/myrecipedetails/${recipe._id}`} className="text-inherit no-underline block">
                                         <h2>{recipe.title}</h2>
+                                        <img src={recipe.picture_url} alt="Picture Unavailable" />
                                         <Gradient />
                                     </Link>
 

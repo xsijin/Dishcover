@@ -10,14 +10,15 @@ function MyRecipeEditing() {
         tags: [],
         ingredients: [],
         preptime: '',
-        instructions: '',
+        instructions: [],
         picture_url: ''
     });
 
     const handleInputChange = (event) => {
+        const { name, value } = event.target;
         setForm({
             ...form,
-            [event.target.name]: event.target.value
+            [name]: name === 'instructions' ? value.split('\n') : value
         });
     };
 
@@ -40,7 +41,7 @@ function MyRecipeEditing() {
                     tags: data.recipe.tags ? data.recipe.tags : [],
                     ingredients: data.recipe.ingredients ? data.recipe.ingredients : [],
                     preptime: data.recipe.preptime,
-                    instructions: data.recipe.instructions,
+                    instructions: data.recipe.instructions ? data.recipe.instructions : [],
                     picture_url: data.recipe.picture_url
                 });
             }
@@ -88,69 +89,91 @@ function MyRecipeEditing() {
 
 
     return (
-        <div>
-            <h2>Edit Recipe</h2>
-            <div>
-                <div>Recipe Title:</div>
-                <input
+        <div className="bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h1 className="text-gray-300 font-bold text-3xl mb-5">Edit Recipe</h1>
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="title">
+                    Title:
+                </label>
+                <input placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs"
+                    id="title"
                     type="text"
                     name="title"
                     value={form.title}
                     onChange={handleInputChange} />
             </div>
 
-            <div>
-                <div>Tags: </div>
-                <textarea
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="tags">
+                    Tags (comma separated):
+                </label>
+                <textarea placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs h-[5rem]"
+                    id="tags"
                     type="text"
                     name="tags"
-                    value={form.tags ? form.tags.join(', ') : ''}
+                    value={form.tags.join(', ')}
                     onChange={(evt) => setForm({
                         ...form,
                         tags: evt.target.value.split(', ')
                     })} />
             </div>
 
-            <div>
-                <div>Ingredients: </div>
-                <textarea
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="ingredients">
+                    Ingredients (comma separated):
+                </label>
+                <textarea placeholder="Type here" className="input input-bordered input-primary w-1/2 h-[15rem]"
+                    id="ingredients"
                     type="text"
                     name="ingredients"
-                    value={form.ingredients ? form.ingredients.join(', ') : ''}
+                    value={form.ingredients.join(', ')}
                     onChange={(evt) => setForm({
                         ...form,
                         ingredients: evt.target.value.split(', ')
                     })} />
             </div>
 
-            <div>
-                <div>Prep Time:</div>
-                <textarea
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="preptime">
+                    Prep Time:
+                </label>
+                <input placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs"
+                    id="preptime"
                     type="text"
-                    name='preptime'
+                    name="preptime"
                     value={form.preptime}
                     onChange={handleInputChange} />
             </div>
 
-            <div>
-                <div>Instructions:</div>
-                <textarea
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="instructions">
+                    Instructions (each step on a new line):
+                </label>
+                <textarea placeholder="Type here" className="input input-bordered input-primary w-1/2 h-[15rem]"
+                    id="instructions"
                     type="text"
-                    name='instructions'
-                    value={form.instructions}
-                    onChange={handleInputChange} />
+                    name="instructions"
+                    value={form.instructions.join('\n')}
+                    onChange={(evt) => setForm({
+                        ...form,
+                        instructions: evt.target.value.split('\n')
+                    })} />
             </div>
 
-            <div>
-                <div>Picture URL:</div>
-                <textarea
+            <div className="mb-4">
+                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="picture_url">
+                    Picture URL:
+                </label>
+                <input placeholder="Type here" className="input input-bordered input-primary w-1/2"
+                    id="picture_url"
                     type="text"
-                    name='picture_url'
+                    name="picture_url"
                     value={form.picture_url}
                     onChange={handleInputChange} />
             </div>
+
             {/* triggers the handleSaveChanges function, which sends a PATCH request to update the recipe details. */}
-            <button onClick={handleSaveChanges}>Save Changes</button>
+            <button className="btn btn-accent mr-3" onClick={handleSaveChanges}>Save Changes</button>
         </div>
     );
 };
