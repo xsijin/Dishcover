@@ -133,6 +133,26 @@ const ReviewPage = () => {
     }
   };
 
+// Delete feature
+
+const handleDeleteClick = async (reviewId) => {
+  try {
+    const response = await fetch(`http://localhost:3000/reviews/delete/${reviewId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete review");
+    }
+
+    // Update the state to reflect the changes immediately
+    const updatedReviews = reviews.filter((review) => review._id !== reviewId);
+    setReviews(updatedReviews);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
   return (
     <div>
       <h2 className="recipename">Reviews for Recipe: {recipeName}</h2>
@@ -140,6 +160,7 @@ const ReviewPage = () => {
         <p>No reviews available for this recipe.</p>
       ) : (
         <div>
+
           <div>
             <StarRating star={calculateAverageRating()} /> ({reviews.length}{" "}
             reviews) | <Link to="/users/show">View Recipe</Link>
@@ -248,6 +269,7 @@ const ReviewPage = () => {
             ))}
           </ul>
         </div>
+
       )}
     </div>
   );
