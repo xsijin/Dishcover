@@ -123,6 +123,26 @@ const calculateAverageRating = () => {
   }
 };
 
+// Delete feature
+
+const handleDeleteClick = async (reviewId) => {
+  try {
+    const response = await fetch(`http://localhost:3000/reviews/delete/${reviewId}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete review");
+    }
+
+    // Update the state to reflect the changes immediately
+    const updatedReviews = reviews.filter((review) => review._id !== reviewId);
+    setReviews(updatedReviews);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
   return (
     <div>
       <h2 className="recipename">Reviews for Recipe: {recipeName}</h2>
@@ -179,7 +199,7 @@ const calculateAverageRating = () => {
             </div></form>
   </div>
 </dialog>
-      <button className="btn btn-square btn-sm btn-secondary btn-outline ">
+      <button className="btn btn-square btn-sm btn-secondary btn-outline"  onClick={() => handleDeleteClick(review._id)}>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
     </div>
