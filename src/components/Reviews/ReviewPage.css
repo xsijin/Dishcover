@@ -14,3 +14,7 @@
 .inline {
     display: inline;
 }
+
+.titlemargin {
+    margin-bottom: 8px;
+}
