@@ -7,10 +7,28 @@
     text-align: left;
 }
 
-.bottommargin {
-    margin-bottom: 16px;
-}
-
 .inline {
     display: inline;
 }
+
+.titlemargin {
+    margin-bottom: 8px;
+}
+
+.flex-container {
+    display: flex;
+  }
+  
+  .reviews-container {
+    flex: 1; /* Takes up remaining space */
+
+  }
+  
+  .form-container {
+    width: 300px; /* Adjust the width as needed */
+    margin-left: 20px; /* Add some margin between the two containers */
+  }
+
+  .bottommargin {
+    margin-bottom: 16px;
+  }

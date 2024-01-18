@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 import { Link, useParams } from "react-router-dom";
+import CreateReviewForm from "./CreateReviewForm";
 import "./ReviewPage.css";
 
 const ReviewPage = () => {
@@ -153,9 +154,43 @@ const handleDeleteClick = async (reviewId) => {
   }
 };
 
+const handleAddReview = async (newReview) => {
+  try {
+    const response = await fetch(`http://localhost:3000/reviews/create/${recipeId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        recipeId,
+        title: newReview.title,
+        content: newReview.content,
+        rating: newReview.rating,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to add review");
+    }
+
+    // Fetch the updated reviews again to reflect the changes immediately
+    const updatedResponse = await fetch(`http://localhost:3000/reviews/show/${recipeId}`);
+    if (!updatedResponse.ok) {
+      throw new Error("Failed to fetch updated reviews");
+    }
+    const updatedData = await updatedResponse.json();
+    setReviews(updatedData);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
   return (
     <div>
       <h2 className="recipename">Reviews for Recipe: {recipeName}</h2>
+      <div><StarRating star={calculateAverageRating()} /> ({reviews.length} reviews) | <Link to={`/myrecipedetails/${recipeId}`}>View Recipe</Link></div>
+      <div className="flex-container">
+      <div className="reviews-container">
       {reviews.length === 0 ? (
         <p>No reviews available for this recipe.</p>
       ) : (
@@ -269,9 +304,12 @@ const handleDeleteClick = async (reviewId) => {
             ))}
           </ul>
         </div>
-
       )}
-    </div>
+      </div>
+      <div className="form-container">
+<CreateReviewForm recipeId={recipeId} onAddReview={handleAddReview} />
+</div>
+    </div></div>
   );
 };
 
