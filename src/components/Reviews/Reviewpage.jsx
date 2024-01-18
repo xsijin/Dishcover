@@ -158,14 +158,17 @@ const handleAddReview = async (newReview) => {
   return (
     <div>
       <h2 className="recipename">Reviews for Recipe: {recipeName}</h2>
+      <div><StarRating star={calculateAverageRating()} /> ({reviews.length} reviews) | <Link to={`/myrecipedetails/${recipeId}`}>View Recipe</Link></div>
+      <div className="flex-container">
+      <div className="reviews-container">
       {reviews.length === 0 ? (
         <p>No reviews available for this recipe.</p>
       ) : (
         <div>
-        <div><StarRating star={calculateAverageRating()} /> ({reviews.length} reviews) | <Link to="/users/show">View Recipe</Link></div>
+      
         <ul>
           {reviews.map((review) => (
-            <div key={review._id} className="card w-96 bg-base-100 shadow-xl bottommargin">
+            <div key={review._id} className="card w-96 bg-base-100 shadow-xl bottommargin centercard">
                     <div className="card-actions justify-end">
                     <button className="btn btn-square btn-sm btn-primary btn-outline"  onClick={() => handleEditClick(review)}>Edit</button>
 <dialog id="my_modal_3" className="modal">
@@ -233,10 +236,11 @@ const handleAddReview = async (newReview) => {
           ))}
         </ul></div>
       )}
-
+      </div>
+      <div className="form-container">
 <CreateReviewForm recipeId={recipeId} onAddReview={handleAddReview} />
-
-    </div>
+</div>
+    </div></div>
   );
 };
 
