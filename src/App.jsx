@@ -21,7 +21,7 @@ function App() {
       </nav>
       <main>
         <Routes>
-          <Route path="/users/show" element={<UserProfile />} />
+          <Route path="/users" element={<UserProfile />} />
           <Route path="/ReviewLanding" element={<ReviewLanding />} />
           <Route path="/MyRecipes" element={<MyRecipes />} />
           <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
