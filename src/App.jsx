@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-
 import NavBar from "./components/NavBar/NavBar";
 import UserProfile from "./components/UserProfile/UserProfile";
+import SignUpForm from './components/UserProfile/SignUpForm';
 import ReviewLanding from './components/Reviews/ReviewLanding';
 import MyRecipes from "./components/MyRecipes";
 import MyRecipeDetails from "./components/MyRecipeDetails";
@@ -23,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PublicLandingPage />} />
           <Route path="/users/show" element={<UserProfile />} />
+          <Route path="/login-signup" element={<SignUpForm />} />
           <Route path="/reviews/:recipeId" element={<ReviewPage />} />
           <Route path="/ReviewLanding" element={<ReviewLanding />} />
           <Route path="/MyRecipes" element={<MyRecipes />} />
