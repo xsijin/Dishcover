@@ -243,15 +243,16 @@ const ReviewLanding = () => {
                   <div className="card-actions justify-end">
                     {/* start of edit button*/}
                     <button
-                      className="btn btn-square btn-sm btn-primary btn-outline"
+                      className="btn btn-square btn-sm btn-accent btn-outline"
                       onClick={() => handleEditClick(review)}
                     >
                       Edit
                     </button>
+                    {/* edit modal */}
                     <dialog id="my_modal_3" className="modal">
                       <div className="modal-box">
                         <form method="dialog">
-                          {/* if there is a button in form, it will close the modal */}
+                          {/* button to close modal without any changes */}
                           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                             ✕
                           </button>
@@ -308,28 +309,8 @@ const ReviewLanding = () => {
                     </dialog>
                     {/* end of edit button*/}
                     {/* start of delete button */}
-                    <dialog id="deleteConfirmationModal" className="modal">
-                      <div className="modal-box">
-                        <h3 className="font-bold text-lg">Confirm Deletion</h3>
-                        <p>Are you sure you want to delete this review?</p>
-                        <div className="py-4">
-                          <button
-                            className="btn btn-outline btn-danger"
-                            onClick={() => handleConfirmDelete()}
-                          >
-                            Yes, Delete
-                          </button>
-                          <button
-                            className="btn btn-outline"
-                            onClick={() => handleCancelDelete()}
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                      </div>
-                    </dialog>
                     <button
-                      className="btn btn-square btn-sm btn-secondary btn-outline"
+                      className="btn btn-square btn-sm btn-error btn-outline"
                       onClick={() => handleDeleteClick(review._id)}
                     >
                       <svg
@@ -347,6 +328,38 @@ const ReviewLanding = () => {
                         />
                       </svg>
                     </button>
+                    {/* delete modal */}
+                    <dialog id="deleteConfirmationModal" className="modal">
+                      <div className="modal-box">
+                        <form method="dialog">
+                          {/* button to close modal without any changes */}
+                          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                            ✕
+                          </button>
+                        </form>
+                        <h3 className="font-bold text-lg">Confirm Deletion</h3>
+                        <p>
+                          Are you sure you want to delete this review?
+                          <br />
+                          This action cannot be undone.
+                        </p>
+                        <div className="py-4">
+                          <button
+                            className="btn btn-outline btn-error"
+                            onClick={() => handleConfirmDelete()}
+                          >
+                            Yes, Delete
+                          </button>
+                          &nbsp;
+                          <button
+                            className="btn btn-outline btn-primary"
+                            onClick={() => handleCancelDelete()}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </dialog>
                   </div>
                   {/* end of delete button */}
                   {/* display review */}
