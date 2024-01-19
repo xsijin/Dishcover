@@ -3,7 +3,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import UserProfile from "./components/UserProfile/UserProfile";
-import ReviewPage from "./components/Reviews/ReviewPage";
+import ReviewLanding from "./components/Reviews/ReviewLanding";
 import ReviewUser from "./components/Reviews/ReviewUser";
 import MyRecipes from "./components/MyRecipes";
 import MyRecipeDetails from "./components/MyRecipeDetails";
@@ -23,7 +23,8 @@ function App() {
         <Routes>
           <Route path="/" element={<PublicLandingPage />} />
           <Route path="/users/show" element={<UserProfile />} />
-          <Route path="/reviews/:recipeId" element={<ReviewPage />} />
+          <Route path="/ReviewLanding" element={<ReviewLanding />} />
+          <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
           <Route path="/ReviewUser" element={<ReviewUser />} />
           <Route path="/MyRecipes" element={<MyRecipes />} />
           <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
