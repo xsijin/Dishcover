@@ -69,7 +69,7 @@ export default function NavBar() {
               <a href="/MyRecipes">My Recipes</a>
             </li>
             <li>
-              <a>My Reviews</a>
+              <a href="/ReviewUser">My Reviews</a>
             </li>
             <li>
               <a>Logout</a>
