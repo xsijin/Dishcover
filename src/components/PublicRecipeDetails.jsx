@@ -63,7 +63,7 @@ function PublicRecipeDetails() {
                         </div>
                         <div className='flex'>
                             <button className="btn btn-primary" onClick={() => navigate('/')}>Back to Home</button>
-                            <button className="btn btn-primary ml-4">Reviews</button>
+                            <button className="btn btn-primary ml-4"  onClick={() => navigate(`/reviews/${params.id}`)}>Reviews</button>
                         </div>
                     </div>
                 )}
