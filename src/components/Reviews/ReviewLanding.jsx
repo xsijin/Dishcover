@@ -16,9 +16,7 @@ const ReviewLanding = () => {
     rating: 1,
   });
   const [selectedReviewId, setSelectedReviewId] = useState(null);
-
-  // Convert object values to an array
-  const reviewsArray = Object.values(reviews);
+  const [reviewToDelete, setReviewToDelete] = useState(null);
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -70,10 +68,17 @@ const ReviewLanding = () => {
     if (!Array.isArray(reviewsArray) || reviews.length === 0) {
       return 0; // Default to 0 if reviews is not an array or is empty
     }
-    const totalRating = reviewsArray.reduce((sum, review) => sum + review.rating, 0);
+    const totalRating = reviewsArray.reduce(
+      (sum, review) => sum + review.rating,
+      0
+    );
     return totalRating / reviews.length;
   };
 
+  // Convert object values to an array (reason: backend returns an object, but map/reduce functions require an array)
+  const reviewsArray = Object.values(reviews);
+
+  // Edit button - opens the modal
   const handleEditClick = (review) => {
     setEditedReview(review);
     setSelectedReviewId(review._id);
@@ -96,6 +101,7 @@ const ReviewLanding = () => {
     }));
   };
 
+  // calls the patch function to edit review
   const handlePatchSubmit = async (e) => {
     e.preventDefault();
 
@@ -136,13 +142,17 @@ const ReviewLanding = () => {
     }
   };
 
-  // Delete feature
-
+  // Delete feature - opens modal
   const handleDeleteClick = async (reviewId) => {
+    setReviewToDelete(reviewId);
+    document.getElementById("deleteConfirmationModal").showModal();
+  };
 
+  // calls the delete function to delete review
+  const handleConfirmDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/delete/${reviewId}`,
+        `http://localhost:3000/reviews/delete/${reviewToDelete}`,
         {
           method: "DELETE",
         }
@@ -154,16 +164,26 @@ const ReviewLanding = () => {
 
       // Update the state to reflect the changes immediately
       const updatedReviews = reviews.filter(
-        (review) => review._id !== reviewId
+        (review) => review._id !== reviewToDelete
       );
       setReviews(updatedReviews);
+
+      // Close the confirmation modal upon confirmation to delete
+      document.getElementById("deleteConfirmationModal").close();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleAddReview = async (newReview) => {
+  const handleCancelDelete = () => {
+    // Reset the reviewToDelete state
+    setReviewToDelete(null);
+    // Close the confirmation modal
+    document.getElementById("deleteConfirmationModal").close();
+  };
 
+  // create review function
+  const handleAddReview = async (newReview) => {
     try {
       const response = await fetch(
         `http://localhost:3000/reviews/create/${recipeId}`,
@@ -203,125 +223,157 @@ const ReviewLanding = () => {
     <div>
       <h2 className="recipename">Reviews for Recipe: {recipeName}</h2>
       <div>
-        <StarRating star={calculateAverageRating()} /> {reviewsArray.every(review => !review._id) ? 0 : reviews.length} reviews | <Link to={`/myrecipedetails/${recipeId}`}>View Recipe</Link>
+        <StarRating star={calculateAverageRating()} />{" "}
+        {reviewsArray.every((review) => !review._id) ? 0 : reviews.length}{" "}
+        reviews | <Link to={`/myrecipedetails/${recipeId}`}>View Recipe</Link>
       </div>
       <div className="flex-container">
         <div className="reviews-container">
-          {reviewsArray.every(review => !review._id) ? (
-            <div key="no-reviews-message">No reviews available for this recipe.</div>
+          {reviewsArray.every((review) => !review._id) ? (
+            <div key="no-reviews-message">
+              No reviews available for this recipe.
+            </div>
           ) : (
-              <ul>
-                {reviewsArray.map((review) => (
-                  <li
-                    key={review._id}
-                    className="card max-w-xl mx-auto bg-base-100 shadow-xl bottommargin"
-                  >
-                    <div className="card-actions justify-end">
-                      <button
-                        className="btn btn-square btn-sm btn-primary btn-outline"
-                        onClick={() => handleEditClick(review)}
-                      >
-                        Edit
-                      </button>
-                      <dialog id="my_modal_3" className="modal">
-                        <div className="modal-box">
-                          <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                              ✕
-                            </button>
-                          </form>
-                          <form onSubmit={handlePatchSubmit}>
-                            <h3 className="font-bold text-lg">Edit Review</h3>
-                            <div className="py-4">
-                              <div className="rating">
-                                {[1, 2, 3, 4, 5].map((value) => (
-                                  <input
-                                    key={value}
-                                    type="radio"
-                                    name="editRating"
-                                    className="mask mask-star-2 bg-yellow-400"
-                                    value={value}
-                                    checked={
-                                      parseInt(editedReview.rating) === value
-                                    }
-                                    onChange={() => handleStarChange(value)}
-                                  />
-                                ))}
-                              </div>
-                              <br />
-                              <input
-                                type="text"
-                                id="editTitle"
-                                name="title"
-                                placeholder="Your review title"
-                                className="input input-bordered w-full max-w-xs titlemargin"
-                                value={editedReview.title}
-                                onChange={handleInputChange}
-                              />
-                              <br />
-                              <textarea
-                                id="editContent"
-                                name="content"
-                                className="textarea textarea-bordered textarea-sm w-full max-w-xs titlemargin"
-                                placeholder="Type your review here"
-                                value={editedReview.content}
-                                onChange={handleInputChange}
-                                required
-                              ></textarea>
-                              <br />
-                              <br />
-                              <button
-                                type="submit"
-                                className="btn btn-outline btn-primary"
-                              >
-                                Save Changes
-                              </button>
+            <ul>
+              {reviewsArray.map((review) => (
+                <li
+                  key={review._id}
+                  className="card max-w-xl mx-auto bg-base-100 shadow-xl bottommargin"
+                >
+                  <div className="card-actions justify-end">
+                    {/* start of edit button*/}
+                    <button
+                      className="btn btn-square btn-sm btn-primary btn-outline"
+                      onClick={() => handleEditClick(review)}
+                    >
+                      Edit
+                    </button>
+                    <dialog id="my_modal_3" className="modal">
+                      <div className="modal-box">
+                        <form method="dialog">
+                          {/* if there is a button in form, it will close the modal */}
+                          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                            ✕
+                          </button>
+                        </form>
+                        <form onSubmit={handlePatchSubmit}>
+                          <h3 className="font-bold text-lg">Edit Review</h3>
+                          <div className="py-4">
+                            <div className="rating">
+                              {[1, 2, 3, 4, 5].map((value) => (
+                                <input
+                                  key={value}
+                                  type="radio"
+                                  name="editRating"
+                                  className="mask mask-star-2 bg-yellow-400"
+                                  value={value}
+                                  checked={
+                                    parseInt(editedReview.rating) === value
+                                  }
+                                  onChange={() => handleStarChange(value)}
+                                />
+                              ))}
                             </div>
-                          </form>
-                        </div>
-                      </dialog>
-                      <button className="btn btn-square btn-sm btn-secondary btn-outline" onClick={() => handleDeleteClick(review._id)}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                    <div className="alignleft">
-                      <span>Username: {review.username}</span>
-                      <div>
-                        <StarRating star={review.rating} />{" "}
-                        <span className="badge badge-md">
-                          {formatDate(review.createdAt)}
-                        </span>
-                        {review.createdAt !== review.updatedAt && (
-                          <span className="badge badge-ghost badge-sm inline">
-                            Updated: {formatDate(review.updatedAt)}
-                          </span>
-                        )}
+                            <br />
+                            <input
+                              type="text"
+                              id="editTitle"
+                              name="title"
+                              placeholder="Your review title"
+                              className="input input-bordered w-full max-w-xs titlemargin"
+                              value={editedReview.title}
+                              onChange={handleInputChange}
+                            />
+                            <br />
+                            <textarea
+                              id="editContent"
+                              name="content"
+                              className="textarea textarea-bordered textarea-sm w-full max-w-xs titlemargin"
+                              placeholder="Type your review here"
+                              value={editedReview.content}
+                              onChange={handleInputChange}
+                              required
+                            ></textarea>
+                            <br />
+                            <br />
+                            <button
+                              type="submit"
+                              className="btn btn-outline btn-primary"
+                            >
+                              Save Changes
+                            </button>
+                          </div>
+                        </form>
                       </div>
-                      <div className="card-title">{review.title}</div>
-                      <div>{review.content}</div>
-
-                      {/* Add image display logic if needed */}
+                    </dialog>
+                    {/* end of edit button*/}
+                    {/* start of delete button */}
+                    <dialog id="deleteConfirmationModal" className="modal">
+                      <div className="modal-box">
+                        <h3 className="font-bold text-lg">Confirm Deletion</h3>
+                        <p>Are you sure you want to delete this review?</p>
+                        <div className="py-4">
+                          <button
+                            className="btn btn-outline btn-danger"
+                            onClick={() => handleConfirmDelete()}
+                          >
+                            Yes, Delete
+                          </button>
+                          <button
+                            className="btn btn-outline"
+                            onClick={() => handleCancelDelete()}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    </dialog>
+                    <button
+                      className="btn btn-square btn-sm btn-secondary btn-outline"
+                      onClick={() => handleDeleteClick(review._id)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  {/* end of delete button */}
+                  {/* display review */}
+                  <div className="alignleft">
+                    <span>Username: {review.username}</span>
+                    <div>
+                      <StarRating star={review.rating} />{" "}
+                      <span className="badge badge-md">
+                        {formatDate(review.createdAt)}
+                      </span>
+                      {review.createdAt !== review.updatedAt && (
+                        <span className="badge badge-ghost badge-sm inline">
+                          Updated: {formatDate(review.updatedAt)}
+                        </span>
+                      )}
                     </div>
-                  </li>
-                ))}
-              </ul>
-           
+                    <div className="card-title">{review.title}</div>
+                    <div>{review.content}</div>
+
+                    {/* Add image display logic if needed */}
+                  </div>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
+        {/* add review form */}
         <div className="form-container">
           <CreateReviewForm recipeId={recipeId} onAddReview={handleAddReview} />
         </div>
