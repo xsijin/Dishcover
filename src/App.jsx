@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+
 import BreadCrumb from "./components/BreadCrumb/BreadCrumb";
 import UserProfile from "./components/UserProfile/UserProfile";
-import ReviewPage from "./components/Reviews/ReviewPage";
+import ReviewLanding from './components/Reviews/ReviewLanding';
 import MyRecipes from "./components/MyRecipes";
 import MyRecipeDetails from "./components/MyRecipeDetails";
 import MyRecipeEditing from "./components/MyRecipeEditing";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<PublicLandingPage />} />
           <Route path="/users/show" element={<UserProfile />} />
           <Route path="/reviews/:recipeId" element={<ReviewPage />} />
+          <Route path="/ReviewLanding" element={<ReviewLanding />} />
           <Route path="/MyRecipes" element={<MyRecipes />} />
           <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
           <Route path="/MyRecipeEditing/:id" element={<MyRecipeEditing />} />
