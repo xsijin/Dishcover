@@ -7,6 +7,8 @@ import ReviewPage from './components/Reviews/ReviewPage';
 import MyRecipes from './components/MyRecipes';
 import MyRecipeDetails from './components/MyRecipeDetails';
 import MyRecipeEditing from './components/MyRecipeEditing';
+import PublicLandingPage from './components/PublicLandingPage';
+import PublicRecipeDetails from './components/PublicRecipeDetails';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -26,6 +28,8 @@ function App() {
           <Route path="/MyRecipes" element={<MyRecipes />} />
           <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
           <Route path="/MyRecipeEditing/:id" element={<MyRecipeEditing />} />
+          <Route path="/" element={<PublicLandingPage />} />
+          <Route path="/PublicRecipeDetails/:id" element={<PublicRecipeDetails />} />
         </Routes>
       </main>
     </>

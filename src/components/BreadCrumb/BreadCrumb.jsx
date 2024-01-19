@@ -8,6 +8,8 @@ export default function BreadCrumb() {
       <Link to="/ReviewPage">ReviewPage</Link>
       &nbsp; | &nbsp;
       <Link to="/MyRecipes">My Recipes</Link>
+      &nbsp; | &nbsp;
+      <Link to="/">Home</Link>
     </nav>
   );
 }
