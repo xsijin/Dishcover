@@ -5,7 +5,6 @@ import NavBar from "./components/NavBar/NavBar";
 import UserProfileList from "./components/UserProfile/UserProfileList";
 import ReviewLanding from "./components/Reviews/ReviewLanding";
 import ReviewUser from "./components/Reviews/ReviewUser";
-import SignUpForm from "./components/UserProfile/SignUpForm";
 import MyRecipes from "./components/MyRecipes";
 import MyRecipeDetails from "./components/MyRecipeDetails";
 import MyRecipeEditing from "./components/MyRecipeEditing";
@@ -13,6 +12,7 @@ import PublicLandingPage from "./components/PublicLandingPage";
 import PublicRecipeDetails from "./components/PublicRecipeDetails";
 import UserProfile from "./components/UserProfile/UserProfile";
 import SearchResult from "./components/SearchResult";
+import LoginSignUp from "./components/UserProfile/LoginSignUp";
 
 function App() {
   // const [user, setUser] = useState({
@@ -57,7 +57,7 @@ function App() {
           <Route path="/ReviewLanding" element={<ReviewLanding />} />
           <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
           <Route path="/ReviewUser" element={<ReviewUser />} />
-          <Route path="/login-signup" element={<SignUpForm />} />
+          <Route path="/login-signup" element={<LoginSignUp />} />
           <Route path="/MyRecipes" element={<MyRecipes />} />
           <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
           <Route path="/MyRecipeEditing/:id" element={<MyRecipeEditing />} />

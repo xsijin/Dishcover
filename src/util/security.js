@@ -1,4 +1,4 @@
-import * as CryptoJS from 'crypto-js';
+
 import {getRndInteger} from './random';
 
 const SALT_LENGTH = 128;
