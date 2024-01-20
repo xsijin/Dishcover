@@ -5,8 +5,9 @@ import CreateReviewForm from "./CreateReviewForm";
 import "./ReviewPage.css";
 
 const ReviewLanding = () => {
+  const params = useParams();
   const [reviews, setReviews] = useState([]);
-  const [recipeId, setRecipeId] = useState("65a22d112404af18c1bcf97a");
+  const [recipeId, setRecipeId] = useState(params.recipeId);
   const [recipeName, setRecipeName] = useState("");
   const [editedReview, setEditedReview] = useState({
     // Initialize with empty values or default values
