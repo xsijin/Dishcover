@@ -18,14 +18,6 @@ export default function DeleteConfirmation() {
                     </form>
                 </div>
             </div>
-            {/* <form method="dialog">
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-            </form> */}
-
-            {/* <p>Are you sure you want to delete this account?</p>
-
-            <button onClick={() => handleDeleteUser()} className="btn">Yes</button>
-            <button onClick={() => document.getElementById('deleteConfirmation').close()} className="btn">No</button> */}
         </>
     )
 }
