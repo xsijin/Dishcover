@@ -9,18 +9,17 @@ export default function NavBar() {
           Dishcover
         </a>
       </div>
-{/*Add new recipe button*/}
+      {/*Add new recipe button*/}
       <div className="flex-1 flex justify-center">
-    <a className="btn btn-ghost text-xl" href="/MyRecipes">
-      + Add a Dishcovery
-    </a>
-  </div>
+        <a className="btn btn-ghost text-xl" href="/MyRecipes">
+          + Add a Dishcovery
+        </a>
+      </div>
 
       <div className="flex-none gap-2">
         <div className="form-control">
           <SearchBar />
         </div>
-      
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
@@ -39,19 +38,23 @@ export default function NavBar() {
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
           >
             <li>
-                <Link to={"/my-profile"} className="justify-between">
+              <Link to={"/my-profile"} className="justify-between">
                 My Profile
                 <span className="badge">New</span>
-                </Link>
+              </Link>
             </li>
             <li>
               <a>Settings</a>
             </li>
             <li>
-            <Link to={"/MyRecipes"} className="justify-between">My Recipes</Link>
+              <Link to={"/MyRecipes"} className="justify-between">
+                My Recipes
+              </Link>
             </li>
             <li>
-            <Link to={"/ReviewUser"} className="justify-between">My Reviews</Link>
+              <Link to={"/ReviewUser"} className="justify-between">
+                My Reviews
+              </Link>
             </li>
             <li>
               <a>Logout</a>
