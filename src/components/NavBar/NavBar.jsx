@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SearchBar from "../SearchBar";
 
 export default function NavBar() {
   return (
@@ -17,28 +18,9 @@ export default function NavBar() {
 
       <div className="flex-none gap-2">
         <div className="form-control">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-          />
+          <SearchBar />
         </div>
-        <button className="btn btn-ghost btn-circle">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </button>
+      
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
@@ -66,10 +48,10 @@ export default function NavBar() {
               <a>Settings</a>
             </li>
             <li>
-              <a href="/MyRecipes">My Recipes</a>
+            <Link to={"/MyRecipes"} className="justify-between">My Recipes</Link>
             </li>
             <li>
-              <a href="/ReviewUser">My Reviews</a>
+            <Link to={"/ReviewUser"} className="justify-between">My Reviews</Link>
             </li>
             <li>
               <a>Logout</a>
