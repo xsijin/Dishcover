@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 export default function ProfileForm({ user }) {
     const [updateInput, setUpdateInput] = useState(user);
@@ -52,60 +53,66 @@ export default function ProfileForm({ user }) {
         <>
             <div className="modal-box">
 
-            <form method="dialog">
-                <button onClick={()=>setUpdateMsg({ res: false, success: false, msg: ""})} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-            </form>
-            <h3 className="font-bold text-lg">Update Profile</h3>
+                <form method="dialog">
+                    <button onClick={()=>setUpdateMsg({ res: false, success: false, msg: ""})} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                </form>
+                <h3 className="font-bold text-lg">Update Profile</h3>
 
-            <form onSubmit={handleSubmit} className="userForm">
+                <form onSubmit={handleSubmit} className="userForm">
 
-                <label className="form-control w-full max-w-xs">
-                    <div className="label">
-                        <span className="lavel-text font-bold">First Name</span>
-                    </div>
-                    <input 
-                        type="text"
-                        name="firstName"
-                        value={updateInput.firstName}
-                        onChange={handleInputChange}
-                        placeholder="Type here" 
-                        className="input input-bordered input-sm w-full max-w-xs" />
-                </label>
+                    <label className="form-control w-full max-w-xs">
+                        <div className="label">
+                            <span className="lavel-text font-bold">First Name</span>
+                        </div>
+                        <input 
+                            type="text"
+                            name="firstName"
+                            value={updateInput.firstName}
+                            onChange={handleInputChange}
+                            placeholder="Type here" 
+                            className="input input-bordered input-sm w-full max-w-xs" />
+                    </label>
 
-                <label className="form-control w-full max-w-xs">
-                    <div className="label">
-                        <span className="lavel-text font-bold">Last Name</span>
-                    </div>
-                    <input 
-                    type="text" 
-                    name="lastName"
-                    value={updateInput.lastName}
-                    onChange={handleInputChange}
-                    placeholder="Type here" 
-                    className="input input-bordered input-sm w-full max-w-xs" />
-                </label>
-
-                <label className="form-control w-full max-w-xs">
-                    <div className="label">
-                        <span className="lavel-text font-bold">Email</span>
-                    </div>
-                    <input 
+                    <label className="form-control w-full max-w-xs">
+                        <div className="label">
+                            <span className="lavel-text font-bold">Last Name</span>
+                        </div>
+                        <input 
                         type="text" 
-                        name="email"
-                        value={updateInput.email}
+                        name="lastName"
+                        value={updateInput.lastName}
                         onChange={handleInputChange}
                         placeholder="Type here" 
                         className="input input-bordered input-sm w-full max-w-xs" />
-                </label>
+                    </label>
 
-                {updateMsg.res 
-                    ? <p>{updateMsg.msg}</p>
-                    : null
-                }
+                    <label className="form-control w-full max-w-xs">
+                        <div className="label">
+                            <span className="lavel-text font-bold">Email</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            name="email"
+                            value={updateInput.email}
+                            onChange={handleInputChange}
+                            placeholder="Type here" 
+                            className="input input-bordered input-sm w-full max-w-xs" />
+                    </label>
 
-                <button className="btn btn-submit">Update</button>
-            </form>
+                    {updateMsg.res 
+                        ? <p>{updateMsg.msg}</p>
+                        : null
+                    }
+
+                    <button className="btn btn-submit">Update</button>
+                </form>
+
+                <button className="btn btn-ghost" onClick={()=>document.getElementById('delete-confirmation').showModal()}>Delete Account</button>
             
+                <dialog id="delete-confirmation" className="modal"> 
+                    <DeleteConfirmation user={user} />
+                </dialog>
+
             </div>
         </>
     )

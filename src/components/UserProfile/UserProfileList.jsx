@@ -29,7 +29,7 @@ export default function UserProfileList() {
             ) : (
                 <ul role="list" className="divide-y divide-gray-100">
                     {users.map((user) => {
-                        return <UserProfile user={user} />
+                        return <UserProfile user={user} key={user._id} />
                         }
                     )}
                 </ul>
