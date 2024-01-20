@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './SignUpForm.css';
 import { hashData } from "../../util/security";
+import { signUp } from "../../service/users";
 
 export default function SignUpForm() {
 
@@ -40,6 +41,8 @@ export default function SignUpForm() {
             delete signUpData.password;
             delete signUpData.confirmPassword;
             console.log("signUpData ", signUpData);
+            const user = await signUp(signUpData);
+            console.log("user: ", user);
     
             // const response = await fetch('http://localhost:3000/users/create', {
             //     method: 'POST',
