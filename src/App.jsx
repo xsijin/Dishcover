@@ -23,7 +23,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<PublicLandingPage />} />
-          <Route path="/users/show" element={<UserProfile />} />
+          <Route path="/users" element={<UserProfile />} />
           <Route path="/ReviewLanding" element={<ReviewLanding />} />
           <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
           <Route path="/ReviewUser" element={<ReviewUser />} />
