@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getLoginDetails } from "../../service/users";
 
 export default function LoginForm() {
     const [loginInput, setLoginInput] = useState({
@@ -13,8 +14,20 @@ export default function LoginForm() {
         });
     }
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = async (evt) => {
+        try {
+            evt.preventDefault();
+
+            const loginData = {...loginInput};
+            console.log("loginForm data: ", loginData);
+
+            // get user salt and iterations from DB
+            const loginDetails = await getLoginDetails(loginData.email);
+            console.log("loginDetails: ", loginDetails);
+            
+        } catch(err) {
+            console.error(err);
+        }
     }
 
     return (

@@ -6,3 +6,12 @@ export async function signUp(userData) {
     // Baby step by returning whatever is sent back by the server
     return token;
 }
+
+export async function getLoginDetails(email) {
+    // Delegate the network request code to the users-api.js API module
+    // which will ultimately return a JSON Web Token (JWT)
+    console.log("getLoginDetails", email)
+    const loginDetails = await usersAPI.getLoginDetails(email);
+    // Baby step by returning whatever is sent back by the server
+    return loginDetails;
+  }
