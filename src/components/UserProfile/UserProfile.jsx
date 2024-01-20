@@ -38,12 +38,7 @@ export default function UserProfile({ user }) {
                     </div>
 
                     <dialog id="profileForm" className="modal">
-                        <div className="modal-box">
                             <ProfileForm user={user} />
-                        </div>
-                        <form method="dialog" className="modal-backdrop">
-                            <button>close</button>
-                        </form>
                     </dialog>
                 </div>
             </li>
