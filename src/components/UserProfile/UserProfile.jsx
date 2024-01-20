@@ -1,4 +1,6 @@
 import './UserProfile.css';
+import './ProfileForm';
+import ProfileForm from './ProfileForm';
 
 export default function UserProfile({ user }) {
 
@@ -28,10 +30,21 @@ export default function UserProfile({ user }) {
                             </svg>
                         </div>
                             <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><a>Update Profile</a></li>
+                                <li onClick={()=>document.getElementById('profileForm').showModal()}>
+                                    <a>Update Profile</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
+
+                    <dialog id="profileForm" className="modal">
+                        <div className="modal-box">
+                            <ProfileForm user={user} />
+                        </div>
+                        <form method="dialog" className="modal-backdrop">
+                            <button>close</button>
+                        </form>
+                    </dialog>
                 </div>
             </li>
         </>
