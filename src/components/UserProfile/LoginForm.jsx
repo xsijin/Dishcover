@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getLoginDetails } from "../../service/users";
+import { hashDataWithSaltRounds, storeToken } from "../../util/security";
 
 export default function LoginForm() {
     const [loginInput, setLoginInput] = useState({
@@ -24,7 +25,16 @@ export default function LoginForm() {
             // get user salt and iterations from DB
             const loginDetails = await getLoginDetails(loginData.email);
             console.log("loginDetails: ", loginDetails);
-            
+
+            // hash password
+            const hashedPassword = hashDataWithSaltRounds(loginData.password, loginDetails.salt, loginDetails.iterations);
+            loginData.password = hashedPassword;
+
+            // get token
+            const token = await loginUser(loginData);
+            // store token in localStorage
+            storeToken(token);
+
         } catch(err) {
             console.error(err);
         }
