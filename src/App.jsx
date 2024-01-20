@@ -3,8 +3,9 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import UserProfile from "./components/UserProfile/UserProfile";
+import ReviewLanding from "./components/Reviews/ReviewLanding";
+import ReviewUser from "./components/Reviews/ReviewUser";
 import SignUpForm from './components/UserProfile/SignUpForm';
-import ReviewLanding from './components/Reviews/ReviewLanding';
 import MyRecipes from "./components/MyRecipes";
 import MyRecipeDetails from "./components/MyRecipeDetails";
 import MyRecipeEditing from "./components/MyRecipeEditing";
@@ -23,9 +24,10 @@ function App() {
         <Routes>
           <Route path="/" element={<PublicLandingPage />} />
           <Route path="/users/show" element={<UserProfile />} />
-          <Route path="/login-signup" element={<SignUpForm />} />
-          <Route path="/reviews/:recipeId" element={<ReviewPage />} />
           <Route path="/ReviewLanding" element={<ReviewLanding />} />
+          <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
+          <Route path="/ReviewUser" element={<ReviewUser />} />
+          <Route path="/login-signup" element={<SignUpForm />} />
           <Route path="/MyRecipes" element={<MyRecipes />} />
           <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
           <Route path="/MyRecipeEditing/:id" element={<MyRecipeEditing />} />
