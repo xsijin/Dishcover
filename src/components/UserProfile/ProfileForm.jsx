@@ -110,7 +110,7 @@ export default function ProfileForm({ user }) {
                 <button className="btn btn-ghost" onClick={()=>document.getElementById('delete-confirmation').showModal()}>Delete Account</button>
             
                 <dialog id="delete-confirmation" className="modal"> 
-                    <DeleteConfirmation />
+                    <DeleteConfirmation user={user} />
                 </dialog>
 
             </div>
