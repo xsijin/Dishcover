@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './SignUpForm.css';
+import { hashData } from "../../util/security";
+import { signUp } from "../../service/users";
 
 export default function SignUpForm() {
 
@@ -18,28 +20,53 @@ export default function SignUpForm() {
         });
     }
 
+    function hashPassword() {
+        var currForm = signUpInput;
+        if (currForm.password) {
+            console.log(currForm.password)
+            var hash = hashData(currForm.password);
+            currForm.password = hash.hash;
+            currForm.salt = hash.salt;
+            currForm.iterations = hash.iterations;
+        }  
+    }
+
     const handleSubmit = async (evt) => {
-        evt.preventDefault();
 
-        const response = await fetch('http://localhost:3000/users/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                firstName: signUpInput.firstName,
-                lastName: signUpInput.lastName,
-                email: signUpInput.email,
-                password: signUpInput.password
-            })
-        });
+        try {
+            evt.preventDefault();
 
-        if (response.ok) {
-            const newUser = await response.json();
-            console.log(newUser);
-        } else {
-            console.error('Failed to create new user.');
+            hashPassword();
+            const signUpData = {...signUpInput};
+            delete signUpData.password;
+            delete signUpData.confirmPassword;
+            console.log("signUpData ", signUpData);
+            const user = await signUp(signUpData);
+            console.log("user: ", user);
+    
+            // const response = await fetch('http://localhost:3000/users/create', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         firstName: signUpInput.firstName,
+            //         lastName: signUpInput.lastName,
+            //         email: signUpInput.email,
+            //         password: signUpInput.password
+            //     })
+            // });    
+
+        } catch(err) {
+            console.error(err);
         }
+
+        // if (response.ok) {
+        //     const newUser = await response.json();
+        //     console.log(newUser);
+        // } else {
+        //     console.error('Failed to create new user.');
+        // }
     }
 
     return (
