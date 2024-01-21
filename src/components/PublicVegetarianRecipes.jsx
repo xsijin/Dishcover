@@ -3,11 +3,57 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import StarRating from "./Reviews/StarRating";
 
 function PublicVegetarianRecipes() {
 
     const [vegetarianRecipes, setVegetarianRecipes] = useState([]);
+    const [reviews, setReviews] = useState([]);
 
+ // Fetch reviews for a specific recipe
+ const fetchRecipeReviews = async (recipeId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/reviews/show/${recipeId}`
+      );
+      if (response.ok) {
+        const reviewsData = await response.json();
+        return reviewsData;
+      } else {
+        console.error(`Failed to fetch reviews for recipe ${recipeId}`);
+        return null;
+      }
+    } catch (error) {
+      console.error(`Error fetching reviews for recipe ${recipeId}:`, error);
+      return null;
+    }
+  };
+
+  // Calculate the average rating for a given set of reviews
+  const calculateAverageRating = (reviewsData) => {
+    if (!Array.isArray(reviewsData) || reviewsData.length === 0) {
+      return 0; // Default to 0 if reviewsData is not an array or is empty
+    }
+    const totalRating = reviewsData.reduce(
+      (sum, review) => sum + review.rating,
+      0
+    );
+    return totalRating / reviewsData.length;
+  };
+
+  useEffect(() => {
+    // Fetch reviews for each recipe when vegetarianRecipes changes
+    const fetchReviewsForRecipes = async () => {
+      const reviewsPromises = vegetarianRecipes.map(async (recipe) => {
+        const reviewsData = await fetchRecipeReviews(recipe._id);
+        return { recipeId: recipe._id, reviewsData };
+      });
+
+      const reviewsResults = await Promise.all(reviewsPromises);
+      setReviews(reviewsResults);
+    };
+
+    // Fetch Vegetarian recipes
     const getVegetarianRecipes = async () => {
         try {
             const response = await fetch('http://localhost:3000/recipes/show?search=vegetarian');
@@ -21,11 +67,9 @@ function PublicVegetarianRecipes() {
         }
     };
 
-
-    useEffect(() => {
-        getVegetarianRecipes();
-    }, []);
-
+    getVegetarianRecipes();
+    fetchReviewsForRecipes();
+  }, [vegetarianRecipes]);
 
     return (
         <div className='text-white'>
@@ -43,6 +87,15 @@ function PublicVegetarianRecipes() {
                     gap: '3rem'
                 }}>
                     {vegetarianRecipes.map((recipe) => {
+                        const review = reviews.find((r) => r.recipeId === recipe._id);
+
+                        if (!review || !review.reviewsData) {
+                          return null; // Skip rendering if review data is not available
+                        }
+
+                        // Calculate average rating for the current recipe
+            const averageRating = calculateAverageRating(review.reviewsData);
+
                         return (
                             <SplideSlide key={recipe._id} className='ml-4'>
                                 <Card>
@@ -53,6 +106,21 @@ function PublicVegetarianRecipes() {
                                     </Link>
 
                                 </Card>
+
+                                 {/* Display the average rating */}
+                <div className="flex justify-center">
+                  <Link to={`/reviews/${recipe._id}`}>
+                    <StarRating star={averageRating} />
+                    &nbsp;
+                    <span className="badge badge-lg">
+                      {!Array.isArray(review.reviewsData) ||
+                      review.reviewsData.length === 0
+                        ? 0
+                        : review.reviewsData.length}{" "}
+                    </span>
+                  </Link>
+                </div>
+
                             </SplideSlide>
                         );
                     })}
