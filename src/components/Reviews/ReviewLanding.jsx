@@ -15,7 +15,7 @@ const ReviewLanding = () => {
     title: "",
     content: "",
     rating: 5,
-    images: ""
+    images: "",
   });
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [reviewToDelete, setReviewToDelete] = useState(null);
@@ -224,11 +224,14 @@ const ReviewLanding = () => {
 
   return (
     <div>
-      <h2 className="recipename">Reviews for Recipe: {recipeName}</h2>
+      <h2 className="recipename">
+        Reviews for{" "}
+        <Link to={`/PublicRecipeDetails/${recipeId}`}>{recipeName}</Link>
+      </h2>
       <div>
         <StarRating star={calculateAverageRating()} />{" "}
         {reviewsArray.every((review) => !review._id) ? 0 : reviews.length}{" "}
-        reviews | <Link to={`/myrecipedetails/${recipeId}`}>View Recipe</Link>
+        reviews
       </div>
       <div className="flex-container">
         <div className="reviews-container">
