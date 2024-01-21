@@ -383,7 +383,8 @@ const ReviewUser = () => {
                   </span>
 
                   <div>
-                    <StarRating star={review.rating} /><br />
+                    <StarRating star={review.rating} />
+                    <br />
                     <span className="badge badge-md">
                       {formatDate(review.createdAt)}
                     </span>
