@@ -1,19 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar";
 
 export default function NavBar() {
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1); // Equivalent to history.goBack()
+  };
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl" href="/">
+        {/* Back button */}
+        <button className="btn btn-ghost text-xl" onClick={handleGoBack}>
+          &lt;
+        </button>
+        {/* Home button */}
+        <Link to="/" className="btn btn-ghost text-xl">
           Dishcover
-        </a>
+        </Link>
       </div>
-      {/*Add new recipe button*/}
+
       <div className="flex-1 flex justify-center">
-        <a className="btn btn-ghost text-xl" href="/MyRecipes">
+        {/*Add new recipe button*/}
+        <Link to="/MyRecipes" className="btn btn-ghost text-xl">
           + Add a Dishcovery
-        </a>
+        </Link>
       </div>
 
       <div className="flex-none gap-2">
