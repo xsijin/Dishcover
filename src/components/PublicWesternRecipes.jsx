@@ -41,6 +41,26 @@ function PublicWesternRecipes() {
   };
 
   useEffect(() => {
+    // Fetch Western recipes
+    const getWesternRecipes = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/recipes/show?search=western"
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setWesternRecipes(data.recipes);
+          console.log(data.recipes);
+        }
+      } catch (error) {
+        console.error("Fetch Error:", error);
+      }
+    };
+
+    getWesternRecipes();
+  }, []);
+
+  useEffect(() => {
     // Fetch reviews for each recipe when westernRecipes changes
     const fetchReviewsForRecipes = async () => {
       const reviewsPromises = westernRecipes.map(async (recipe) => {
@@ -52,22 +72,6 @@ function PublicWesternRecipes() {
       setReviews(reviewsResults);
     };
 
-    // Fetch Western recipes
-    const getWesternRecipes = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3000/recipes/show?search=western"
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setWesternRecipes(data.recipes);
-        }
-      } catch (error) {
-        console.error("Fetch Error:", error);
-      }
-    };
-
-    getWesternRecipes();
     fetchReviewsForRecipes();
   }, [westernRecipes]);
 

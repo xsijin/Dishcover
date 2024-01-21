@@ -41,6 +41,26 @@ function PublicAsianRecipes() {
   };
 
   useEffect(() => {
+    // Fetch Asian recipes
+    const getAsianRecipes = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/recipes/show?search=asian"
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setAsianRecipes(data.recipes);
+          console.log(data.recipes);
+        }
+      } catch (error) {
+        console.error("Fetch Error:", error);
+      }
+    };
+
+    getAsianRecipes();
+  }, []);
+
+  useEffect(() => {
     // Fetch reviews for each recipe when asianRecipes changes
     const fetchReviewsForRecipes = async () => {
       const reviewsPromises = asianRecipes.map(async (recipe) => {
@@ -52,22 +72,6 @@ function PublicAsianRecipes() {
       setReviews(reviewsResults);
     };
 
-    // Fetch Asian recipes
-    const getAsianRecipes = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3000/recipes/show?search=asian"
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setAsianRecipes(data.recipes);
-        }
-      } catch (error) {
-        console.error("Fetch Error:", error);
-      }
-    };
-
-    getAsianRecipes();
     fetchReviewsForRecipes();
   }, [asianRecipes]);
 

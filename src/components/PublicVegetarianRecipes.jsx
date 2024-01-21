@@ -41,6 +41,26 @@ function PublicVegetarianRecipes() {
   };
 
   useEffect(() => {
+    // Fetch Vegetarian recipes
+    const getVegetarianRecipes = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/recipes/show?search=vegetarian"
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setVegetarianRecipes(data.recipes);
+          console.log(data.recipes);
+        }
+      } catch (error) {
+        console.error("Fetch Error:", error);
+      }
+    };
+
+    getVegetarianRecipes();
+  }, []);
+
+  useEffect(() => {
     // Fetch reviews for each recipe when vegetarianRecipes changes
     const fetchReviewsForRecipes = async () => {
       const reviewsPromises = vegetarianRecipes.map(async (recipe) => {
@@ -52,22 +72,6 @@ function PublicVegetarianRecipes() {
       setReviews(reviewsResults);
     };
 
-    // Fetch Vegetarian recipes
-    const getVegetarianRecipes = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3000/recipes/show?search=vegetarian"
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setVegetarianRecipes(data.recipes);
-        }
-      } catch (error) {
-        console.error("Fetch Error:", error);
-      }
-    };
-
-    getVegetarianRecipes();
     fetchReviewsForRecipes();
   }, [vegetarianRecipes]);
 

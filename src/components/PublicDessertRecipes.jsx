@@ -41,6 +41,26 @@ function PublicDessertRecipes() {
   };
 
   useEffect(() => {
+    // Fetch dessert recipes
+    const getDessertRecipes = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/recipes/show?search=dessert"
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setDessertRecipes(data.recipes);
+          console.log(data.recipes);
+        }
+      } catch (error) {
+        console.error("Fetch Error:", error);
+      }
+    };
+
+    getDessertRecipes();
+  }, []);
+
+  useEffect(() => {
     // Fetch reviews for each recipe when dessertRecipes changes
     const fetchReviewsForRecipes = async () => {
       const reviewsPromises = dessertRecipes.map(async (recipe) => {
@@ -52,22 +72,6 @@ function PublicDessertRecipes() {
       setReviews(reviewsResults);
     };
 
-    // Fetch dessert recipes
-    const getDessertRecipes = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3000/recipes/show?search=dessert"
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setDessertRecipes(data.recipes);
-        }
-      } catch (error) {
-        console.error("Fetch Error:", error);
-      }
-    };
-
-    getDessertRecipes();
     fetchReviewsForRecipes();
   }, [dessertRecipes]);
 
