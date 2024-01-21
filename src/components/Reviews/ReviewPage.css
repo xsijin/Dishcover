@@ -1,10 +1,10 @@
 .recipename {
-    font-size: 2rem;
-    font-weight: bold;
-  }
+  font-size: 2rem;
+  font-weight: bold;
+}
 
 .alignleft {
-    text-align: left;
+  text-align: left;
 }
 
 .aligncenter {
@@ -12,27 +12,35 @@
 }
 
 .inline {
-    display: inline;
+  display: inline;
 }
 
 .titlemargin {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .flex-container {
-    display: flex;
-  }
-  
-  .reviews-container {
-    flex: 1; /* Takes up remaining space */
+  display: flex;
+}
 
-  }
-  
-  .form-container {
-    width: 300px; /* Adjust the width as needed */
-    margin-left: 20px; /* Add some margin between the two containers */
-  }
+.reviews-container {
+  flex: 1; /* Takes up remaining space */
+}
 
-  .bottommargin {
-    margin-bottom: 16px;
-  }
+.form-container {
+  width: 300px; /* Adjust the width as needed */
+  margin-left: 20px; /* Add some margin between the two containers */
+}
+
+.bottommargin {
+  margin-bottom: 16px;
+}
+
+.recipeheader {
+  font-size: 1.7em;
+}
+
+.quotation {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.5em;
+}
