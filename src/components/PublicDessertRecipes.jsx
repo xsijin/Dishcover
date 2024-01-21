@@ -60,7 +60,6 @@ function PublicDessertRecipes() {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setDessertRecipes(data.recipes);
         }
       } catch (error) {

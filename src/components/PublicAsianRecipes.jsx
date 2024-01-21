@@ -60,7 +60,6 @@ function PublicAsianRecipes() {
         );
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setAsianRecipes(data.recipes);
         }
       } catch (error) {
