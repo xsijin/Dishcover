@@ -14,7 +14,8 @@ const ReviewLanding = () => {
     _id: "",
     title: "",
     content: "",
-    rating: 1,
+    rating: 5,
+    images: ""
   });
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [reviewToDelete, setReviewToDelete] = useState(null);
@@ -118,6 +119,7 @@ const ReviewLanding = () => {
             title: editedReview.title,
             content: editedReview.content,
             rating: editedReview.rating,
+            images: editedReview.images,
           }),
         }
       );
@@ -286,16 +288,29 @@ const ReviewLanding = () => {
                               value={editedReview.title}
                               onChange={handleInputChange}
                             />
-                            <br />
+
                             <textarea
                               id="editContent"
                               name="content"
-                              className="textarea textarea-bordered textarea-sm w-full max-w-xs titlemargin"
-                              placeholder="Type your review here"
+                              className="textarea textarea-bordered textarea-sm w-full max-w-xs"
+                              placeholder="Share your review here"
                               value={editedReview.content}
                               onChange={handleInputChange}
                               required
                             ></textarea>
+
+                            <input
+                              type="text"
+                              title="Please include only 1 photo URL. We suggest using an image hosting site such as Imgur. Image will not appear if the link is broken."
+                              id="editImage"
+                              name="images"
+                              placeholder="Add photo URL (if any)"
+                              className="input input-bordered input-sm w-full max-w-xs"
+                              value={editedReview.images}
+                              onChange={handleInputChange}
+                            />
+
+                            <br />
                             <br />
                             <br />
                             <button
@@ -379,8 +394,18 @@ const ReviewLanding = () => {
                     </div>
                     <div className="card-title">{review.title}</div>
                     <div>{review.content}</div>
-
+                    <br />
                     {/* Add image display logic if needed */}
+                    <div>
+                      {review.images &&
+                        review.images.length > 0 &&
+                        review.images[0] !== "" && (
+                          <img
+                            src={review.images}
+                            alt="Photo unavailable, please review broken photo URL."
+                          />
+                        )}
+                    </div>
                   </div>
                 </li>
               ))}

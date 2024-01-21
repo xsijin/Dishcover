@@ -7,6 +7,10 @@
     text-align: left;
 }
 
+.aligncenter {
+  text-align: center;
+}
+
 .inline {
     display: inline;
 }
