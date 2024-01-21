@@ -41,18 +41,15 @@ export async function getLoginDetails(email) {
 }
 
 export async function loginUser(userData) {
-    // Fetch uses an options object as a second arg to make requests
-    // other than basic GET requests, include data, headers, etc.
     const loginURL = BASE_URL + '/login';
     console.log(loginURL);
 
     const res = await fetch(loginURL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      // Fetch requires data payloads to be stringified
-      // and assigned to a body property on the options object
       body: JSON.stringify(userData),
     });
+
     // Check if request was successful
     if (res.ok) {
       // res.json() will resolve to the JWT

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getLoginDetails } from "../../service/users";
+import { getLoginDetails, loginUser } from "../../service/users";
 import { hashDataWithSaltRounds, storeToken } from "../../util/security";
 
 export default function LoginForm() {
