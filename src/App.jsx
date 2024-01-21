@@ -47,9 +47,9 @@ function App() {
   return (
     <>
       <nav>
-        <NavBar />
+        <NavBar/>
       </nav>
-      <main>
+      <main className="navspace">
         <Routes>
           <Route path="/" element={<PublicLandingPage />} />
           <Route path="/users" element={<UserProfileList />} />

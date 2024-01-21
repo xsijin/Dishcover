@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar";
+import "./NavBar.css";
 
 export default function NavBar() {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function NavBar() {
   };
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar stayfixed bg-base-100">
       <div className="flex-1">
         {/* Back button */}
         <button className="btn btn-ghost text-xl" onClick={handleGoBack}>
@@ -30,7 +31,34 @@ export default function NavBar() {
 
       <div className="flex-none gap-2">
         <div className="form-control">
-          <SearchBar />
+          <div className="dropdown dropdown-bottom dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <div
+                tabIndex={0}
+                className="mt-3 z-[1] p-2 menu menu-sm dropdown-content rounded-box unbold"
+              >
+                <SearchBar />
+              </div>
+            </div>
+          </div>
         </div>
         <div className="dropdown dropdown-end">
           <div
