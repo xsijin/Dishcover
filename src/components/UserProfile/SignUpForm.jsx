@@ -38,7 +38,6 @@ export default function SignUpForm() {
 
             hashPassword();
             const signUpData = {...signUpInput};
-            delete signUpData.password;
             delete signUpData.confirmPassword;
             console.log("signUpData ", signUpData);
             const user = await signUp(signUpData);

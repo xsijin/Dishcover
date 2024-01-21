@@ -6,6 +6,7 @@ const KEY_SIZE = 256 / 32;
 const MIN_ITERATIONS = 3; // inclusive
 const MAX_ITERATIONS = 10; // exclusive
 
+// Used in SignUpForm.jsx hashPassword()
 export function hashData(data) {
     var salt = CryptoJS.lib.WordArray.random(SALT_LENGTH).toString(CryptoJS.enc.Base64);
     var iterations = getRndInteger(MIN_ITERATIONS, MAX_ITERATIONS);
@@ -17,7 +18,9 @@ export function hashData(data) {
     return {hash: hash.toString(CryptoJS.enc.Base64), salt: salt, iterations: iterations};
 }
 
+// Used in LoginForm.jsx handleSubmit()
 export function hashDataWithSaltRounds(data, salt, iterations) {
+    console.log(data, salt, iterations);
     return CryptoJS.PBKDF2(data, salt, {
         keySize: KEY_SIZE,
         iterations: iterations
@@ -26,4 +29,19 @@ export function hashDataWithSaltRounds(data, salt, iterations) {
 
 export function storeToken(token) {
     localStorage.setItem('token', token);
+}
+
+export function getToken() {
+    // getItem returns null if there's no string
+    const token = localStorage.getItem("token");
+    if (!token) return null;
+    // Obtain the payload of the token
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    // A JWT's exp is expressed in seconds, not milliseconds, so convert
+    if (payload.exp < Date.now() / 1000) {
+      // Token has expired - remove it from localStorage
+      localStorage.removeItem("token");
+      return null;
+    }
+    return token;
 }
