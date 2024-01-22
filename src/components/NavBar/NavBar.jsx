@@ -48,7 +48,13 @@ export default function NavBar() {
               <Link to="/MyRecipes">Make a Dishcovery</Link>
             </li>
             <li>
-              <a>About</a>
+              <a>Manage Recipes (admin only)</a>
+            </li>
+            <li>
+            <Link to="/ReviewAdmin">Manage Reviews (admin only)</Link>
+            </li>
+            <li>
+              <a>Manage Users (admin only)</a>
             </li>
           </ul>
         </div>

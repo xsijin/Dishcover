@@ -13,6 +13,7 @@ import PublicRecipeDetails from "./components/PublicRecipeDetails";
 import UserProfile from "./components/UserProfile/UserProfile";
 import SearchResult from "./components/SearchResult";
 import LoginSignUp from "./components/UserProfile/LoginSignUp";
+import ReviewAdmin from "./components/Reviews/ReviewAdmin";
 
 function App() {
   // const [user, setUser] = useState({
@@ -66,6 +67,7 @@ function App() {
             element={<PublicRecipeDetails />}
           />
           <Route path="/searchresult/:searchTerm" element={<SearchResult />} />
+          <Route path="/ReviewAdmin" element={<ReviewAdmin />} />
         </Routes>
       </main>
     </>
