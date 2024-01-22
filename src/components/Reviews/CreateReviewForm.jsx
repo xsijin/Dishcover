@@ -90,7 +90,7 @@ const CreateReviewForm = ({ recipeId, onAddReview }) => {
 
         <br />
         <br />
-        <button type="submit" className="btn btn-outline btn-primary">
+        <button type="submit" className="btn btn-submit">
           Submit Review
         </button>
       </form>
