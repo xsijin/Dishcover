@@ -387,7 +387,7 @@ const ReviewLanding = () => {
                   {/* end of delete modal */}
                   {/* display review */}
                   <div className="aligncenter">
-                    <span>Username: {review.username}</span>
+                    <span><Link to={`/my-profile/${review.user}`}>{review.user}</Link></span>
                     <div>
                       <StarRating star={review.rating} /><br />
                       <span className="badge badge-md">

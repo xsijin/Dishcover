@@ -72,7 +72,7 @@ const ReviewAdmin = () => {
   };
 
   // calls the patch function to edit review
-  const handlePatchSubmit = async (e, review) => {
+  const handlePatchSubmit = async (e) => {
     e.preventDefault();
 
     try {
