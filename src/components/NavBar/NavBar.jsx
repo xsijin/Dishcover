@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar";
 import "./NavBar.css";
 
-export default function NavBar() {
+export default function NavBar({ user }) {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -51,7 +51,7 @@ export default function NavBar() {
               <a>Manage Recipes (admin only)</a>
             </li>
             <li>
-            <Link to="/ReviewAdmin">Manage Reviews (admin only)</Link>
+              <Link to="/ReviewAdmin">Manage Reviews (admin only)</Link>
             </li>
             <li>
               <a>Manage Users (admin only)</a>
@@ -137,7 +137,7 @@ export default function NavBar() {
             </li>
           </ul>
         </div>
-        Hello, username
+        Hello, {user.firstName}
       </div>
     </div>
   );

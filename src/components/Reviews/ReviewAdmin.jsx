@@ -3,10 +3,8 @@ import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
 import "./ReviewPage.css";
 
-const ReviewUser = () => {
+const ReviewAdmin = () => {
   const [reviews, setReviews] = useState([]);
-  const [recipeId, setRecipeId] = useState("65a22d112404af18c1bcf97a");
-  const [recipeName, setRecipeName] = useState("");
   const [editedReview, setEditedReview] = useState({
     // Initialize with empty values or default values
     _id: "",
@@ -19,25 +17,10 @@ const ReviewUser = () => {
   const [reviewToDelete, setReviewToDelete] = useState(null);
 
   useEffect(() => {
-    const fetchRecipeDetails = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/recipes/show/${recipeId}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch recipe details");
-        }
-        const data = await response.json();
-        setRecipeName(data.recipe.title);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/reviews/show/${recipeId}`
+          `http://localhost:3000/reviews/admin/show`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
@@ -49,9 +32,8 @@ const ReviewUser = () => {
       }
     };
 
-    fetchRecipeDetails();
     fetchReviews();
-  }, [recipeId]);
+  }, []);
 
   // re-format generated date/time
   const formatDate = (dateString) => {
@@ -90,7 +72,7 @@ const ReviewUser = () => {
   };
 
   // calls the patch function to edit review
-  const handlePatchSubmit = async (e) => {
+  const handlePatchSubmit = async (e, review) => {
     e.preventDefault();
 
     try {
@@ -119,7 +101,7 @@ const ReviewUser = () => {
 
       // Fetch the updated reviews again to reflect the changes immediately
       const updatedResponse = await fetch(
-        `http://localhost:3000/reviews/show/${recipeId}`
+        `http://localhost:3000/reviews/admin/show`
       );
       if (!updatedResponse.ok) {
         throw new Error("Failed to fetch updated reviews");
@@ -169,43 +151,6 @@ const ReviewUser = () => {
     setReviewToDelete(null);
     // Close the confirmation modal
     document.getElementById("deleteConfirmationModal").close();
-  };
-
-  // create review function
-  const handleAddReview = async (newReview) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/reviews/create/${recipeId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            recipeId,
-            title: newReview.title,
-            content: newReview.content,
-            rating: newReview.rating,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to add review");
-      }
-
-      // Fetch the updated reviews again to reflect the changes immediately
-      const updatedResponse = await fetch(
-        `http://localhost:3000/reviews/show/${recipeId}`
-      );
-      if (!updatedResponse.ok) {
-        throw new Error("Failed to fetch updated reviews");
-      }
-      const updatedData = await updatedResponse.json();
-      setReviews(updatedData);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (
@@ -332,10 +277,7 @@ const ReviewUser = () => {
                           <br />
                           <br />
                           <br />
-                          <button
-                            type="submit"
-                            className="btn btn-submit"
-                          >
+                          <button type="submit" className="btn btn-submit">
                             Save Changes
                           </button>
                         </div>
@@ -381,13 +323,14 @@ const ReviewUser = () => {
                 {/* display review */}
                 <div className="card-body">
                   <span className="recipeheader">
-                    <Link to={`/PublicRecipeDetails/${recipeId}`}>
-                      {recipeName}
+                    <Link to={`/PublicRecipeDetails/${review.recipe}`}>
+                      {review.recipeTitle}
                     </Link>
                   </span>
 
                   <div>
-                    <StarRating star={review.rating} /> by username
+                    <StarRating star={review.rating} /> by{" "}
+                    <Link to={`/my-profile/${review.user}`}>{review.user}</Link>
                     <br />
                     <span className="badge badge-md">
                       {formatDate(review.createdAt)}
@@ -415,4 +358,4 @@ const ReviewUser = () => {
   );
 };
 
-export default ReviewUser;
+export default ReviewAdmin;

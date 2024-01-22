@@ -48,7 +48,7 @@ function App() {
   return (
     <>
       <nav>
-        <NavBar/>
+        <NavBar user={user} />
       </nav>
       <main className="navspace">
         <Routes>

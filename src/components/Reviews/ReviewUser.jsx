@@ -7,8 +7,6 @@ const ReviewUser = ({ user }) => {
   const [reviews, setReviews] = useState([]);
   const [userId, setUserId] = useState(user._id);
   const [userName, setUserName] = useState("");
-  const [recipeIds, setRecipeIds] = useState([]);
-  const [recipeName, setRecipeName] = useState("");
   const [editedReview, setEditedReview] = useState({
     // Initialize with empty values or default values
     _id: "",
@@ -31,10 +29,6 @@ const ReviewUser = ({ user }) => {
         }
         const data = await response.json();
         setUserName(data.user.user_id);
-
-        const userRecipeIds = data.user.recipes.map(recipe => recipe._id);
-        setRecipeIds(userRecipeIds);
-
       } catch (error) {
         console.error(error);
       }
@@ -60,24 +54,8 @@ const ReviewUser = ({ user }) => {
       }
     };
 
-    const fetchRecipeDetails = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/recipes/show/${recipeIds}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch recipe details");
-        }
-        const data = await response.json();
-        setRecipeName(data.recipe.title);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     fetchReviews();
-    fetchRecipeDetails();
-  }, [recipeIds]);
+  }, [userId]);
 
   // re-format generated date/time
   const formatDate = (dateString) => {
@@ -199,7 +177,9 @@ const ReviewUser = ({ user }) => {
 
   return (
     <div>
-      <h2 className="recipename">Reviews by {userName}</h2>
+      <h2 className="recipename">
+        Reviews by {user.firstName}, {userName}
+      </h2>
       <div>
         Reviews submitted:{" "}
         {reviewsArray.every((review) => !review._id) ? 0 : reviews.length}
@@ -321,10 +301,7 @@ const ReviewUser = ({ user }) => {
                           <br />
                           <br />
                           <br />
-                          <button
-                            type="submit"
-                            className="btn btn-submit"
-                          >
+                          <button type="submit" className="btn btn-submit">
                             Save Changes
                           </button>
                         </div>
@@ -370,8 +347,8 @@ const ReviewUser = ({ user }) => {
                 {/* display review */}
                 <div className="card-body">
                   <span className="recipeheader">
-                    <Link to={`/PublicRecipeDetails/${recipeIds}`}>
-                      {recipeName}
+                    <Link to={`/PublicRecipeDetails/${review.recipe}`}>
+                      {review.recipeTitle}
                     </Link>
                   </span>
 
