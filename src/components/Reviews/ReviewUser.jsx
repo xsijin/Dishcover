@@ -44,7 +44,7 @@ const ReviewUser = ({ user }) => {
   }, [userId]);
 
   useEffect(() => {
-    // Fetch reviews for each recipe
+    // Fetch all reviews of the user
     const fetchReviews = async () => {
       try {
         const response = await fetch(
