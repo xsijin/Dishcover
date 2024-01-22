@@ -238,16 +238,38 @@ const ReviewUser = () => {
                   )}
               </figure>
 
-              {/* display review */}
               <div>
-                {/* start of edit button*/}
-                <div className="card-actions justify-end">
-                  <button
-                    className="btn btn-square btn-sm btn-accent btn-outline"
-                    onClick={() => handleEditClick(review)}
-                  >
-                    Edit
-                  </button>
+                {/* start of ... button*/}
+                <div className="card-actions justify-end cardbutton">
+                  <div className="dropdown dropdown-bottom dropdown-end">
+                    <div tabIndex={0} role="button" className="btn m-1">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="rgba(61, 120, 101, 1)"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                        />
+                      </svg>
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                    >
+                      <li onClick={() => handleEditClick(review)}>
+                        <a>Edit Review</a>
+                      </li>
+                      <li onClick={() => handleDeleteClick(review._id)}>
+                        <a>Delete Review</a>
+                      </li>
+                    </ul>
+                  </div>
                   {/* edit modal */}
                   <dialog id="my_modal_3" className="modal">
                     <div className="modal-box">
@@ -312,7 +334,7 @@ const ReviewUser = () => {
                           <br />
                           <button
                             type="submit"
-                            className="btn btn-outline btn-primary"
+                            className="btn btn-submit"
                           >
                             Save Changes
                           </button>
@@ -320,28 +342,8 @@ const ReviewUser = () => {
                       </form>
                     </div>
                   </dialog>
-                  {/* end of edit button*/}
-                  {/* start of delete button */}
-                  <button
-                    className="btn btn-square btn-sm btn-error btn-outline"
-                    onClick={() => handleDeleteClick(review._id)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                  {/* delete modal */}
+                  {/* end of edit modal*/}
+                  {/* start of delete modal */}
                   <dialog id="deleteConfirmationModal" className="modal">
                     <div className="modal-box">
                       <form method="dialog">
@@ -365,7 +367,7 @@ const ReviewUser = () => {
                         </button>
                         &nbsp;
                         <button
-                          className="btn btn-outline btn-primary"
+                          className="btn btn-ghost"
                           onClick={() => handleCancelDelete()}
                         >
                           Cancel
@@ -374,7 +376,9 @@ const ReviewUser = () => {
                     </div>
                   </dialog>
                 </div>
-                {/* end of delete button */}
+                {/* end of delete modal */}
+                {/* end of ... button*/}
+                {/* display review */}
                 <div className="card-body">
                   <span className="recipeheader">
                     <Link to={`/PublicRecipeDetails/${recipeId}`}>
