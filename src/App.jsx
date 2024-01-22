@@ -57,7 +57,7 @@ function App() {
           <Route path="/my-profile" element={<UserProfile user={user} />} />
           <Route path="/ReviewLanding" element={<ReviewLanding />} />
           <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
-          <Route path="/ReviewUser" element={<ReviewUser />} />
+          <Route path="/ReviewUser" element={<ReviewUser user={user} />} />
           <Route path="/login-signup" element={<LoginSignUp />} />
           <Route path="/MyRecipes" element={<MyRecipes />} />
           <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />

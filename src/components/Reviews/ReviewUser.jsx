@@ -3,9 +3,11 @@ import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
 import "./ReviewPage.css";
 
-const ReviewUser = () => {
+const ReviewUser = ({ user }) => {
   const [reviews, setReviews] = useState([]);
-  const [recipeId, setRecipeId] = useState("65a22d112404af18c1bcf97a");
+  const [userId, setUserId] = useState(user._id);
+  const [userName, setUserName] = useState("");
+  const [recipeIds, setRecipeIds] = useState([]);
   const [recipeName, setRecipeName] = useState("");
   const [editedReview, setEditedReview] = useState({
     // Initialize with empty values or default values
@@ -19,25 +21,34 @@ const ReviewUser = () => {
   const [reviewToDelete, setReviewToDelete] = useState(null);
 
   useEffect(() => {
-    const fetchRecipeDetails = async () => {
+    const fetchUserDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/recipes/show/${recipeId}`
+          `http://localhost:3000/users/show/${userId}`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch recipe details");
+          throw new Error("Failed to fetch user details");
         }
         const data = await response.json();
-        setRecipeName(data.recipe.title);
+        setUserName(data.user.user_id);
+
+        const userRecipeIds = data.user.recipes.map(recipe => recipe._id);
+        setRecipeIds(userRecipeIds);
+
       } catch (error) {
         console.error(error);
       }
     };
 
+    fetchUserDetails();
+  }, [userId]);
+
+  useEffect(() => {
+    // Fetch reviews for each recipe
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/reviews/show/${recipeId}`
+          `http://localhost:3000/reviews/user/${userId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
@@ -49,9 +60,24 @@ const ReviewUser = () => {
       }
     };
 
-    fetchRecipeDetails();
+    const fetchRecipeDetails = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/recipes/show/${recipeIds}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch recipe details");
+        }
+        const data = await response.json();
+        setRecipeName(data.recipe.title);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchReviews();
-  }, [recipeId]);
+    fetchRecipeDetails();
+  }, [recipeIds]);
 
   // re-format generated date/time
   const formatDate = (dateString) => {
@@ -119,7 +145,7 @@ const ReviewUser = () => {
 
       // Fetch the updated reviews again to reflect the changes immediately
       const updatedResponse = await fetch(
-        `http://localhost:3000/reviews/show/${recipeId}`
+        `http://localhost:3000/reviews/user/${userId}`
       );
       if (!updatedResponse.ok) {
         throw new Error("Failed to fetch updated reviews");
@@ -171,46 +197,9 @@ const ReviewUser = () => {
     document.getElementById("deleteConfirmationModal").close();
   };
 
-  // create review function
-  const handleAddReview = async (newReview) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/reviews/create/${recipeId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            recipeId,
-            title: newReview.title,
-            content: newReview.content,
-            rating: newReview.rating,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to add review");
-      }
-
-      // Fetch the updated reviews again to reflect the changes immediately
-      const updatedResponse = await fetch(
-        `http://localhost:3000/reviews/show/${recipeId}`
-      );
-      if (!updatedResponse.ok) {
-        throw new Error("Failed to fetch updated reviews");
-      }
-      const updatedData = await updatedResponse.json();
-      setReviews(updatedData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div>
-      <h2 className="recipename">Reviews by firstName</h2>
+      <h2 className="recipename">Reviews by {userName}</h2>
       <div>
         Reviews submitted:{" "}
         {reviewsArray.every((review) => !review._id) ? 0 : reviews.length}
@@ -381,7 +370,7 @@ const ReviewUser = () => {
                 {/* display review */}
                 <div className="card-body">
                   <span className="recipeheader">
-                    <Link to={`/PublicRecipeDetails/${recipeId}`}>
+                    <Link to={`/PublicRecipeDetails/${recipeIds}`}>
                       {recipeName}
                     </Link>
                   </span>
