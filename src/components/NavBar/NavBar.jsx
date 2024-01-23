@@ -112,16 +112,9 @@ export default function NavBar({ user }) {
                 <ul className="p-2 bg-base-100 rounded-t-none">
                   {[
                     "light",
-                    "dark",
-                    "cupcake",
-                    "valentine",
                     "forest",
-                    "acid",
                     "night",
-                    "coffee",
-                    "winter",
-                    "dim",
-                    "nord",
+                    "winter"
                   ].map((theme) => (
                     <li key={theme}>
                       <input

@@ -76,8 +76,7 @@ function PublicDessertRecipes() {
   }, [dessertRecipes]);
 
   return (
-    <div className="pb-10" style={{
-      backgroundColor: 'rgba(255, 255, 255, 0.7)'}}>
+    <div className="pb-10 bg-secondary-content bg-opacity-70">
       <Wrapper>
         <h1 className="font-bold text-xl mb-4 ml-4">Desserts</h1>
 

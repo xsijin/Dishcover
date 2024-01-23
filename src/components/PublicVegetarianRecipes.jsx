@@ -76,8 +76,7 @@ function PublicVegetarianRecipes() {
   }, [vegetarianRecipes]);
 
   return (
-    <div style={{
-      backgroundColor: 'rgba(255, 255, 255, 0.7)'}}>
+    <div className="bg-secondary-content bg-opacity-70">
       <Wrapper>
         <h1 className="font-bold text-xl mb-4 ml-4">Vegetarian</h1>
 
