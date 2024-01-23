@@ -13,6 +13,7 @@ import PublicRecipeDetails from "./components/PublicRecipeDetails";
 import UserProfile from "./components/UserProfile/UserProfile";
 import SearchResult from "./components/SearchResult";
 import LoginSignUp from "./components/UserProfile/LoginSignUp";
+import ReviewAdmin from "./components/Reviews/ReviewAdmin";
 
 function App() {
   // const [user, setUser] = useState({
@@ -47,16 +48,16 @@ function App() {
   return (
     <>
       <nav>
-        <NavBar />
+        <NavBar user={user} />
       </nav>
-      <main>
+      <main className="navspace">
         <Routes>
           <Route path="/" element={<PublicLandingPage />} />
           <Route path="/users" element={<UserProfileList />} />
           <Route path="/my-profile" element={<UserProfile user={user} />} />
           <Route path="/ReviewLanding" element={<ReviewLanding />} />
           <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
-          <Route path="/ReviewUser" element={<ReviewUser />} />
+          <Route path="/ReviewUser" element={<ReviewUser user={user} />} />
           <Route path="/login-signup" element={<LoginSignUp />} />
           <Route path="/MyRecipes" element={<MyRecipes />} />
           <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
@@ -66,6 +67,7 @@ function App() {
             element={<PublicRecipeDetails />}
           />
           <Route path="/searchresult/:searchTerm" element={<SearchResult />} />
+          <Route path="/ReviewAdmin" element={<ReviewAdmin />} />
         </Routes>
       </main>
     </>

@@ -3,10 +3,8 @@ import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
 import "./ReviewPage.css";
 
-const ReviewUser = ({ user }) => {
+const ReviewAdmin = () => {
   const [reviews, setReviews] = useState([]);
-  const [userId, setUserId] = useState(user._id);
-  const [userName, setUserName] = useState("");
   const [editedReview, setEditedReview] = useState({
     // Initialize with empty values or default values
     _id: "",
@@ -19,30 +17,10 @@ const ReviewUser = ({ user }) => {
   const [reviewToDelete, setReviewToDelete] = useState(null);
 
   useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/users/show/${userId}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch user details");
-        }
-        const data = await response.json();
-        setUserName(data.user.user_id);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchUserDetails();
-  }, [userId]);
-
-  useEffect(() => {
-    // Fetch all reviews of the user
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/reviews/user/${userId}`
+          `http://localhost:3000/reviews/admin/show`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
@@ -55,7 +33,7 @@ const ReviewUser = ({ user }) => {
     };
 
     fetchReviews();
-  }, [userId]);
+  }, []);
 
   // re-format generated date/time
   const formatDate = (dateString) => {
@@ -123,7 +101,7 @@ const ReviewUser = ({ user }) => {
 
       // Fetch the updated reviews again to reflect the changes immediately
       const updatedResponse = await fetch(
-        `http://localhost:3000/reviews/user/${userId}`
+        `http://localhost:3000/reviews/admin/show`
       );
       if (!updatedResponse.ok) {
         throw new Error("Failed to fetch updated reviews");
@@ -177,16 +155,14 @@ const ReviewUser = ({ user }) => {
 
   return (
     <div>
-      <h2 className="recipename">
-        Reviews by {user.firstName}, {userName}
-      </h2>
+      <h2 className="recipename">Manage Reviews</h2>
       <div>
-        Reviews submitted:{" "}
+        Total reviews:{" "}
         {reviewsArray.every((review) => !review._id) ? 0 : reviews.length}
       </div>
 
       {reviewsArray.every((review) => !review._id) ? (
-        <div key="no-reviews-message">You've not shared any reviews.</div>
+        <div key="no-reviews-message">There's no reviews on site!</div>
       ) : (
         <ul>
           {reviewsArray.map((review) => (
@@ -353,7 +329,8 @@ const ReviewUser = ({ user }) => {
                   </span>
 
                   <div>
-                    <StarRating star={review.rating} />
+                    <StarRating star={review.rating} /> by{" "}
+                    <Link to={`/my-profile/${review.user}`}>{review.user}</Link>
                     <br />
                     <span className="badge badge-md">
                       {formatDate(review.createdAt)}
@@ -381,4 +358,4 @@ const ReviewUser = ({ user }) => {
   );
 };
 
-export default ReviewUser;
+export default ReviewAdmin;
