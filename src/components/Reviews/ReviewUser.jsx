@@ -353,7 +353,7 @@ const ReviewUser = ({ user }) => {
                   </span>
 
                   <div>
-                    <Link to={`/reviews/${review.recipe}`}><StarRating star={review.rating} /></Link>
+                    <Link to={`/PublicRecipeDetails/${review.recipe}?tab=review`}><StarRating star={review.rating} /></Link>
                     <br />
                     <span className="badge badge-md">
                       {formatDate(review.createdAt)}

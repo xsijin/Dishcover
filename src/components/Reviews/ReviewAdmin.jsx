@@ -329,7 +329,7 @@ const ReviewAdmin = () => {
                   </span>
 
                   <div>
-                  <Link to={`/reviews/${review.recipe}`}><StarRating star={review.rating} /></Link> by{" "}
+                  <Link to={`/PublicRecipeDetails/${review.recipe}?tab=review`}><StarRating star={review.rating} /></Link> by{" "}
                     <Link to={`/users/${review.user}`}>{review.userFirstName} {review.userLastName}</Link>
                     <br />
                     <span className="badge badge-md">

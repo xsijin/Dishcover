@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import ReviewLanding from "./Reviews/ReviewLanding";
 
 function PublicRecipeDetails() {
     const params = useParams();
     const [recipeDetails, setRecipeDetails] = useState(null);
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState("recipe");
+    const location = useLocation();
+    const [activeTab, setActiveTab] = useState("recipe"); // Default to 'recipe' if no tab is specified
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
@@ -35,6 +35,18 @@ function PublicRecipeDetails() {
     useEffect(() => {
         getRecipeDetails();
     }, [params.id]);
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const tabParam = searchParams.get('tab');
+    
+        if (tabParam === 'review') {
+          setActiveTab('review');
+        } else {
+          // Default case or handle other tabs as needed
+          setActiveTab('recipe');
+        }
+      }, [location.search]);
 
     return (
 

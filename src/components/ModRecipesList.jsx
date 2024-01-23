@@ -133,7 +133,7 @@ function ModRecipesList({ allRecipes, setAllRecipes }) {
                 </Card>
                 {/* Display the average rating */}
                 <div className="flex justify-center">
-                <Link to={`/reviews/${recipe._id}`}><StarRating star={averageRating} />&nbsp; 
+                <Link to={`/PublicRecipeDetails/${recipe._id}?tab=review`}><StarRating star={averageRating} />&nbsp; 
                 
                 <span className="badge badge-lg">
                  {(!Array.isArray(review.reviewsData) || review.reviewsData.length === 0) ? 0 : review.reviewsData.length} </span>

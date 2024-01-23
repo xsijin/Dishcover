@@ -118,7 +118,7 @@ function PublicDessertRecipes() {
                 </Card>
                 {/* Display the average rating */}
                 <div className="flex justify-center">
-                  <Link to={`/reviews/${recipe._id}`}>
+                  <Link to={`/PublicRecipeDetails/${recipe._id}?tab=review`}>
                     <StarRating star={averageRating} />
                     &nbsp;
                     <span className="badge badge-lg">
