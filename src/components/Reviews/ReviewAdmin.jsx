@@ -329,8 +329,8 @@ const ReviewAdmin = () => {
                   </span>
 
                   <div>
-                    <StarRating star={review.rating} /> by{" "}
-                    <Link to={`/my-profile/${review.user}`}>{review.user}</Link>
+                  <Link to={`/reviews/${review.recipe}`}><StarRating star={review.rating} /></Link> by{" "}
+                    <Link to={`/users/${review.user}`}>{review.userFirstName} {review.userLastName}</Link>
                     <br />
                     <span className="badge badge-md">
                       {formatDate(review.createdAt)}

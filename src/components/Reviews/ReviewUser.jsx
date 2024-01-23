@@ -28,7 +28,7 @@ const ReviewUser = ({ user }) => {
           throw new Error("Failed to fetch user details");
         }
         const data = await response.json();
-        setUserName(data.user.user_id);
+        setUserName(data.user._id);
       } catch (error) {
         console.error(error);
       }
@@ -178,7 +178,7 @@ const ReviewUser = ({ user }) => {
   return (
     <div>
       <h2 className="recipename">
-        Reviews by {user.firstName}, {userName}
+        <Link to={`/users/${user._id}`}>Reviews by {user.firstName}, {userName}</Link>
       </h2>
       <div>
         Reviews submitted:{" "}
@@ -353,7 +353,7 @@ const ReviewUser = ({ user }) => {
                   </span>
 
                   <div>
-                    <StarRating star={review.rating} />
+                    <Link to={`/reviews/${review.recipe}`}><StarRating star={review.rating} /></Link>
                     <br />
                     <span className="badge badge-md">
                       {formatDate(review.createdAt)}

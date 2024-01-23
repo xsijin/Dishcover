@@ -200,6 +200,7 @@ const ReviewLanding = () => {
             title: newReview.title,
             content: newReview.content,
             rating: newReview.rating,
+            images: newReview.images,
           }),
         }
       );
@@ -387,7 +388,7 @@ const ReviewLanding = () => {
                   {/* end of delete modal */}
                   {/* display review */}
                   <div className="aligncenter">
-                    <span><Link to={`/my-profile/${review.user}`}>{review.user}</Link></span>
+                    <span><Link to={`/users/${review.user}`}>{review.userFirstName} {review.userLastName}</Link></span>
                     <div>
                       <StarRating star={review.rating} /><br />
                       <span className="badge badge-md">
