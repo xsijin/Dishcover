@@ -26,7 +26,7 @@ function MyRecipeEditing() {
 
         try {
 
-            const response = await fetch(`http://localhost:3000/recipes/show/${params.id}`, {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/show/${params.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ function MyRecipeEditing() {
 
         try {
 
-            const response = await fetch(`http://localhost:3000/recipes/update/${params.id}`, {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/update/${params.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

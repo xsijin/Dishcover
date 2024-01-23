@@ -12,7 +12,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
   const fetchRecipeReviews = async (recipeId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/show/${recipeId}`
+        `https://ga-p3-backend.onrender.com/reviews/show/${recipeId}`
       );
       if (response.ok) {
         const reviewsData = await response.json();
@@ -43,7 +43,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
     // Fetch all recipes
     const getAllRecipes = async () => {
       try {
-        const response = await fetch("http://localhost:3000/recipes/show");
+        const response = await fetch("https://ga-p3-backend.onrender.com/recipes/show");
         if (response.ok) {
           const data = await response.json();
           setUserRecipes(data.recipes);
@@ -75,7 +75,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
     console.log(recipeId);
     try {
       const response = await fetch(
-        `http://localhost:3000/recipes/delete/${recipeId}`,
+        `https://ga-p3-backend.onrender.com/recipes/delete/${recipeId}`,
         {
           method: "DELETE",
           headers: {

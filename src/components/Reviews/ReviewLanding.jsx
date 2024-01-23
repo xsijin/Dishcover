@@ -24,7 +24,7 @@ const ReviewLanding = () => {
     const fetchRecipeDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/recipes/show/${recipeId}`
+          `https://ga-p3-backend.onrender.com/recipes/show/${recipeId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch recipe details");
@@ -39,7 +39,7 @@ const ReviewLanding = () => {
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/reviews/show/${recipeId}`
+          `https://ga-p3-backend.onrender.com/reviews/show/${recipeId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
@@ -109,7 +109,7 @@ const ReviewLanding = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/update/${selectedReviewId}`,
+        `https://ga-p3-backend.onrender.com/reviews/update/${selectedReviewId}`,
         {
           method: "PATCH",
           headers: {
@@ -133,7 +133,7 @@ const ReviewLanding = () => {
 
       // Fetch the updated reviews again to reflect the changes immediately
       const updatedResponse = await fetch(
-        `http://localhost:3000/reviews/show/${recipeId}`
+        `https://ga-p3-backend.onrender.com/reviews/show/${recipeId}`
       );
       if (!updatedResponse.ok) {
         throw new Error("Failed to fetch updated reviews");
@@ -155,7 +155,7 @@ const ReviewLanding = () => {
   const handleConfirmDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/delete/${reviewToDelete}`,
+        `https://ga-p3-backend.onrender.com/reviews/delete/${reviewToDelete}`,
         {
           method: "DELETE",
         }
@@ -189,7 +189,7 @@ const ReviewLanding = () => {
   const handleAddReview = async (newReview) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/create/${recipeId}`,
+        `https://ga-p3-backend.onrender.com/reviews/create/${recipeId}`,
         {
           method: "POST",
           headers: {
@@ -210,7 +210,7 @@ const ReviewLanding = () => {
 
       // Fetch the updated reviews again to reflect the changes immediately
       const updatedResponse = await fetch(
-        `http://localhost:3000/reviews/show/${recipeId}`
+        `https://ga-p3-backend.onrender.com/reviews/show/${recipeId}`
       );
       if (!updatedResponse.ok) {
         throw new Error("Failed to fetch updated reviews");

@@ -22,7 +22,7 @@ const ReviewUser = ({ user }) => {
     const fetchUserDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/users/show/${userId}`
+          `https://ga-p3-backend.onrender.com/users/show/${userId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch user details");
@@ -42,7 +42,7 @@ const ReviewUser = ({ user }) => {
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/reviews/user/${userId}`
+          `https://ga-p3-backend.onrender.com/reviews/user/${userId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
@@ -99,7 +99,7 @@ const ReviewUser = ({ user }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/update/${selectedReviewId}`,
+        `https://ga-p3-backend.onrender.com/reviews/update/${selectedReviewId}`,
         {
           method: "PATCH",
           headers: {
@@ -123,7 +123,7 @@ const ReviewUser = ({ user }) => {
 
       // Fetch the updated reviews again to reflect the changes immediately
       const updatedResponse = await fetch(
-        `http://localhost:3000/reviews/user/${userId}`
+        `https://ga-p3-backend.onrender.com/reviews/user/${userId}`
       );
       if (!updatedResponse.ok) {
         throw new Error("Failed to fetch updated reviews");
@@ -145,7 +145,7 @@ const ReviewUser = ({ user }) => {
   const handleConfirmDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/delete/${reviewToDelete}`,
+        `https://ga-p3-backend.onrender.com/reviews/delete/${reviewToDelete}`,
         {
           method: "DELETE",
         }

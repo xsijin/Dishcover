@@ -1,5 +1,5 @@
 // This is the base path of the Express route we'll define
-const BASE_URL = "http://localhost:3000/users";
+const BASE_URL = "https://ga-p3-backend.onrender.com/users";
 
 export async function signUp(userData) {
   const createURL = BASE_URL + '/create';

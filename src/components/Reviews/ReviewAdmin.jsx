@@ -20,7 +20,7 @@ const ReviewAdmin = () => {
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/reviews/admin/show`
+          `https://ga-p3-backend.onrender.com/reviews/admin/show`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
@@ -77,7 +77,7 @@ const ReviewAdmin = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/update/${selectedReviewId}`,
+        `https://ga-p3-backend.onrender.com/reviews/update/${selectedReviewId}`,
         {
           method: "PATCH",
           headers: {
@@ -101,7 +101,7 @@ const ReviewAdmin = () => {
 
       // Fetch the updated reviews again to reflect the changes immediately
       const updatedResponse = await fetch(
-        `http://localhost:3000/reviews/admin/show`
+        `https://ga-p3-backend.onrender.com/reviews/admin/show`
       );
       if (!updatedResponse.ok) {
         throw new Error("Failed to fetch updated reviews");
@@ -123,7 +123,7 @@ const ReviewAdmin = () => {
   const handleConfirmDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/delete/${reviewToDelete}`,
+        `https://ga-p3-backend.onrender.com/reviews/delete/${reviewToDelete}`,
         {
           method: "DELETE",
         }
