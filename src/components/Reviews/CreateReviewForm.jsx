@@ -7,6 +7,7 @@ const CreateReviewForm = ({ recipeId, onAddReview }) => {
     title: "",
     content: "",
     rating: 5,
+    images: "",
   });
 
   const handleInputChange = (e) => {
@@ -35,12 +36,13 @@ const CreateReviewForm = ({ recipeId, onAddReview }) => {
       title: "",
       content: "",
       rating: 5,
+      images: "",
     });
   };
 
   return (
     <div className="add-review-form">
-      <h2>We'd love for your to add your reviews!</h2>
+      <h2 className="bold">Share about your dishcoveries!</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="rating">
           {[1, 2, 3, 4, 5].map((value) => (
@@ -69,15 +71,26 @@ const CreateReviewForm = ({ recipeId, onAddReview }) => {
         <textarea
           id="newContent"
           name="content"
-          className="textarea textarea-bordered textarea-sm w-full max-w-xs titlemargin"
-          placeholder="Type your review here"
+          className="textarea textarea-bordered textarea-sm w-full max-w-xs"
+          placeholder="What did you love about this recipe? What improvements would you suggest?"
           value={newReview.content}
           onChange={handleInputChange}
           required
         ></textarea>
+        <input
+          type="text"
+          title="Please include only 1 photo URL. We suggest using an image hosting site such as Imgur. Image will not appear if the link is broken."
+          id="newImageURL"
+          name="images"
+          placeholder="Add photo URL (if any)"
+          className="input input-bordered input-sm w-full max-w-xs"
+          value={newReview.images}
+          onChange={handleInputChange}
+        />
 
         <br />
-        <button type="submit" className="btn btn-outline btn-primary">
+        <br />
+        <button type="submit" className="btn btn-submit">
           Submit Review
         </button>
       </form>
