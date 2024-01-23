@@ -48,13 +48,13 @@ export default function NavBar({ user }) {
               <Link to="/MyRecipes">Make a Dishcovery</Link>
             </li>
             <li>
-              <a>Manage Recipes (admin only)</a>
+            <Link to="/modrecipescontrol">Manage Recipes (admin only)</Link>
             </li>
             <li>
               <Link to="/ReviewAdmin">Manage Reviews (admin only)</Link>
             </li>
             <li>
-              <a>Manage Users (admin only)</a>
+            <Link to="/users">Manage Users (admin only)</Link>
             </li>
           </ul>
         </div>
