@@ -7,13 +7,13 @@ import PublicDessertRecipes from './PublicDessertRecipes';
 function PublicLandingPage() {
     return (
         <div style={{
-            backgroundImage: `url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp9167602.jpg&f=1&nofb=1&ipt=a78e7e83b74edaceef0cad0670dcebcea13ed975dca1ae76e25415fca8d57efb&ipo=images')`,
+            backgroundImage: `url('https://th.bing.com/th/id/OIG4.N5we59DLEisD5PlAHg1Z?pid=ImgGn')`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center'
         }}>
             <div className='flex justify-center'>
-                <h1 className='font-bold text-5xl mb-1 text-white mt-10'>DISHCOVER</h1>
+                <h1 className='font-bold text-5xl mb-1 mt-10'>DISHCOVER</h1>
             </div>
 
             <PublicAsianRecipes />
