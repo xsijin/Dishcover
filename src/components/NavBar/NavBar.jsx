@@ -114,7 +114,7 @@ export default function NavBar({ user }) {
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
           >
             <li>
-              <Link to={"/my-profile"} className="justify-between">
+              <Link to={`/users/${user._id}`} className="justify-between">
                 My Profile
                 <span className="badge">New</span>
               </Link>

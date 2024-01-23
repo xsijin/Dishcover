@@ -1,6 +1,8 @@
 import './UserProfile.css';
 import './ProfileForm';
 import ProfileForm from './ProfileForm';
+import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function UserProfile({ user }) {
 
@@ -10,7 +12,7 @@ export default function UserProfile({ user }) {
                 <div className="card card-side bg-base-100 shadow-xl">
                     <figure><img src="https://www.mob.co.uk/_next/image?url=https%3A%2F%2Ffiles.mob-cdn.co.uk%2Ffiles%2FIMG_0699.jpg&w=1536&q=75" alt="Movie"/></figure>
                     <div className="card-body">
-                        <h2 className="card-title">{user.firstName} {user.lastName}</h2>
+                        <Link to={`/users/${user._id}`}><h2 className="card-title">{user.firstName} {user.lastName}</h2></Link>
                         <p style={{ textAlign:"left" }}>{user.bio}</p>
                         <div className="socialInfo" style={{ display:"flex", flexDirection:"row", marginTop:"1rem" }}>
                             <button className="btn btn-square btnSocial">

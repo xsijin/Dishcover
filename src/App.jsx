@@ -10,7 +10,7 @@ import MyRecipeDetails from "./components/MyRecipeDetails";
 import MyRecipeEditing from "./components/MyRecipeEditing";
 import PublicLandingPage from "./components/PublicLandingPage";
 import PublicRecipeDetails from "./components/PublicRecipeDetails";
-import UserProfile from "./components/UserProfile/UserProfile";
+import UserProfileIndiv from "./components/UserProfile/UserProfileIndiv";
 import SearchResult from "./components/SearchResult";
 import LoginSignUp from "./components/UserProfile/LoginSignUp";
 import ReviewAdmin from "./components/Reviews/ReviewAdmin";
@@ -56,7 +56,7 @@ function App() {
         <Routes>
           <Route path="/" element={<PublicLandingPage />} />
           <Route path="/users" element={<UserProfileList />} />
-          <Route path="/my-profile" element={<UserProfile user={user} />} />
+          <Route path="/users/:userId" element={<UserProfileIndiv />} />
           <Route path="/ReviewLanding" element={<ReviewLanding />} />
           <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
           <Route path="/ReviewUser" element={<ReviewUser user={user} />} />
