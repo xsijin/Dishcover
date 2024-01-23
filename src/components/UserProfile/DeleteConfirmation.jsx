@@ -13,7 +13,7 @@ export default function DeleteConfirmation({ user }) {
     const handleDeleteUser = async () => {
         console.log("user: ", user);
         try {
-            const response = await fetch(`http://localhost:3000/users/delete/${user._id}`, {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/users/delete/${user._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

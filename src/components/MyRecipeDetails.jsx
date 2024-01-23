@@ -10,7 +10,7 @@ function MyRecipeDetails() {
 
     const getRecipeDetails = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/recipes/show/${params.id}`, {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/show/${params.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ function MyRecipeDetails() {
 
     const handleDeleteRecipe = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/recipes/delete/${params.id}`, {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/delete/${params.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

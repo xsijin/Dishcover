@@ -19,7 +19,7 @@ export default function ProfileForm({ user }) {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
 
-        const response = await fetch(`http://localhost:3000/users/update/${user._id}`, {
+        const response = await fetch(`https://ga-p3-backend.onrender.com/users/update/${user._id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
