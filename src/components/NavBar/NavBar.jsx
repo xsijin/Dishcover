@@ -1,16 +1,23 @@
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar";
 import "./NavBar.css";
 
 export default function NavBar({ user }) {
   const navigate = useNavigate();
+  const [selectedTheme, setSelectedTheme] = useState("light");
 
   const handleGoBack = () => {
     navigate(-1); // Equivalent to history.goBack()
   };
 
+  const handleThemeChange = (theme) => {
+    document.documentElement.setAttribute("data-theme", theme);
+    setSelectedTheme(theme);
+  };
+
   return (
-    <div className="navbar stayfixed bg-base-100">
+    <div className={`navbar stayfixed bg-base-100`} data-theme={selectedTheme}>
       <div className="flex-1">
         {/* Back button */}
         <button
@@ -48,13 +55,13 @@ export default function NavBar({ user }) {
               <Link to="/MyRecipes">Make a Dishcovery</Link>
             </li>
             <li>
-            <Link to="/modrecipescontrol">Manage Recipes (admin only)</Link>
+              <Link to="/modrecipescontrol">Manage Recipes (admin only)</Link>
             </li>
             <li>
               <Link to="/ReviewAdmin">Manage Reviews (admin only)</Link>
             </li>
             <li>
-            <Link to="/users">Manage Users (admin only)</Link>
+              <Link to="/users">Manage Users (admin only)</Link>
             </li>
           </ul>
         </div>
@@ -95,6 +102,43 @@ export default function NavBar({ user }) {
               </div>
             </div>
           </div>
+        </div>
+        {/* Theme Dropdown */}
+        <div className="flex-none">
+          <ul className="menu menu-horizontal px-1">
+            <li>
+              <details>
+                <summary>Theme</summary>
+                <ul className="p-2 bg-base-100 rounded-t-none">
+                  {[
+                    "light",
+                    "dark",
+                    "cupcake",
+                    "valentine",
+                    "forest",
+                    "acid",
+                    "night",
+                    "coffee",
+                    "winter",
+                    "dim",
+                    "nord",
+                  ].map((theme) => (
+                    <li key={theme}>
+                      <input
+                        type="radio"
+                        name="theme-dropdown"
+                        className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                        aria-label={theme}
+                        value={theme}
+                        checked={selectedTheme === theme}
+                        onChange={() => handleThemeChange(theme)}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          </ul>
         </div>
         <div className="dropdown dropdown-end">
           <div
