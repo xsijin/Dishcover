@@ -26,3 +26,12 @@ export async function loginUser(userData) {
     // Baby step by returning whatever is sent back by the server
     return res;
 }
+
+export async function logoutUser() {
+  const token = getToken();
+  if (token) {
+    const res = await usersAPI.logoutUser(token, JSON.parse(atob(token.split(".")[1])).payload);
+    removeToken();
+  }
+  return res;
+}
