@@ -13,7 +13,7 @@ function PublicDessertRecipes() {
   const fetchRecipeReviews = async (recipeId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/show/${recipeId}`
+        `https://ga-p3-backend.onrender.com/reviews/show/${recipeId}`
       );
       if (response.ok) {
         const reviewsData = await response.json();
@@ -45,7 +45,7 @@ function PublicDessertRecipes() {
     const getDessertRecipes = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/recipes/show?search=dessert"
+          "https://ga-p3-backend.onrender.com/recipes/show?search=dessert"
         );
         if (response.ok) {
           const data = await response.json();

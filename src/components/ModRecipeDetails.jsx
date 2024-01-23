@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 
-function MyRecipeDetails() {
+function ModRecipeDetails() {
     const params = useParams();
     const [recipeDetails, setRecipeDetails] = useState(null);
     const navigate = useNavigate();
@@ -32,10 +32,6 @@ function MyRecipeDetails() {
     }, [params.id]);
 
 
-    const handleEditButtonClick = () => {
-        navigate(`/myrecipeediting/${params.id}`);
-    };
-
     const handleDeleteRecipe = async () => {
         try {
             const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/delete/${params.id}`, {
@@ -46,7 +42,7 @@ function MyRecipeDetails() {
             });
 
             if (response.ok) {
-                navigate('/myrecipes');
+                navigate('/modrecipescontrol');
                 console.log('Recipe deleted');
             }
         } catch (error) {
@@ -85,9 +81,8 @@ function MyRecipeDetails() {
                             </ol>
                         </div>
                         <div className='flex'>
-                            <button className="btn btn-accent mr-3" onClick={handleEditButtonClick}>Edit Recipe</button>
                             <button className="btn btn-error mr-3" onClick={handleDeleteRecipe}>Delete Recipe</button>
-                            <button className="btn btn-primary" onClick={() => navigate('/myrecipes')}>Back to My Recipes</button>
+                            <button className="btn btn-primary" onClick={() => navigate('/modrecipescontrol')}>Back to Moderator Recipes Control</button>
                         </div>
                     </div>
                 )}
@@ -106,4 +101,4 @@ function MyRecipeDetails() {
     );
 }
 
-export default MyRecipeDetails;
+export default ModRecipeDetails;

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import StarRating from "./Reviews/StarRating";
 
-function MyRecipesList({ userRecipes, setUserRecipes }) {
+function ModRecipesList({ allRecipes, setAllRecipes }) {
   const [reviews, setReviews] = useState([]);
 
   // Fetch reviews for a specific recipe
@@ -46,7 +46,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
         const response = await fetch("https://ga-p3-backend.onrender.com/recipes/show");
         if (response.ok) {
           const data = await response.json();
-          setUserRecipes(data.recipes);
+          setAllRecipes(data.recipes);
         }
       } catch (error) {
         console.error("Fetch Error:", error);
@@ -57,9 +57,9 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
   }, []);
 
   useEffect(() => {
-  // Fetch reviews for each recipe when userRecipes changes
+  // Fetch reviews for each recipe when allRecipes changes
   const fetchReviewsForRecipes = async () => {
-    const reviewsPromises = userRecipes.map(async (recipe) => {
+    const reviewsPromises = allRecipes.map(async (recipe) => {
       const reviewsData = await fetchRecipeReviews(recipe._id);
       return { recipeId: recipe._id, reviewsData };
     });
@@ -69,7 +69,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
   };
 
   fetchReviewsForRecipes();
-}, [userRecipes]);
+}, [allRecipes]);
 
   const handleDeleteRecipe = async (recipeId) => {
     console.log(recipeId);
@@ -85,10 +85,10 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
       );
 
       if (response.ok) {
-        const updatedRecipes = userRecipes.filter(
+        const updatedRecipes = allRecipes.filter(
           (recipe) => recipe._id !== recipeId
         );
-        setUserRecipes(updatedRecipes);
+        setAllRecipes(updatedRecipes);
         console.log("Recipe deleted");
       }
     } catch (error) {
@@ -99,7 +99,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
   return (
     <div>
       <Wrapper>
-        <h1 className="font-bold text-xl mb-4 ml-4">My Recipes</h1>
+        <h1 className="font-bold text-xl mb-4 ml-4">All Recipes</h1>
 
         <Splide
           options={{
@@ -109,7 +109,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
             gap: "3rem",
           }}
         >
-          {userRecipes.map((recipe) => {
+          {allRecipes.map((recipe) => {
             const review = reviews.find((r) => r.recipeId === recipe._id);
 
             if (!review || !review.reviewsData) {
@@ -123,7 +123,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
               <SplideSlide key={recipe._id} className="ml-4">
                 <Card>
                   <Link
-                    to={`/myrecipedetails/${recipe._id}`}
+                    to={`/modrecipedetails/${recipe._id}`}
                     className="text-inherit no-underline block"
                   >
                     <h2>{recipe.title}</h2>
@@ -205,4 +205,4 @@ const Gradient = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
 `;
 
-export default MyRecipesList;
+export default ModRecipesList;

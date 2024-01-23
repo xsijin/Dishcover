@@ -20,7 +20,7 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
 
-        const response = await fetch('http://localhost:3000/recipes/create', {
+        const response = await fetch('https://ga-p3-backend.onrender.com/recipes/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

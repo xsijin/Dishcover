@@ -13,7 +13,7 @@ function PublicAsianRecipes() {
   const fetchRecipeReviews = async (recipeId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/show/${recipeId}`
+        `https://ga-p3-backend.onrender.com/reviews/show/${recipeId}`
       );
       if (response.ok) {
         const reviewsData = await response.json();
@@ -45,7 +45,7 @@ function PublicAsianRecipes() {
     const getAsianRecipes = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/recipes/show?search=asian"
+          "https://ga-p3-backend.onrender.com/recipes/show?search=asian"
         );
         if (response.ok) {
           const data = await response.json();

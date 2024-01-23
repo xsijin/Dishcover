@@ -8,7 +8,7 @@ export default function UserProfileList() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('http://localhost:3000/users/show');
+                const response = await fetch('https://ga-p3-backend.onrender.com/users/show');
                 const result = await response.json();
                 setUsers(result.users);
                 console.log(result);

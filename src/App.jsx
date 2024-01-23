@@ -14,6 +14,8 @@ import UserProfile from "./components/UserProfile/UserProfile";
 import SearchResult from "./components/SearchResult";
 import LoginSignUp from "./components/UserProfile/LoginSignUp";
 import ReviewAdmin from "./components/Reviews/ReviewAdmin";
+import ModRecipesControl from "./components/ModRecipesControl";
+import ModRecipeDetails from "./components/ModRecipeDetails";
 
 function App() {
   // const [user, setUser] = useState({
@@ -62,12 +64,11 @@ function App() {
           <Route path="/MyRecipes" element={<MyRecipes />} />
           <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
           <Route path="/MyRecipeEditing/:id" element={<MyRecipeEditing />} />
-          <Route
-            path="/PublicRecipeDetails/:id"
-            element={<PublicRecipeDetails />}
-          />
+          <Route path="/PublicRecipeDetails/:id" element={<PublicRecipeDetails />} />
           <Route path="/searchresult/:searchTerm" element={<SearchResult />} />
           <Route path="/ReviewAdmin" element={<ReviewAdmin />} />
+          <Route path="/modrecipescontrol" element={<ModRecipesControl />} />
+          <Route path="/modrecipedetails/:id" element={<ModRecipeDetails />} />
         </Routes>
       </main>
     </>

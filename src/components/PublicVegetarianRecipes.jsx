@@ -13,7 +13,7 @@ function PublicVegetarianRecipes() {
   const fetchRecipeReviews = async (recipeId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/reviews/show/${recipeId}`
+        `https://ga-p3-backend.onrender.com/reviews/show/${recipeId}`
       );
       if (response.ok) {
         const reviewsData = await response.json();
@@ -45,7 +45,7 @@ function PublicVegetarianRecipes() {
     const getVegetarianRecipes = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/recipes/show?search=vegetarian"
+          "https://ga-p3-backend.onrender.com/recipes/show?search=vegetarian"
         );
         if (response.ok) {
           const data = await response.json();
