@@ -4,10 +4,10 @@ import { Link, useParams } from "react-router-dom";
 import CreateReviewForm from "./CreateReviewForm";
 import "./ReviewPage.css";
 
-const ReviewLanding = () => {
+const ReviewLanding = ({ recipeId: propRecipeId }) => {
   const params = useParams();
   const [reviews, setReviews] = useState([]);
-  const [recipeId, setRecipeId] = useState(params.recipeId);
+  const [recipeId, setRecipeId] = useState(propRecipeId || params.recipeId);
   const [recipeName, setRecipeName] = useState("");
   const [editedReview, setEditedReview] = useState({
     // Initialize with empty values or default values

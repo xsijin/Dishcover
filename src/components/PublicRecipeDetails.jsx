@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import ReviewLanding from "./Reviews/ReviewLanding";
 
 function PublicRecipeDetails() {
     const params = useParams();
     const [recipeDetails, setRecipeDetails] = useState(null);
     const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState("recipe");
+
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);
+    }
 
     const getRecipeDetails = async () => {
         try {
@@ -32,7 +37,12 @@ function PublicRecipeDetails() {
     }, [params.id]);
 
     return (
-        <div className="flex space-x-20 bg-gray-700 shadow-md rounded px-8 pt-6 pb-8">
+
+        <>
+        <div role="tablist" className="tabs tabs-bordered">
+            <input type="radio" onChange={() => handleTabChange("recipe")} checked={activeTab === "recipe"} name="my_tabs_1" role="tab" className="tab" aria-label="Recipe" />
+            <div role="tabpanel" className="tab-content p-10">
+            <div className="flex space-x-20 bg-gray-700 shadow-md rounded px-8 pt-6 pb-8">
             <div className='w-1/2'>
                 {recipeDetails && (
                     <div>
@@ -79,6 +89,18 @@ function PublicRecipeDetails() {
                 }
             </div>
         </div>
+            </div>
+
+            <input type="radio" onChange={() => handleTabChange("review")} checked={activeTab === "review"} name="my_tabs_1" role="tab" className="tab" aria-label="Review"  />
+            <div role="tabpanel" className="tab-content p-10">
+                <ReviewLanding recipeId={params.id}/>
+            </div>
+
+        </div>
+        </>
+
+
+        
     );
 }
 
