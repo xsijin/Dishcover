@@ -40,17 +40,6 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
   };
 
   useEffect(() => {
-    // Fetch reviews for each recipe when userRecipes changes
-    const fetchReviewsForRecipes = async () => {
-      const reviewsPromises = userRecipes.map(async (recipe) => {
-        const reviewsData = await fetchRecipeReviews(recipe._id);
-        return { recipeId: recipe._id, reviewsData };
-      });
-
-      const reviewsResults = await Promise.all(reviewsPromises);
-      setReviews(reviewsResults);
-    };
-
     // Fetch all recipes
     const getAllRecipes = async () => {
       try {
@@ -65,8 +54,22 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
     };
 
     getAllRecipes();
-    fetchReviewsForRecipes();
-  }, [userRecipes]);
+  }, []);
+
+  useEffect(() => {
+  // Fetch reviews for each recipe when userRecipes changes
+  const fetchReviewsForRecipes = async () => {
+    const reviewsPromises = userRecipes.map(async (recipe) => {
+      const reviewsData = await fetchRecipeReviews(recipe._id);
+      return { recipeId: recipe._id, reviewsData };
+    });
+
+    const reviewsResults = await Promise.all(reviewsPromises);
+    setReviews(reviewsResults);
+  };
+
+  fetchReviewsForRecipes();
+}, [userRecipes]);
 
   const handleDeleteRecipe = async (recipeId) => {
     console.log(recipeId);
