@@ -7,38 +7,6 @@ import StarRating from "./Reviews/StarRating";
 import { getToken } from "../util/security";
 
 function MyRecipesList({ userRecipes, setUserRecipes }) {
-  const [reviews, setReviews] = useState([]);
-
-  // Fetch reviews for a specific recipe
-  const fetchRecipeReviews = async (recipeId) => {
-    try {
-      const response = await fetch(
-        `https://ga-p3-backend.onrender.com/reviews/show/${recipeId}`
-      );
-      if (response.ok) {
-        const reviewsData = await response.json();
-        return reviewsData;
-      } else {
-        console.error(`Failed to fetch reviews for recipe ${recipeId}`);
-        return null;
-      }
-    } catch (error) {
-      console.error(`Error fetching reviews for recipe ${recipeId}:`, error);
-      return null;
-    }
-  };
-
-  // Calculate the average rating for a given set of reviews
-  const calculateAverageRating = (reviewsData) => {
-    if (!Array.isArray(reviewsData) || reviewsData.length === 0) {
-      return 0; // Default to 0 if reviewsData is not an array or is empty
-    }
-    const totalRating = reviewsData.reduce(
-      (sum, review) => sum + review.rating,
-      0
-    );
-    return totalRating / reviewsData.length;
-  };
 
   const [userId, setUserId] = useState(null);
 
@@ -95,7 +63,6 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
           const data = await response.json();
           console.log(data);
           setUserRecipes(data);
-
         }
       } catch (error) {
         console.error("Fetch Error:", error);
@@ -105,13 +72,11 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
     getMyRecipes();
   }, [userId]);
 
-
   useEffect(() => {
   // Fetch reviews for each recipe when userRecipes changes
   const fetchReviewsForRecipes = async () => {
-
     if (!userRecipes) return;
-
+  
     const reviewsPromises = userRecipes.map(async (recipe) => {
       const reviewsData = await fetchRecipeReviews(recipe._id);
       return { recipeId: recipe._id, reviewsData };
@@ -120,7 +85,6 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
     const reviewsResults = await Promise.all(reviewsPromises);
     setReviews(reviewsResults);
   };
-
   fetchReviewsForRecipes();
 }, [userRecipes]);
 
@@ -162,9 +126,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
             gap: "3rem",
           }}
         >
-
           {userRecipes && userRecipes.map((recipe) => {
-
             const review = reviews.find((r) => r.recipeId === recipe._id);
 
             if (!review || !review.reviewsData) {
@@ -188,9 +150,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
                 </Card>
                 {/* Display the average rating */}
                 <div className="flex justify-center">
-
-                <Link to={`/PublicRecipeDetails/${recipe._id}?tab=review`}><StarRating star={averageRating} />&nbsp; 
-
+                <Link to={`/reviews/${recipe._id}`}><StarRating star={averageRating} />&nbsp; 
                 
                 <span className="badge badge-lg">
                  {(!Array.isArray(review.reviewsData) || review.reviewsData.length === 0) ? 0 : review.reviewsData.length} </span>
@@ -201,9 +161,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
                 </div>
                 <div className="flex justify-center">
                   <button
-
-                    className="bg-error hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-4"
-
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-4"
                     onClick={() => handleDeleteRecipe(recipe._id)}
                   >
                     DELETE
