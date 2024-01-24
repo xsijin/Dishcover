@@ -133,7 +133,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
                 </Card>
                 {/* Display the average rating */}
                 <div className="flex justify-center">
-                <Link to={`/reviews/${recipe._id}`}><StarRating star={averageRating} />&nbsp; 
+                <Link to={`/PublicRecipeDetails/${recipe._id}?tab=review`}><StarRating star={averageRating} />&nbsp; 
                 
                 <span className="badge badge-lg">
                  {(!Array.isArray(review.reviewsData) || review.reviewsData.length === 0) ? 0 : review.reviewsData.length} </span>
@@ -144,7 +144,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
                 </div>
                 <div className="flex justify-center">
                   <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-4"
+                    className="bg-error hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-4"
                     onClick={() => handleDeleteRecipe(recipe._id)}
                   >
                     DELETE

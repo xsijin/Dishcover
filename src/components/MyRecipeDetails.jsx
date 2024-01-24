@@ -55,30 +55,30 @@ function MyRecipeDetails() {
     };
 
     return (
-        <div className="flex space-x-20 bg-gray-700 shadow-md rounded px-8 pt-6 pb-8">
+        <div className="flex space-x-20 bg-secondary-content shadow-md rounded px-8 pt-6 pb-8">
             <div className='w-1/2'>
                 {recipeDetails && (
                     <div>
-                        <h1 className="text-gray-300 font-bold text-3xl mb-5">{recipeDetails.title}</h1>
+                        <h1 className="font-bold text-3xl mb-5">{recipeDetails.title}</h1>
                         <div className='mb-8'>
-                            <p className="mb-2 font-bold text-gray-300">Author: </p>
-                            <span className="text-gray-300 block break-words">{ }</span>
+                            <p className="mb-2 font-bold">Author: </p>
+                            <span className="block break-words">{ }</span>
                         </div>
                         <div className='mb-8'>
-                            <p className="font-bold text-gray-300">Tags: </p>
-                            <span className="text-gray-300 block break-words">{recipeDetails.tags.join(', ')}</span>
+                            <p className="font-bold">Tags: </p>
+                            <span className="block break-words">{recipeDetails.tags.join(', ')}</span>
                         </div>
                         <div className='mb-8'>
-                            <p className="font-bold text-gray-300">Ingredients: </p>
-                            <span className="text-gray-300 block break-words">{recipeDetails.ingredients.join(', ')}</span>
+                            <p className="font-bold">Ingredients: </p>
+                            <span className="block break-words">{recipeDetails.ingredients.join(', ')}</span>
                         </div>
                         <div className='mb-8'>
-                            <p className="mb-2 font-bold text-gray-300">Prep Time: </p>
-                            <span className="text-gray-300 block break-words">{recipeDetails.preptime}</span>
+                            <p className="mb-2 font-bold">Prep Time: </p>
+                            <span className="block break-words">{recipeDetails.preptime}</span>
                         </div>
                         <div className='mb-8'>
-                            <p className="mb-2 font-bold text-gray-300">Instructions: </p>
-                            <ol className="list-decimal list-inside text-gray-300 block break-words">
+                            <p className="mb-2 font-bold">Instructions: </p>
+                            <ol className="list-decimal list-inside block break-words">
                                 {recipeDetails.instructions.map((instruction, index) => (
                                     <li key={index}>{instruction}</li>
                                 ))}

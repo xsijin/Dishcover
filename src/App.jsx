@@ -55,20 +55,22 @@ function App() {
       <main className="navspace">
         <Routes>
           <Route path="/" element={<PublicLandingPage />} />
+          <Route path="/searchresult/:searchTerm" element={<SearchResult />} />
+          {/* User Routing */}
           <Route path="/users" element={<UserProfileList />} />
           <Route path="/users/:userId" element={<UserProfileIndiv />} />
-          <Route path="/ReviewLanding" element={<ReviewLanding />} />
-          <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
-          <Route path="/ReviewUser" element={<ReviewUser user={user} />} />
           <Route path="/login-signup" element={<LoginSignUp />} />
+          {/* Recipe Routing */}
           <Route path="/MyRecipes" element={<MyRecipes />} />
           <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
           <Route path="/MyRecipeEditing/:id" element={<MyRecipeEditing />} />
           <Route path="/PublicRecipeDetails/:id" element={<PublicRecipeDetails />} />
-          <Route path="/searchresult/:searchTerm" element={<SearchResult />} />
-          <Route path="/ReviewAdmin" element={<ReviewAdmin />} />
           <Route path="/modrecipescontrol" element={<ModRecipesControl />} />
           <Route path="/modrecipedetails/:id" element={<ModRecipeDetails />} />
+          {/* Review Routing */}
+          <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
+          <Route path="/ReviewUser" element={<ReviewUser user={user} />} />
+          <Route path="/ReviewAdmin" element={<ReviewAdmin />} />
         </Routes>
       </main>
     </>

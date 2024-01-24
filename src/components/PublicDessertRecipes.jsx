@@ -76,7 +76,7 @@ function PublicDessertRecipes() {
   }, [dessertRecipes]);
 
   return (
-    <div className="text-white pb-10">
+    <div className="pb-10 bg-secondary-content bg-opacity-70">
       <Wrapper>
         <h1 className="font-bold text-xl mb-4 ml-4">Desserts</h1>
 
@@ -118,7 +118,7 @@ function PublicDessertRecipes() {
                 </Card>
                 {/* Display the average rating */}
                 <div className="flex justify-center">
-                  <Link to={`/reviews/${recipe._id}`}>
+                  <Link to={`/PublicRecipeDetails/${recipe._id}?tab=review`}>
                     <StarRating star={averageRating} />
                     &nbsp;
                     <span className="badge badge-lg">
