@@ -53,7 +53,7 @@ function PublicRecipeDetails() {
         <div role="tablist" className="tabs tabs-bordered">
             <input type="radio" onChange={() => handleTabChange("recipe")} checked={activeTab === "recipe"} name="my_tabs_1" role="tab" className="tab" aria-label="Recipe" />
             <div role="tabpanel" className="tab-content p-10">
-            <div className="flex space-x-20 bg-gray-100 shadow-md rounded px-8 pt-6 pb-8">
+            <div className="flex space-x-20 bg-secondary-content shadow-md rounded px-8 pt-6 pb-8">
             <div className='w-1/2'>
                 {recipeDetails && (
                     <div>

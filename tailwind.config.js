@@ -12,6 +12,7 @@ export default {
     themes: ["light", 
     "forest",
     "night",
+    "emerald",
     "winter"],
   },
 }

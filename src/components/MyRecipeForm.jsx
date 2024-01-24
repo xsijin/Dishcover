@@ -46,10 +46,10 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form onSubmit={handleSubmit} className="bg-secondary-content shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="title">
+                <label className="block text text-sm font-bold mb-2" htmlFor="title">
                     Title:
                 </label>
                 <input placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs"
@@ -61,7 +61,7 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="tags">
+                <label className="block text-sm font-bold mb-2" htmlFor="tags">
                     Tags (comma separated):
                 </label>
                 <textarea placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs h-[5rem]"
@@ -76,7 +76,7 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="ingredients">
+                <label className="block text-sm font-bold mb-2" htmlFor="ingredients">
                     Ingredients (comma separated):
                 </label>
                 <textarea placeholder="Type here" className="input input-bordered input-primary w-1/2 h-[15rem]"
@@ -91,7 +91,7 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="preptime">
+                <label className="block text-sm font-bold mb-2" htmlFor="preptime">
                     Prep Time:
                 </label>
                 <input placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs"
@@ -103,7 +103,7 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="instructions">
+                <label className="block text-sm font-bold mb-2" htmlFor="instructions">
                     Instructions (each step on a new line):
                 </label>
                 <textarea placeholder="Type here" className="input input-bordered input-primary w-1/2 h-[15rem]"
@@ -118,7 +118,7 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="picture_url">
+                <label className="block text-sm font-bold mb-2" htmlFor="picture_url">
                     Picture URL:
                 </label>
                 <input placeholder="Type here" className="input input-bordered input-primary w-1/2"

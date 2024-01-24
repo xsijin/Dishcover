@@ -114,6 +114,7 @@ export default function NavBar({ user }) {
                     "light",
                     "forest",
                     "night",
+                    "emerald",
                     "winter"
                   ].map((theme) => (
                     <li key={theme}>
