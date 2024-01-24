@@ -1,10 +1,8 @@
 # Welcome to Dishcover!
 
-Welcome to **Dishcover**, your go-to platform for culinary exploration and creativity! **Dishcover** is a web app designed to bring together food enthusiasts from around the world, allowing them to share, discover, and savor delightful homemade recipes.
+Welcome to **Dishcover**, your go-to platform for culinary exploration and creativity! **Dishcover** is a web app designed to bring together food enthusiasts from around the world, allowing them to share, discover, and savor delightful homemade dishes.
 
 :cherries: Have fun! :carrot:
-
-A collaboration effort between @chunxtan @Haozhi415 @xsijin
 
 ## Screenshots
 
@@ -30,16 +28,17 @@ Back End: https://github.com/Haozhi415/GA_P3_backend
 
 ## User Types & Authorization
 
-| Authorization    | Public         | Logged in User | Logged in & Owner  | Admin          |
-| ----------------- | --------------| -------------- | -------------- | -------------- |
-| Read Recipes      | ✔             | ✔             | ✔              | ✔              |
-| Create Recipes    |               | ✔              | ✔             | ✔              |
-| Update Recipes    |               |                | ✔ (own)        | ✔ (all)        |
-| Delete Recipes    |               |                | ✔ (own)        | ✔ (all)        |
-| Read Reviews      | ✔             | ✔             | ✔              | ✔              |
-| Create Reviews    |               | ✔              | ✔              | ✔              |
-| Update Reviews    |               |                | ✔ (own)        | ✔ (all)        |
-| Delete Reviews    |               |                | ✔ (own)        | ✔ (all)        |
+> [!IMPORTANT]
+>| Authorization    | Public         | Logged in User | Logged in & Owner  | Admin          |
+>| ----------------- | --------------| -------------- | -------------- | -------------- |
+>| Read Recipes      | ✔             | ✔             | ✔              | ✔              |
+>| Create Recipes    |               | ✔              | ✔             | ✔              |
+>| Update Recipes    |               |                | ✔ (own)        | ✔ (all)        |
+>| Delete Recipes    |               |                | ✔ (own)        | ✔ (all)        |
+>| Read Reviews      | ✔             | ✔             | ✔              | ✔              |
+>| Create Reviews    |               | ✔              | ✔              | ✔              |
+>| Update Reviews    |               |                | ✔ (own)        | ✔ (all)        |
+>| Delete Reviews    |               |                | ✔ (own)        | ✔ (all)        |
 
 ## Authentication Flow
 
@@ -47,32 +46,39 @@ Back End: https://github.com/Haozhi415/GA_P3_backend
 
 ## Next Steps
 
-- [ ] Planned future enhancements (icebox items).
+- [ ] Login-ed users can save a recipe to favourites
+- [ ] Users can have a checklist of ingredients and add to grocery list
+- [ ] Users can search for other users' profile
+- [ ] Users can filter through search results (recipe name, tags, ingredients, etc)
+- [ ] Users can see other related recipes for each recipe
 
 ## Showed the code for the "main" Mongoose Model, its controller & favorite React Component
 
-My favourite part of the javascript is finally understanding how functions within functions work. I was able to bundle similar & repeated functions which makes my code look neater and less DRY.
+Our favourite component was the star rating feature which takes in the rating prop from fetched reviews to render as stars.
 
 ```
-function initialize() {
-    countScore = 0;
-    safespot.classList.add("begin");
-    obstacles.classList.add("begin");
-    isGameOver = false;
-    removeButtons();
-    gameStart();
-    safespot.addEventListener('animationiteration', safespotAnimationListener);
-}
+const StarRating = ({ star }) => {
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <span
+          key={i}
+          style={{ color: i <= star ? 'gold' : 'gray', fontSize: '1.5em' }}
+        >
+          ★
+        </span>
+      );
+    }
+    return stars;
+  };
+
+  return <span>{renderStars()}</span>;
+};
 ```
 
-For the above, I added a single removeButtons(); function instead of having 3 separate removeButton functions for each button.
-
 ```
-function removeButtons() {
-    onePlayer.remove();
-    twoPlayer.remove();
-    mobile.remove();
-}
+<StarRating star={review.rating} />
 ```
 
 ## Key Challenges / Learning / Takeaways
@@ -81,6 +87,12 @@ function removeButtons() {
 2. Git pull often to reduce the chances of a merge conflict.
 3. Try to ensure all pull requests are approved first before making new changes to reduce the chances of a merge conflict.
 4. Communicate with team members which file we are working on to reduce the chances of a merge conflict.
+
+## Authors
+
+- @chunxtan 
+- @Haozhi415 
+- @xsijin
 
 ## Resources
 
