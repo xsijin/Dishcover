@@ -104,3 +104,5 @@ const StarRating = ({ star }) => {
 - [Figma](https://figma.com) - Wireframe
 - [Trello](https://trello.com) - Ideas & User Story creation
 - [Postman](https://www.postman.com) - API Client
+- [Mob](https://www.mob.co.uk/) - Web inspiration / recipe information to populate data
+- [Allrecipes](https://www.allrecipes.com/) - Web inspiration / recipe information to populate data
