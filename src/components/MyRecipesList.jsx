@@ -62,7 +62,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
         if (response.ok) {
           const data = await response.json();
           console.log(data);
-          setUserRecipes(data);
+          setUserRecipes(data.recipes);
         }
       } catch (error) {
         console.error("Fetch Error:", error);
