@@ -10,7 +10,7 @@ Enter App's landing page and any other screenshots of interest
 
 ## Technologies Used
 
-JavaScript, CSS, HTML, GitHub, React, React Router, Vite, Tailwind/DaisyUI, Mongoose, Express, Crypto, SplideJS/React-Splide
+JavaScript, CSS, HTML, GitHub, React, React Router, Vite, Tailwind/[DaisyUI](https://daisyui.com/), Mongoose, Express, Crypto, SplideJS/React-Splide
 
 localStorage to store token
 
@@ -41,6 +41,9 @@ Back End: https://github.com/Haozhi415/GA_P3_backend
 > | Delete Reviews    |               |                | ✔ (own)        | ✔ (all)        |
 
 ## Authentication Flow
+
+Create user, edit user, view user profiles, delete user (CRUD)?
+Login & sign up process?
 
 ## Entity-Relationship-Diagram
 
