@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
@@ -16,6 +16,7 @@ import LoginSignUp from "./components/UserProfile/LoginSignUp";
 import ReviewAdmin from "./components/Reviews/ReviewAdmin";
 import ModRecipesControl from "./components/ModRecipesControl";
 import ModRecipeDetails from "./components/ModRecipeDetails";
+import { getToken } from './util/security';
 
 function App() {
   // const [user, setUser] = useState({
@@ -32,25 +33,39 @@ function App() {
   //   "updatedAt": "2024-01-20T03:03:16.686Z",
   //   "__v": 0
   // })
-  const [user, setUser] = useState({
-    firstName: "TestChloe",
-    lastName: "TestRenne",
-    email: "chloerennetest@postman.com",
-    password: "iamchloerennetest",
-    recipes: [],
-    bio: "Chloe takes inspiration from her diverse upbringing to create recipes and dishes influenced from cultures around the world. Despite her classical training, Chloe's philosophy in the kitchen revolves around simplicity and home-cooking. She firmly believes that the essence of a great meal lies in the quality of ingredients and the care put into their preparation. Instead of relying on complex and technical processes, Chloe prizes the art of letting ingredients shine through, enhancing their natural flavours with a delicate touch.",
-    reviews: [],
-    favourites: [],
-    _id: "65ab84878eaa3f01afdfcc2e",
-    createdAt: "2024-01-20T08:29:59.390Z",
-    updatedAt: "2024-01-20T08:29:59.390Z",
-    __v: 0,
-  });
+  // const [user, setUser] = useState({
+  //   firstName: "TestChloe",
+  //   lastName: "TestRenne",
+  //   email: "chloerennetest@postman.com",
+  //   password: "iamchloerennetest",
+  //   recipes: [],
+  //   bio: "Chloe takes inspiration from her diverse upbringing to create recipes and dishes influenced from cultures around the world. Despite her classical training, Chloe's philosophy in the kitchen revolves around simplicity and home-cooking. She firmly believes that the essence of a great meal lies in the quality of ingredients and the care put into their preparation. Instead of relying on complex and technical processes, Chloe prizes the art of letting ingredients shine through, enhancing their natural flavours with a delicate touch.",
+  //   reviews: [],
+  //   favourites: [],
+  //   _id: "65ab84878eaa3f01afdfcc2e",
+  //   createdAt: "2024-01-20T08:29:59.390Z",
+  //   updatedAt: "2024-01-20T08:29:59.390Z",
+  //   __v: 0,
+  // });
+
+  const [userId, setUserId] = useState(null);
+  const [username, setUsername] = useState(null);
+
+  useEffect(() => {
+    const token = getToken();
+    const payload = token ? JSON.parse(atob(token.split(".")[1])).payload : null;
+    console.log("payload", payload);
+    if (payload && payload.userId) {
+        setUserId(payload.userId);
+        setUsername(payload.user);
+
+    }
+  }, []);
 
   return (
     <>
       <nav>
-        <NavBar user={user} />
+        <NavBar username={username} userId={userId} />
       </nav>
       <main className="navspace">
         <Routes>

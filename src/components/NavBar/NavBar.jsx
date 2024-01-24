@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar";
 import "./NavBar.css";
 
-export default function NavBar({ user }) {
+export default function NavBar({ username, userId }) {
   const navigate = useNavigate();
   const [selectedTheme, setSelectedTheme] = useState("light");
 
@@ -90,7 +90,7 @@ export default function NavBar({ user }) {
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
           >
             <li>
-              <Link to={`/users/${user._id}`} className="justify-between">
+              <Link to={`/users/${userId}`} className="justify-between">
                 My Profile
                 <span className="badge">New</span>
               </Link>
@@ -113,7 +113,7 @@ export default function NavBar({ user }) {
             </li>
           </ul>
         </div>
-        Hello, {user.firstName}
+        <span className="flex-1 gap-2">Welcome, {username}</span>
         </div>
 
       <div className="flex-1 gap-2">
