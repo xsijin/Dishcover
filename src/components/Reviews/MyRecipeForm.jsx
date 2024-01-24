@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getToken } from '../util/security';
 
 function MyRecipeForm({ handleSaveNewRecipe }) {
+    
+    const [userId, setUserId] = useState(null);
+
     const [form, setForm] = useState({
         title: '',
         tags: [],
@@ -9,6 +13,15 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
         instructions: [],
         picture_url: ''
     });
+
+    useEffect(() => {
+        const token = getToken();
+        const payload = token ? JSON.parse(atob(token.split(".")[1])).payload : null;
+        console.log("payload", payload);
+        if (payload && payload.userId) {
+            setUserId(payload.userId);
+        }
+      }, []);
 
     const handleInputChange = (event) => {
         setForm({
@@ -20,12 +33,13 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
 
-        const response = await fetch('http://localhost:3000/recipes/create', {
+        const response = await fetch('https://ga-p3-backend.onrender.com/recipes/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                user: userId,
                 title: form.title,
                 tags: form.tags,
                 ingredients: form.ingredients,
