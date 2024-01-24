@@ -28,11 +28,20 @@ Back End: https://github.com/Haozhi415/GA_P3_backend
 [Figma Wireframe](https://www.figma.com/file/jmQyhu4rRCjEOahmJ2iO0Q/Project-3?type=design&mode=design&t=FHnU6fG21cagAsb2-0)
 [Trello Board](https://trello.com/b/dccanYjz/project3-rox)
 
-## User Types
+## User Types & Authorization
 
-## Authorization & Authentication Flow
+| Authorization    | Public         | Logged in User | Logged in & Owner  | Admin          |
+| ----------------- | --------------| -------------- | -------------- | -------------- |
+| Read Recipes      | ✔             | ✔             | ✔              | ✔              |
+| Create Recipes    |               | ✔              | ✔             | ✔              |
+| Update Recipes    |               |                | ✔ (own)        | ✔ (all)        |
+| Delete Recipes    |               |                | ✔ (own)        | ✔ (all)        |
+| Read Reviews      | ✔             | ✔             | ✔              | ✔              |
+| Create Reviews    |               | ✔              | ✔              | ✔              |
+| Update Reviews    |               |                | ✔ (own)        | ✔ (all)        |
+| Delete Reviews    |               |                | ✔ (own)        | ✔ (all)        |
 
-## CRUD Data Operations
+## Authentication Flow
 
 ## Entity-Relationship-Diagram
 
