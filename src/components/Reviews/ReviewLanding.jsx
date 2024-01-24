@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 import { Link, useParams } from "react-router-dom";
 import CreateReviewForm from "./CreateReviewForm";
+import { getToken } from '../../util/security';
 import "./ReviewPage.css";
 
 const ReviewLanding = ({ recipeId: propRecipeId }) => {
   const params = useParams();
+  const [userId, setUserId] = useState(null);
+  const [username, setUsername] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [recipeId, setRecipeId] = useState(propRecipeId || params.recipeId);
   const [recipeName, setRecipeName] = useState("");
@@ -19,6 +22,21 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
   });
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [reviewToDelete, setReviewToDelete] = useState(null);
+
+
+  useEffect(() => {
+    const token = getToken();
+    const payload = token ? JSON.parse(atob(token.split(".")[1])).payload : null;
+    console.log("payload", payload);
+    if (payload && payload.userId) {
+        setUserId(payload.userId);
+
+    // Combine user and userLastName into a single string
+    const combinedUsername = `${payload.user} ${payload.userLastName}`;
+    setUsername(combinedUsername);
+
+    }
+  }, []);
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -196,7 +214,7 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            recipeId,
+            user: userId,
             title: newReview.title,
             content: newReview.content,
             rating: newReview.rating,
@@ -424,7 +442,11 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
         </div>
         {/* add review form */}
         <div className="form-container">
-          <CreateReviewForm recipeId={recipeId} onAddReview={handleAddReview} />
+          <CreateReviewForm 
+          onAddReview={handleAddReview} 
+          userId={userId}
+          username={username}
+          />
         </div>
       </div>
     </div>
