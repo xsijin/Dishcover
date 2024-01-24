@@ -29,16 +29,16 @@ Back End: https://github.com/Haozhi415/GA_P3_backend
 ## User Types & Authorization
 
 > [!IMPORTANT]
->| Authorization    | Public         | Logged in User | Logged in & Owner  | Admin          |
->| ----------------- | --------------| -------------- | -------------- | -------------- |
->| Read Recipes      | ✔             | ✔             | ✔              | ✔              |
->| Create Recipes    |               | ✔              | ✔             | ✔              |
->| Update Recipes    |               |                | ✔ (own)        | ✔ (all)        |
->| Delete Recipes    |               |                | ✔ (own)        | ✔ (all)        |
->| Read Reviews      | ✔             | ✔             | ✔              | ✔              |
->| Create Reviews    |               | ✔              | ✔              | ✔              |
->| Update Reviews    |               |                | ✔ (own)        | ✔ (all)        |
->| Delete Reviews    |               |                | ✔ (own)        | ✔ (all)        |
+> | Authorization    | Public         | Logged in User | Logged in & Owner  | Admin          |
+> | ----------------- | --------------| -------------- | -------------- | -------------- |
+> | Read Recipes      | ✔             | ✔             | ✔              | ✔              |
+> | Create Recipes    |               | ✔              | ✔             | ✔              |
+> | Update Recipes    |               |                | ✔ (own)        | ✔ (all)        |
+> | Delete Recipes    |               |                | ✔ (own)        | ✔ (all)        |
+> | Read Reviews      | ✔             | ✔             | ✔              | ✔              |
+> | Create Reviews    |               | ✔              | ✔              | ✔              |
+> | Update Reviews    |               |                | ✔ (own)        | ✔ (all)        |
+> | Delete Reviews    |               |                | ✔ (own)        | ✔ (all)        |
 
 ## Authentication Flow
 
