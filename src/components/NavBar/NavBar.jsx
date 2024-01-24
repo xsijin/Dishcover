@@ -71,8 +71,10 @@ export default function NavBar({ username, userId }) {
           Dishcover
         </Link>
       
-
+        {/* Avatar */}
       <div className="dropdown dropdown-end">
+        {/* Conditional rendering for avatar */}
+        {username && (
           <div
             tabIndex={0}
             role="button"
@@ -85,6 +87,7 @@ export default function NavBar({ username, userId }) {
               />
             </div>
           </div>
+        )}
           <ul
             tabIndex={0}
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
@@ -113,7 +116,9 @@ export default function NavBar({ username, userId }) {
             </li>
           </ul>
         </div>
-        <span className="flex-1 gap-2">Welcome, {username}</span>
+        <span className="flex-1 gap-2">
+        {username ? `Welcome, ${username}` : <>Welcome, <Link to="/login-signup">join us</Link>!</>}
+          </span>
         </div>
 
       <div className="flex-1 gap-2">
