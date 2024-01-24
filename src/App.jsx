@@ -69,7 +69,7 @@ function App() {
           <Route path="/modrecipedetails/:id" element={<ModRecipeDetails />} />
           {/* Review Routing */}
           <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
-          <Route path="/ReviewUser" element={<ReviewUser user={user} />} />
+          <Route path="/ReviewUser" element={<ReviewUser />} />
           <Route path="/ReviewAdmin" element={<ReviewAdmin />} />
         </Routes>
       </main>
