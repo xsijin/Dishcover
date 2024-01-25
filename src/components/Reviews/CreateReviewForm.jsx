@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import StarRating from "./StarRating";
 import "./ReviewPage.css";
 
-const CreateReviewForm = ({ recipeId, onAddReview }) => {
+const CreateReviewForm = ({ onAddReview, userId, username }) => {
   const [newReview, setNewReview] = useState({
+    user: userId,
     title: "",
     content: "",
     rating: 5,
@@ -94,6 +94,7 @@ const CreateReviewForm = ({ recipeId, onAddReview }) => {
           Submit Review
         </button>
       </form>
+      <br /><span className="text-secondary text-sm">Submitting as {username}</span>
     </div>
   );
 };

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
+import { getToken } from '../../util/security';
 import "./ReviewPage.css";
 
-const ReviewUser = ({ user }) => {
+const ReviewUser = () => {
   const [reviews, setReviews] = useState([]);
-  const [userId, setUserId] = useState(user._id);
-  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState(null);
+  const [username, setUsername] = useState(null);
   const [editedReview, setEditedReview] = useState({
     // Initialize with empty values or default values
     _id: "",
@@ -19,16 +20,29 @@ const ReviewUser = ({ user }) => {
   const [reviewToDelete, setReviewToDelete] = useState(null);
 
   useEffect(() => {
+    const token = getToken();
+    const payload = token ? JSON.parse(atob(token.split(".")[1])).payload : null;
+    console.log("payload", payload);
+    if (payload && payload.userId) {
+        setUserId(payload.userId);
+
+    // Combine user and userLastName into a single string
+    const combinedUsername = `${payload.user} ${payload.userLastName}`;
+    setUsername(combinedUsername);
+
+    }
+  }, []);
+  
+  useEffect(() => {
     const fetchUserDetails = async () => {
       try {
         const response = await fetch(
-          `https://ga-p3-backend.onrender.com/users/show/${userId}`
+          `https://ga-p3-backend.onrender.com/users/showOne/${userId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch user details");
         }
         const data = await response.json();
-        setUserName(data.user._id);
       } catch (error) {
         console.error(error);
       }
@@ -178,7 +192,7 @@ const ReviewUser = ({ user }) => {
   return (
     <div>
       <h2 className="recipename">
-        <Link to={`/users/${user._id}`}>Reviews by {user.firstName}, {userName}</Link>
+        <Link to={`/users/${userId}`}>Reviews by {username}</Link>
       </h2>
       <div>
         Reviews submitted:{" "}

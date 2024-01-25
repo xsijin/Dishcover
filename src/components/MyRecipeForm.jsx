@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getToken } from '../util/security';
 
 function MyRecipeForm({ handleSaveNewRecipe }) {
+    
+    const [userId, setUserId] = useState(null);
+
     const [form, setForm] = useState({
         title: '',
         tags: [],
@@ -9,6 +13,15 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
         instructions: [],
         picture_url: ''
     });
+
+    useEffect(() => {
+        const token = getToken();
+        const payload = token ? JSON.parse(atob(token.split(".")[1])).payload : null;
+        console.log("payload", payload);
+        if (payload && payload.userId) {
+            setUserId(payload.userId);
+        }
+      }, []);
 
     const handleInputChange = (event) => {
         setForm({
@@ -26,6 +39,7 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                user: userId,
                 title: form.title,
                 tags: form.tags,
                 ingredients: form.ingredients,
@@ -49,7 +63,7 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
         <form onSubmit={handleSubmit} className="bg-secondary-content shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
             <div className="mb-4">
-                <label className="block text text-sm font-bold mb-2" htmlFor="title">
+                <label className="block text-sm font-bold mb-2" htmlFor="title">
                     Title:
                 </label>
                 <input placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs"
