@@ -6,11 +6,14 @@ import { useNavigate } from 'react-router-dom';
 function MyRecipeDetails() {
     const params = useParams();
     const [recipeDetails, setRecipeDetails] = useState(null);
+    const [authorId, setAuthorId] = useState(null);
+    const [authorFirstName, setAuthorFirstName] = useState(null);
+    const [authorLastName, setAuthorLastName] = useState(null);
     const navigate = useNavigate();
 
     const getRecipeDetails = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/recipes/show/${params.id}`, {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/showone/${params.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -19,8 +22,9 @@ function MyRecipeDetails() {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+                console.log(data.recipe.user);
                 setRecipeDetails(data.recipe);
+                setAuthorId(data.recipe.user);
             }
         } catch (error) {
             console.log(error);
@@ -31,6 +35,31 @@ function MyRecipeDetails() {
         getRecipeDetails();
     }, [params.id]);
 
+    const getAuthor = async () => {
+        try {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/users/showOne/${authorId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data.user.firstName);
+                console.log(data.user.lastName);
+                setAuthorFirstName(data.user.firstName);
+                setAuthorLastName(data.user.lastName);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getAuthor();
+    }, [authorId]);
+
 
     const handleEditButtonClick = () => {
         navigate(`/myrecipeediting/${params.id}`);
@@ -38,7 +67,7 @@ function MyRecipeDetails() {
 
     const handleDeleteRecipe = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/recipes/delete/${params.id}`, {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/delete/${params.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,30 +84,30 @@ function MyRecipeDetails() {
     };
 
     return (
-        <div className="flex space-x-20 bg-gray-700 shadow-md rounded px-8 pt-6 pb-8">
+        <div className="flex space-x-20 bg-secondary-content shadow-md rounded px-8 pt-6 pb-8">
             <div className='w-1/2'>
                 {recipeDetails && (
                     <div>
-                        <h1 className="text-gray-300 font-bold text-3xl mb-5">{recipeDetails.title}</h1>
+                        <h1 className="font-bold text-3xl mb-5">{recipeDetails.title}</h1>
                         <div className='mb-8'>
-                            <p className="mb-2 font-bold text-gray-300">Author: </p>
-                            <span className="text-gray-300 block break-words">{ }</span>
+                            <p className="mb-2 font-bold">Author: </p>
+                            <span className="block break-words">{`${authorFirstName} ${authorLastName}`}</span>
                         </div>
                         <div className='mb-8'>
-                            <p className="font-bold text-gray-300">Tags: </p>
-                            <span className="text-gray-300 block break-words">{recipeDetails.tags.join(', ')}</span>
+                            <p className="font-bold">Tags: </p>
+                            <span className="block break-words">{recipeDetails.tags.join(', ')}</span>
                         </div>
                         <div className='mb-8'>
-                            <p className="font-bold text-gray-300">Ingredients: </p>
-                            <span className="text-gray-300 block break-words">{recipeDetails.ingredients.join(', ')}</span>
+                            <p className="font-bold">Ingredients: </p>
+                            <span className="block break-words">{recipeDetails.ingredients.join(', ')}</span>
                         </div>
                         <div className='mb-8'>
-                            <p className="mb-2 font-bold text-gray-300">Prep Time: </p>
-                            <span className="text-gray-300 block break-words">{recipeDetails.preptime}</span>
+                            <p className="mb-2 font-bold">Prep Time: </p>
+                            <span className="block break-words">{recipeDetails.preptime}</span>
                         </div>
                         <div className='mb-8'>
-                            <p className="mb-2 font-bold text-gray-300">Instructions: </p>
-                            <ol className="list-decimal list-inside text-gray-300 block break-words">
+                            <p className="mb-2 font-bold">Instructions: </p>
+                            <ol className="list-decimal list-inside block break-words">
                                 {recipeDetails.instructions.map((instruction, index) => (
                                     <li key={index}>{instruction}</li>
                                 ))}
