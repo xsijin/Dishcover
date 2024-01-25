@@ -47,9 +47,9 @@ Data flow diagram:
 > | Update Reviews    |               | ✔ (own)        | ✔ (all)        | ✔              |
 > | Delete Reviews    |               | ✔ (own)        | ✔ (all)        | ✔              |
 > | Read User Profile | ✔             | ✔             | ✔              |                |
-> | Create User (Sign up) | ✔ |                |                |                 |
+> | Create User (Sign up) | ✔         |                |                |                 |
 > | Update User Profile  |             | ✔ (own)       | ✔ (all)        | ✔             |
-> | Delete User  |             | ✔ (own)       | ✔ (all)        | ✔             |
+> | Delete User  |                     | ✔ (own)       | ✔ (all)        | ✔             |
 
 
 Reason for protection: to prevent unauthorized users from meddling with API calls using tools like Postman or other API clients.
