@@ -19,33 +19,44 @@ localStorage to store token
 Web link: https://dishcoveries.onrender.com/
 
 Repos:
-Front End: https://github.com/xsijin/Dishcover
-Back End: https://github.com/Haozhi415/GA_P3_backend 
+* Frontend: https://github.com/xsijin/Dishcover
+* Backend: https://github.com/Haozhi415/GA_P3_backend 
 
-[Miro Board](https://miro.com/app/board/uXjVN9wiZ8c=/)
-[Figma Wireframe](https://www.figma.com/file/jmQyhu4rRCjEOahmJ2iO0Q/Project-3?type=design&mode=design&t=FHnU6fG21cagAsb2-0)
-[Trello Board](https://trello.com/b/dccanYjz/project3-rox)
-
-## User Types & Authorization
-
-> [!IMPORTANT]
-> | Authorization    | Public         | Logged in User | Logged in & Owner  | Admin          |
-> | ----------------- | --------------| -------------- | -------------- | -------------- |
-> | Read Recipes      | ✔             | ✔             | ✔              | ✔              |
-> | Create Recipes    |               | ✔              | ✔             | ✔              |
-> | Update Recipes    |               |                | ✔ (own)        | ✔ (all)        |
-> | Delete Recipes    |               |                | ✔ (own)        | ✔ (all)        |
-> | Read Reviews      | ✔             | ✔             | ✔              | ✔              |
-> | Create Reviews    |               | ✔              | ✔              | ✔              |
-> | Update Reviews    |               |                | ✔ (own)        | ✔ (all)        |
-> | Delete Reviews    |               |                | ✔ (own)        | ✔ (all)        |
+Planning:
+* [Miro Board](https://miro.com/app/board/uXjVN9wiZ8c=/)
+* [Figma Wireframe](https://www.figma.com/file/jmQyhu4rRCjEOahmJ2iO0Q/Project-3?type=design&mode=design&t=FHnU6fG21cagAsb2-0)
+* [Trello Board](https://trello.com/b/dccanYjz/project3-rox)
 
 ## Authentication Flow
 
-Create user, edit user, view user profiles, delete user (CRUD)?
-Login & sign up process?
+Data flow diagram:
+
+<img src="/assets/images/data_flow_diagram.png">
+
+## User Types, Authorization & Backend Protection
+
+> [!IMPORTANT]
+> | Authorization     | Public         | Logged in User | Admin          | Backend Protection |
+> | ----------------- | --------------| -------------- | -------------- | -------------- |
+> | Read Recipes      | ✔             | ✔             | ✔              |                |
+> | Create Recipes    |               | ✔              | ✔              | ✔              |
+> | Update Recipes    |               | ✔ (own)        | ✔ (all)        | ✔             |
+> | Delete Recipes    |               | ✔ (own)        | ✔ (all)        | ✔             |
+> | Read Reviews      | ✔             | ✔             | ✔              |                |
+> | Create Reviews    |               | ✔              | ✔              | ✔              |
+> | Update Reviews    |               | ✔ (own)        | ✔ (all)        | ✔              |
+> | Delete Reviews    |               | ✔ (own)        | ✔ (all)        | ✔              |
+> | Read User Profile | ✔             | ✔             | ✔              |                |
+> | Create User (Sign up) | ✔         |                |                |                 |
+> | Update User Profile  |             | ✔ (own)       | ✔ (all)        | ✔             |
+> | Delete User  |                     | ✔ (own)       | ✔ (all)        | ✔             |
+
+
+Reason for protection: to prevent unauthorized users from meddling with API calls using tools like Postman or other API clients.
 
 ## Entity-Relationship-Diagram
+
+<img src="/assets/images/ERD.png">
 
 ## Next Steps
 
@@ -93,13 +104,13 @@ const StarRating = ({ star }) => {
 
 ## Authors
 
-- @chunxtan 
-- @Haozhi415 
-- @xsijin
+- [@chunxtan](https://github.com/chunxtan)
+- [@Haozhi415](https://github.com/Haozhi415)
+- [@xsijin](https://github.com/xsijin)
 
 ## Resources
 
-- [Render](https://render.com/) - Deployment of Front End & Back End
+- [Render](https://render.com/) - Deployment of Frontend & Backend
 - [Miro](https://miro.com) - Task and project management platform
 - [Figma](https://figma.com) - Wireframe
 - [Trello](https://trello.com) - Ideas & User Story creation
