@@ -13,7 +13,7 @@ export default function UserProfileIndiv() {
         const fetchUser = async () => {
           try {
             const response = await fetch(   
-              `https://ga-p3-backend.onrender.com/users/show/${userId}`
+              `https://ga-p3-backend.onrender.com/users/showOne/${userId}`
             );
             if (!response.ok) {
               throw new Error("Failed to fetch user details");
