@@ -14,7 +14,7 @@ function PublicRecipeDetails() {
 
     const getRecipeDetails = async () => {
         try {
-            const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/show/${params.id}`, {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/showone/${params.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
