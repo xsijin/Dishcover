@@ -1,0 +1,11 @@
+.stayfixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Adjust the z-index as needed */
+}
+
+.unbold input,
+.unbold input::placeholder {
+  font-weight: normal;
+}

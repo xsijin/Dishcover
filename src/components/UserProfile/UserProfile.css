@@ -1,0 +1,12 @@
+.btnSocial {
+    width: 9%;
+    border-radius: 15px;
+    background-color: rgba(61, 120, 101, 0.1);
+}
+
+.userEmail {
+    padding-left: 0.5rem;
+    padding-top: 0.5rem;
+    color: rgba(99, 115, 129, 1);
+    text-align: left;
+}

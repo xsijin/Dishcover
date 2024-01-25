@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { BrowserRouter as Router } from "react-router-dom";
+import { render } from "react-dom";
+
+document.documentElement.setAttribute("data-theme", "light");
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Router>
-      <App />
+    <App />
     </Router>
   </React.StrictMode>
 )
