@@ -76,7 +76,6 @@ function App() {
                 {/* User Routing */}
                 <Route path="/users" element={<UserProfileList />} />
                 <Route path="/users/:userId" element={<UserProfileIndiv />} />
-                <Route path="/login-signup" element={<LoginSignUp />} />
                 {/* Recipe Routing */}
                 <Route path="/MyRecipes" element={<MyRecipes />} />
                 <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
