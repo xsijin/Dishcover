@@ -161,7 +161,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
                 </div>
                 <div className="flex justify-center">
                   <button
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-4"
+                    className="bg-error hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-4"
                     onClick={() => handleDeleteRecipe(recipe._id)}
                   >
                     DELETE
