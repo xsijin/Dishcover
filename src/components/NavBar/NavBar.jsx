@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar";
 import "./NavBar.css";
 
-export default function NavBar({ user }) {
+export default function NavBar({ username, userId }) {
   const navigate = useNavigate();
   const [selectedTheme, setSelectedTheme] = useState("light");
 
@@ -70,7 +70,56 @@ export default function NavBar({ user }) {
         <Link to="/" className="btn btn-ghost text-xl">
           Dishcover
         </Link>
-      </div>
+      
+        {/* Avatar */}
+      <div className="dropdown dropdown-end">
+        {/* Conditional rendering for avatar */}
+        {username && (
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle avatar"
+          >
+            <div className="w-10 rounded-full">
+              <img
+                alt="Tailwind CSS Navbar component"
+                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+              />
+            </div>
+          </div>
+        )}
+          <ul
+            tabIndex={0}
+            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <Link to={`/users/${userId}`} className="justify-between">
+                My Profile
+                <span className="badge">New</span>
+              </Link>
+            </li>
+            <li>
+              <a>Settings</a>
+            </li>
+            <li>
+              <Link to={"/MyRecipes"} className="justify-between">
+                My Recipes
+              </Link>
+            </li>
+            <li>
+              <Link to={"/ReviewUser"} className="justify-between">
+                My Reviews
+              </Link>
+            </li>
+            <li>
+              <a>Logout</a>
+            </li>
+          </ul>
+        </div>
+        <span className="flex-1 gap-2">
+        {username ? `Welcome, ${username}` : <>Welcome, <Link to="/login-signup">join us</Link>!</>}
+          </span>
+        </div>
 
       <div className="flex-1 gap-2">
         <div className="form-control">
@@ -134,48 +183,6 @@ export default function NavBar({ user }) {
             </li>
           </ul>
         </div>
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <ul
-            tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <Link to={`/users/${user._id}`} className="justify-between">
-                My Profile
-                <span className="badge">New</span>
-              </Link>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <Link to={"/MyRecipes"} className="justify-between">
-                My Recipes
-              </Link>
-            </li>
-            <li>
-              <Link to={"/ReviewUser"} className="justify-between">
-                My Reviews
-              </Link>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
-        Hello, {user.firstName}
       </div>
     </div>
   );
