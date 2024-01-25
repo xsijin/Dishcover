@@ -48,16 +48,14 @@ function App() {
   //   __v: 0,
   // });
 
-  const [userId, setUserId] = useState(null);
-  const [username, setUsername] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const token = getToken();
     const payload = token ? JSON.parse(atob(token.split(".")[1])).payload : null;
     console.log("payload", payload);
     if (payload && payload.userId) {
-        setUserId(payload.userId);
-        setUsername(payload.user);
+        setUser(payload);
 
     }
   }, []);
@@ -65,28 +63,72 @@ function App() {
   return (
     <>
       <nav>
-        <NavBar username={username} userId={userId} />
+        <NavBar username={user.user} userId={user.userId} />
       </nav>
       <main className="navspace">
-        <Routes>
-          <Route path="/" element={<PublicLandingPage />} />
-          <Route path="/searchresult/:searchTerm" element={<SearchResult />} />
-          {/* User Routing */}
-          <Route path="/users" element={<UserProfileList />} />
-          <Route path="/users/:userId" element={<UserProfileIndiv />} />
-          <Route path="/login-signup" element={<LoginSignUp />} />
-          {/* Recipe Routing */}
-          <Route path="/MyRecipes" element={<MyRecipes />} />
-          <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
-          <Route path="/MyRecipeEditing/:id" element={<MyRecipeEditing />} />
-          <Route path="/PublicRecipeDetails/:id" element={<PublicRecipeDetails />} />
-          <Route path="/modrecipescontrol" element={<ModRecipesControl />} />
-          <Route path="/modrecipedetails/:id" element={<ModRecipeDetails />} />
-          {/* Review Routing */}
-          <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
-          <Route path="/ReviewUser" element={<ReviewUser />} />
-          <Route path="/ReviewAdmin" element={<ReviewAdmin />} />
-        </Routes>
+        {
+          // ADMIN: All routes available
+          user.is_admin ? (
+            <>
+              <Routes>
+                <Route path="/" element={<PublicLandingPage />} />
+                <Route path="/searchresult/:searchTerm" element={<SearchResult />} />
+                {/* User Routing */}
+                <Route path="/users" element={<UserProfileList />} />
+                <Route path="/users/:userId" element={<UserProfileIndiv />} />
+                {/* Recipe Routing */}
+                <Route path="/MyRecipes" element={<MyRecipes />} />
+                <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
+                <Route path="/MyRecipeEditing/:id" element={<MyRecipeEditing />} />
+                <Route path="/PublicRecipeDetails/:id" element={<PublicRecipeDetails />} />
+                <Route path="/modrecipescontrol" element={<ModRecipesControl />} />
+                <Route path="/modrecipedetails/:id" element={<ModRecipeDetails />} />
+                {/* Review Routing */}
+                <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
+                <Route path="/ReviewUser" element={<ReviewUser />} />
+                <Route path="/ReviewAdmin" element={<ReviewAdmin />} />
+              </Routes>
+            </>
+          )
+          // LOGGED-IN USER: All public routes + editing routes available 
+          : user ? (
+            <>
+              <Routes>
+                <Route path="/" element={<PublicLandingPage />} />
+                <Route path="/searchresult/:searchTerm" element={<SearchResult />} />
+                {/* User Routing */}
+                <Route path="/users" element={<UserProfileList />} />
+                <Route path="/users/:userId" element={<UserProfileIndiv />} />
+                {/* Recipe Routing */}
+                <Route path="/MyRecipes" element={<MyRecipes />} />
+                <Route path="/MyRecipeDetails/:id" element={<MyRecipeDetails />} />
+                <Route path="/MyRecipeEditing/:id" element={<MyRecipeEditing />} />
+                <Route path="/PublicRecipeDetails/:id" element={<PublicRecipeDetails />} />
+                {/* Review Routing */}
+                <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
+                <Route path="/ReviewUser" element={<ReviewUser />} />
+              </Routes>
+            </>
+          ) 
+          // NON-LOGGED-IN USERS: Only public routes available
+          : (
+            <>
+              <Routes>
+                <Route path="/" element={<PublicLandingPage />} />
+                <Route path="/searchresult/:searchTerm" element={<SearchResult />} />
+                {/* User Routing */}
+                <Route path="/users" element={<UserProfileList />} />
+                <Route path="/users/:userId" element={<UserProfileIndiv />} />
+                <Route path="/login-signup" element={<LoginSignUp />} />
+                {/* Recipe Routing */}
+                <Route path="/PublicRecipeDetails/:id" element={<PublicRecipeDetails />} />
+                {/* Review Routing */}
+                <Route path="/reviews/:recipeId" element={<ReviewLanding />} />
+              </Routes>
+            </>
+          )
+          
+        } 
       </main>
     </>
   );

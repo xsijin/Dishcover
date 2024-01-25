@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 function MyRecipeDetails() {
     const params = useParams();
     const [recipeDetails, setRecipeDetails] = useState(null);
+    const [authorId, setAuthorId] = useState(null);
+    const [authorFirstName, setAuthorFirstName] = useState(null);
+    const [authorLastName, setAuthorLastName] = useState(null);
     const navigate = useNavigate();
 
     const getRecipeDetails = async () => {
@@ -19,8 +22,9 @@ function MyRecipeDetails() {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
+                console.log(data.recipe.user);
                 setRecipeDetails(data.recipe);
+                setAuthorId(data.recipe.user);
             }
         } catch (error) {
             console.log(error);
@@ -30,6 +34,31 @@ function MyRecipeDetails() {
     useEffect(() => {
         getRecipeDetails();
     }, [params.id]);
+
+    const getAuthor = async () => {
+        try {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/users/showOne/${authorId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data.user.firstName);
+                console.log(data.user.lastName);
+                setAuthorFirstName(data.user.firstName);
+                setAuthorLastName(data.user.lastName);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getAuthor();
+    }, [authorId]);
 
 
     const handleEditButtonClick = () => {
@@ -62,7 +91,7 @@ function MyRecipeDetails() {
                         <h1 className="font-bold text-3xl mb-5">{recipeDetails.title}</h1>
                         <div className='mb-8'>
                             <p className="mb-2 font-bold">Author: </p>
-                            <span className="block break-words">{ }</span>
+                            <span className="block break-words">{`${authorFirstName} ${authorLastName}`}</span>
                         </div>
                         <div className='mb-8'>
                             <p className="font-bold">Tags: </p>
