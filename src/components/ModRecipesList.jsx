@@ -4,12 +4,8 @@ import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import StarRating from "./Reviews/StarRating";
-import { getToken } from "../util/security";
 
-function MyRecipesList({ userRecipes, setUserRecipes }) {
-
-  const [userId, setUserId] = useState(null);
-
+function ModRecipesList({ allRecipes, setAllRecipes }) {
   const [reviews, setReviews] = useState([]);
 
   // Fetch reviews for a specific recipe
@@ -44,49 +40,36 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
   };
 
   useEffect(() => {
-    const token = getToken();
-    const payload = token ? JSON.parse(atob(token.split(".")[1])).payload : null;
-    console.log("payload", payload);
-    if (payload && payload.userId) {
-        setUserId(payload.userId);
-    }
-  }, []);
-
-
-  useEffect(() => {
-    const getMyRecipes = async () => {
-      if (!userId) return; // Add this line to prevent fetching when userId is null
-  
+    // Fetch all recipes
+    const getAllRecipes = async () => {
       try {
-        const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/user/${userId}`);
+        const response = await fetch("https://ga-p3-backend.onrender.com/recipes/show");
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
-          setUserRecipes(data.recipes);
+          setAllRecipes(data.recipes);
         }
       } catch (error) {
         console.error("Fetch Error:", error);
       }
     };
-  
-    getMyRecipes();
-  }, [userId]);
+
+    getAllRecipes();
+  }, []);
 
   useEffect(() => {
-  // Fetch reviews for each recipe when userRecipes changes
+  // Fetch reviews for each recipe when allRecipes changes
   const fetchReviewsForRecipes = async () => {
-    if (!userRecipes) return;
-  
-    const reviewsPromises = userRecipes.map(async (recipe) => {
+    const reviewsPromises = allRecipes.map(async (recipe) => {
       const reviewsData = await fetchRecipeReviews(recipe._id);
       return { recipeId: recipe._id, reviewsData };
     });
-  
+
     const reviewsResults = await Promise.all(reviewsPromises);
     setReviews(reviewsResults);
   };
+
   fetchReviewsForRecipes();
-}, [userRecipes]);
+}, [allRecipes]);
 
   const handleDeleteRecipe = async (recipeId) => {
     console.log(recipeId);
@@ -102,10 +85,10 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
       );
 
       if (response.ok) {
-        const updatedRecipes = userRecipes.filter(
+        const updatedRecipes = allRecipes.filter(
           (recipe) => recipe._id !== recipeId
         );
-        setUserRecipes(updatedRecipes);
+        setAllRecipes(updatedRecipes);
         console.log("Recipe deleted");
       }
     } catch (error) {
@@ -116,7 +99,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
   return (
     <div>
       <Wrapper>
-        <h1 className="font-bold text-xl mb-4 ml-4">My Recipes</h1>
+        <h1 className="font-bold text-xl mb-4 ml-4">All Recipes</h1>
 
         <Splide
           options={{
@@ -126,7 +109,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
             gap: "3rem",
           }}
         >
-          {userRecipes && userRecipes.map((recipe) => {
+          {allRecipes.map((recipe) => {
             const review = reviews.find((r) => r.recipeId === recipe._id);
 
             if (!review || !review.reviewsData) {
@@ -140,7 +123,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
               <SplideSlide key={recipe._id} className="ml-4">
                 <Card>
                   <Link
-                    to={`/myrecipedetails/${recipe._id}`}
+                    to={`/modrecipedetails/${recipe._id}`}
                     className="text-inherit no-underline block"
                   >
                     <h2>{recipe.title}</h2>
@@ -150,7 +133,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
                 </Card>
                 {/* Display the average rating */}
                 <div className="flex justify-center">
-                <Link to={`/reviews/${recipe._id}`}><StarRating star={averageRating} />&nbsp; 
+                <Link to={`/PublicRecipeDetails/${recipe._id}?tab=review`}><StarRating star={averageRating} />&nbsp; 
                 
                 <span className="badge badge-lg">
                  {(!Array.isArray(review.reviewsData) || review.reviewsData.length === 0) ? 0 : review.reviewsData.length} </span>
@@ -222,4 +205,4 @@ const Gradient = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
 `;
 
-export default MyRecipesList;
+export default ModRecipesList;

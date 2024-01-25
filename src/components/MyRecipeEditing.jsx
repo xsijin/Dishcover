@@ -26,7 +26,7 @@ function MyRecipeEditing() {
 
         try {
 
-            const response = await fetch(`http://localhost:3000/recipes/show/${params.id}`, {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/showone/${params.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ function MyRecipeEditing() {
 
         try {
 
-            const response = await fetch(`http://localhost:3000/recipes/update/${params.id}`, {
+            const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/update/${params.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,10 +89,10 @@ function MyRecipeEditing() {
 
 
     return (
-        <div className="bg-gray-700 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <h1 className="text-gray-300 font-bold text-3xl mb-5">Edit Recipe</h1>
+        <div className="bg-secondary-content shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h1 className="font-bold text-3xl mb-5">Edit Recipe</h1>
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="title">
+                <label className="block text-sm font-bold mb-2" htmlFor="title">
                     Title:
                 </label>
                 <input placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs"
@@ -104,7 +104,7 @@ function MyRecipeEditing() {
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="tags">
+                <label className="block text-sm font-bold mb-2" htmlFor="tags">
                     Tags (comma separated):
                 </label>
                 <textarea placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs h-[5rem]"
@@ -119,7 +119,7 @@ function MyRecipeEditing() {
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="ingredients">
+                <label className="block text-sm font-bold mb-2" htmlFor="ingredients">
                     Ingredients (comma separated):
                 </label>
                 <textarea placeholder="Type here" className="input input-bordered input-primary w-1/2 h-[15rem]"
@@ -134,7 +134,7 @@ function MyRecipeEditing() {
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="preptime">
+                <label className="block text-sm font-bold mb-2" htmlFor="preptime">
                     Prep Time:
                 </label>
                 <input placeholder="Type here" className="input input-bordered input-primary w-full max-w-xs"
@@ -146,7 +146,7 @@ function MyRecipeEditing() {
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="instructions">
+                <label className="block text-sm font-bold mb-2" htmlFor="instructions">
                     Instructions (each step on a new line):
                 </label>
                 <textarea placeholder="Type here" className="input input-bordered input-primary w-1/2 h-[15rem]"
@@ -161,7 +161,7 @@ function MyRecipeEditing() {
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="picture_url">
+                <label className="block text-sm font-bold mb-2" htmlFor="picture_url">
                     Picture URL:
                 </label>
                 <input placeholder="Type here" className="input input-bordered input-primary w-1/2"

@@ -4,12 +4,9 @@ import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import StarRating from "./Reviews/StarRating";
-import { getToken } from "../util/security";
 
-function MyRecipesList({ userRecipes, setUserRecipes }) {
-
-  const [userId, setUserId] = useState(null);
-
+function PublicAsianRecipes() {
+  const [asianRecipes, setAsianRecipes] = useState([]);
   const [reviews, setReviews] = useState([]);
 
   // Fetch reviews for a specific recipe
@@ -44,79 +41,49 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
   };
 
   useEffect(() => {
-    const token = getToken();
-    const payload = token ? JSON.parse(atob(token.split(".")[1])).payload : null;
-    console.log("payload", payload);
-    if (payload && payload.userId) {
-        setUserId(payload.userId);
-    }
-  }, []);
-
-
-  useEffect(() => {
-    const getMyRecipes = async () => {
-      if (!userId) return; // Add this line to prevent fetching when userId is null
-  
+    // Fetch Asian recipes
+    const getAsianRecipes = async () => {
       try {
-        const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/user/${userId}`);
+        const response = await fetch(
+          "https://ga-p3-backend.onrender.com/recipes/show?search=asian"
+        );
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
-          setUserRecipes(data.recipes);
+          setAsianRecipes(data.recipes);
+          console.log(data.recipes);
         }
       } catch (error) {
         console.error("Fetch Error:", error);
       }
     };
-  
-    getMyRecipes();
-  }, [userId]);
+
+    getAsianRecipes();
+  }, []);
 
   useEffect(() => {
-  // Fetch reviews for each recipe when userRecipes changes
-  const fetchReviewsForRecipes = async () => {
-    if (!userRecipes) return;
-  
-    const reviewsPromises = userRecipes.map(async (recipe) => {
-      const reviewsData = await fetchRecipeReviews(recipe._id);
-      return { recipeId: recipe._id, reviewsData };
-    });
-  
-    const reviewsResults = await Promise.all(reviewsPromises);
-    setReviews(reviewsResults);
-  };
-  fetchReviewsForRecipes();
-}, [userRecipes]);
+    // Fetch reviews for each recipe when asianRecipes changes
+    const fetchReviewsForRecipes = async () => {
+      const reviewsPromises = asianRecipes.map(async (recipe) => {
+        const reviewsData = await fetchRecipeReviews(recipe._id);
+        return { recipeId: recipe._id, reviewsData };
+      });
 
-  const handleDeleteRecipe = async (recipeId) => {
-    console.log(recipeId);
-    try {
-      const response = await fetch(
-        `https://ga-p3-backend.onrender.com/recipes/delete/${recipeId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const reviewsResults = await Promise.all(reviewsPromises);
+      setReviews(reviewsResults);
+    };
 
-      if (response.ok) {
-        const updatedRecipes = userRecipes.filter(
-          (recipe) => recipe._id !== recipeId
-        );
-        setUserRecipes(updatedRecipes);
-        console.log("Recipe deleted");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    fetchReviewsForRecipes();
+  }, [asianRecipes]);
 
   return (
-    <div>
+    <div className="bg-secondary-content bg-opacity-70">
       <Wrapper>
-        <h1 className="font-bold text-xl mb-4 ml-4">My Recipes</h1>
+        <h1 className="font-bold text-xl mb-4 ml-4">Asian</h1>
+
+        <h2 className="text-xl mb-4 ml-4">
+          "Embark on a culinary journey through the heart of Asia: where flavors
+          dance, spices sing, and every recipe tells a delicious story!"
+        </h2>
 
         <Splide
           options={{
@@ -126,7 +93,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
             gap: "3rem",
           }}
         >
-          {userRecipes && userRecipes.map((recipe) => {
+          {asianRecipes.map((recipe) => {
             const review = reviews.find((r) => r.recipeId === recipe._id);
 
             if (!review || !review.reviewsData) {
@@ -140,7 +107,7 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
               <SplideSlide key={recipe._id} className="ml-4">
                 <Card>
                   <Link
-                    to={`/myrecipedetails/${recipe._id}`}
+                    to={`/publicrecipedetails/${recipe._id}`}
                     className="text-inherit no-underline block"
                   >
                     <h2>{recipe.title}</h2>
@@ -148,24 +115,19 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
                     <Gradient />
                   </Link>
                 </Card>
+
                 {/* Display the average rating */}
                 <div className="flex justify-center">
-                <Link to={`/reviews/${recipe._id}`}><StarRating star={averageRating} />&nbsp; 
-                
-                <span className="badge badge-lg">
-                 {(!Array.isArray(review.reviewsData) || review.reviewsData.length === 0) ? 0 : review.reviewsData.length} </span>
-                 
-                 </Link>
-                 
-
-                </div>
-                <div className="flex justify-center">
-                  <button
-                    className="bg-error hover:bg-red-700 text-white font-bold py-1 px-2 rounded mt-4"
-                    onClick={() => handleDeleteRecipe(recipe._id)}
-                  >
-                    DELETE
-                  </button>
+                  <Link to={`/PublicRecipeDetails/${recipe._id}?tab=review`}>
+                    <StarRating star={averageRating} />
+                    &nbsp;
+                    <span className="badge badge-lg">
+                      {!Array.isArray(review.reviewsData) ||
+                      review.reviewsData.length === 0
+                        ? 0
+                        : review.reviewsData.length}{" "}
+                    </span>
+                  </Link>
                 </div>
               </SplideSlide>
             );
@@ -222,4 +184,4 @@ const Gradient = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
 `;
 
-export default MyRecipesList;
+export default PublicAsianRecipes;
