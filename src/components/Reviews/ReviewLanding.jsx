@@ -42,7 +42,7 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
     const fetchRecipeDetails = async () => {
       try {
         const response = await fetch(
-          `https://ga-p3-backend.onrender.com/recipes/show/${recipeId}`
+          `https://ga-p3-backend.onrender.com/recipes/showone/${recipeId}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch recipe details");
@@ -440,14 +440,15 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
             </ul>
           )}
         </div>
-        {/* add review form */}
+        {/* add review form if user is logged in*/}
+        { userId ?
         <div className="form-container">
           <CreateReviewForm 
           onAddReview={handleAddReview} 
           userId={userId}
           username={username}
           />
-        </div>
+        </div> : null}
       </div>
     </div>
   );
