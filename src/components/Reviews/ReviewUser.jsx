@@ -33,23 +33,23 @@ const ReviewUser = () => {
     }
   }, []);
   
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const response = await fetch(
-          `https://ga-p3-backend.onrender.com/users/showOne/${userId}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch user details");
-        }
-        const data = await response.json();
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUserDetails = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `https://ga-p3-backend.onrender.com/users/showOne/${userId}`
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch user details");
+  //       }
+  //       const data = await response.json();
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchUserDetails();
-  }, [userId]);
+  //   fetchUserDetails();
+  // }, [userId]);
 
   useEffect(() => {
     // Fetch all reviews of the user
