@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 import { Link, useParams } from "react-router-dom";
 import CreateReviewForm from "./CreateReviewForm";
-import { getToken } from '../../util/security';
+import { getToken } from "../../util/security";
 import "./ReviewPage.css";
 
 const ReviewLanding = ({ recipeId: propRecipeId }) => {
   const params = useParams();
+  const [user, setUser] = useState(null);
   const [userId, setUserId] = useState(null);
   const [username, setUsername] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -23,18 +24,19 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [reviewToDelete, setReviewToDelete] = useState(null);
 
-
   useEffect(() => {
     const token = getToken();
-    const payload = token ? JSON.parse(atob(token.split(".")[1])).payload : null;
+    const payload = token
+      ? JSON.parse(atob(token.split(".")[1])).payload
+      : null;
     console.log("payload", payload);
     if (payload && payload.userId) {
-        setUserId(payload.userId);
+      setUserId(payload.userId);
+      setUser(payload);
 
-    // Combine user and userLastName into a single string
-    const combinedUsername = `${payload.user} ${payload.userLastName}`;
-    setUsername(combinedUsername);
-
+      // Combine user and userLastName into a single string
+      const combinedUsername = `${payload.user} ${payload.userLastName}`;
+      setUsername(combinedUsername);
     }
   }, []);
 
@@ -265,37 +267,41 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
                   key={review._id}
                   className="card max-w-xl mx-auto bg-base-100 shadow-xl bottommargin"
                 >
+                  {/* only admin or owner of review have access to edit/delete review */}
+
                   <div className="card-actions justify-end">
-                  <div className="dropdown dropdown-bottom dropdown-end">
-                    <div tabIndex={0} role="button" className="btn m-1">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="rgba(61, 120, 101, 1)"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                        />
-                      </svg>
-                    </div>
-                    <ul
-                      tabIndex={0}
-                      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-                    >
-                      <li onClick={() => handleEditClick(review)}>
-                        <a>Edit Review</a>
-                      </li>
-                      <li onClick={() => handleDeleteClick(review._id)}>
-                        <a>Delete Review</a>
-                      </li>
-                    </ul>
-                  </div>
-                    
+                    {(String(userId) === String(review.user) || (user && user.is_admin)) ? (
+                      <div className="dropdown dropdown-bottom dropdown-end">
+                        <div tabIndex={0} role="button" className="btn m-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="rgba(61, 120, 101, 1)"
+                            className="w-6 h-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                            />
+                          </svg>
+                        </div>
+                        <ul
+                          tabIndex={0}
+                          className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                        >
+                          <li onClick={() => handleEditClick(review)}>
+                            <a>Edit Review</a>
+                          </li>
+                          <li onClick={() => handleDeleteClick(review._id)}>
+                            <a>Delete Review</a>
+                          </li>
+                        </ul>
+                      </div>
+                    ) : null}
+
                     {/* start of edit modal */}
                     <dialog id="my_modal_3" className="modal">
                       <div className="modal-box">
@@ -358,10 +364,7 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
                             <br />
                             <br />
                             <br />
-                            <button
-                              type="submit"
-                              className="btn btn-submit"
-                            >
+                            <button type="submit" className="btn btn-submit">
                               Save Changes
                             </button>
                           </div>
@@ -369,7 +372,7 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
                       </div>
                     </dialog>
                     {/* end of edit modal*/}
-              
+
                     {/* start of delete modal */}
                     <dialog id="deleteConfirmationModal" className="modal">
                       <div className="modal-box">
@@ -404,11 +407,17 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
                     </dialog>
                   </div>
                   {/* end of delete modal */}
+
                   {/* display review */}
                   <div className="aligncenter">
-                    <span><Link to={`/users/${review.user}`}>{review.userFirstName} {review.userLastName}</Link></span>
+                    <span>
+                      <Link to={`/users/${review.user}`}>
+                        {review.userFirstName} {review.userLastName}
+                      </Link>
+                    </span>
                     <div>
-                      <StarRating star={review.rating} /><br />
+                      <StarRating star={review.rating} />
+                      <br />
                       <span className="badge badge-md">
                         {formatDate(review.createdAt)}
                       </span>
@@ -419,9 +428,11 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
                       )}
                     </div>
                     <div className="card-title">{review.title}</div>
-                    <div><span className="quotation">&ldquo;</span>
-                    {review.content}
-                    <span className="quotation">&rdquo;</span></div>
+                    <div>
+                      <span className="quotation">&ldquo;</span>
+                      {review.content}
+                      <span className="quotation">&rdquo;</span>
+                    </div>
                     <br />
                     {/* Add image display logic if needed */}
                     <div>
@@ -441,14 +452,15 @@ const ReviewLanding = ({ recipeId: propRecipeId }) => {
           )}
         </div>
         {/* add review form if user is logged in*/}
-        { userId ?
-        <div className="form-container">
-          <CreateReviewForm 
-          onAddReview={handleAddReview} 
-          userId={userId}
-          username={username}
-          />
-        </div> : null}
+        {userId ? (
+          <div className="form-container">
+            <CreateReviewForm
+              onAddReview={handleAddReview}
+              userId={userId}
+              username={username}
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );
