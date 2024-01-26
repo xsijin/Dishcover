@@ -10,7 +10,7 @@ Enter App's landing page and any other screenshots of interest
 
 ## Technologies Used
 
-JavaScript, CSS, HTML, GitHub, React, React Router, Vite, Tailwind/[DaisyUI](https://daisyui.com/), Mongoose, Express, Crypto, SplideJS/React-Splide
+JavaScript, CSS, HTML, GitHub, React, React Router, Vite, Tailwind/DaisyUI, Mongoose, Express, Crypto, SplideJS/React-Splide
 
 localStorage to store token
 
@@ -31,7 +31,7 @@ Planning:
 
 Data flow diagram:
 
-<img src="/assets/images/data_flow_diagram.png">
+<img src="/src/assets/images/data_flow_diagram.png">
 
 ## User Types, Authorization & Backend Protection
 
@@ -54,9 +54,9 @@ Data flow diagram:
 
 Reason for protection: to prevent unauthorized users from meddling with API calls using tools like Postman or other API clients.
 
-## Entity-Relationship-Diagram
+## Entity-Relationship-Diagram / DAOs
 
-<img src="/assets/images/ERD.png">
+<img src="/src/assets/images/ERD.png">
 
 ## Next Steps
 
@@ -66,34 +66,31 @@ Reason for protection: to prevent unauthorized users from meddling with API call
 - [ ] Users can filter through search results (recipe name, tags, ingredients, etc)
 - [ ] Users can see other related recipes for each recipe
 
-## Showed the code for the "main" Mongoose Model, its controller & favorite React Component
+## Code Sharing
+
+**Mongoose Model: Get recipes**
+
+<img src="/src/assets/images/model.png">
+
+**Controller: Get recipes**
+
+<img src="/src/assets/images/controller.png">
+
+**Favorite React Component**
 
 Our favourite component was the star rating feature which takes in the rating prop from fetched reviews to render as stars.
 
-```
-const StarRating = ({ star }) => {
-  const renderStars = () => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <span
-          key={i}
-          style={{ color: i <= star ? 'gold' : 'gray', fontSize: '1.5em' }}
-        >
-          ★
-        </span>
-      );
-    }
-    return stars;
-  };
+<img src="/src/assets/images/starcode.png">
 
-  return <span>{renderStars()}</span>;
-};
-```
+Adding this code below now renders stars!
 
 ```
 <StarRating star={review.rating} />
 ```
+
+Sample:
+
+<img src="/src/assets/images/starrating.png">
 
 ## Key Challenges / Learning / Takeaways
 
@@ -111,6 +108,7 @@ const StarRating = ({ star }) => {
 ## Resources
 
 - [Render](https://render.com/) - Deployment of Frontend & Backend
+- [DaisyUI](https://daisyui.com/) - Component library to style website
 - [Miro](https://miro.com) - Task and project management platform
 - [Figma](https://figma.com) - Wireframe
 - [Trello](https://trello.com) - Ideas & User Story creation
