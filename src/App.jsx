@@ -48,7 +48,12 @@ function App() {
   //   __v: 0,
   // });
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    "user": "Romany",
+    "email": "romanyhenry@mob.com",
+    "is_admin": false
+});
+  const [login, setLogin] = useState(false);
 
   useEffect(() => {
     const token = getToken();
@@ -57,7 +62,7 @@ function App() {
     if (payload && payload.userId) {
         setUser(payload);
     }
-  }, []);
+  }, [login]);
 
   return (
     <>
@@ -90,7 +95,7 @@ function App() {
             </>
           )
           // LOGGED-IN USER: All public routes + editing routes available 
-          : user.firstName ? (
+          : user ? (
             <>
               <Routes>
                 <Route path="/" element={<PublicLandingPage />} />
@@ -118,7 +123,7 @@ function App() {
                 {/* User Routing */}
                 <Route path="/users" element={<UserProfileList />} />
                 <Route path="/users/:userId" element={<UserProfileIndiv />} />
-                <Route path="/login-signup" element={<LoginSignUp />} />
+                <Route path="/login-signup" element={<LoginSignUp setLogin={setLogin} />} />
                 {/* Recipe Routing */}
                 <Route path="/PublicRecipeDetails/:id" element={<PublicRecipeDetails />} />
                 {/* Review Routing */}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { getLoginDetails, loginUser } from "../../service/users";
 import { hashDataWithSaltRounds, storeToken } from "../../util/security";
 
-export default function LoginForm() {
+export default function LoginForm({ setLogin }) {
     const [loginInput, setLoginInput] = useState({
         email: "",
         password: ""
@@ -34,6 +34,7 @@ export default function LoginForm() {
             const token = await loginUser(loginData);
             // store token in localStorage
             storeToken(token);
+            setLogin(true);
 
         } catch(err) {
             console.error(err);
