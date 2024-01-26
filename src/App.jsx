@@ -56,7 +56,6 @@ function App() {
     console.log("payload", payload);
     if (payload && payload.userId) {
         setUser(payload);
-
     }
   }, []);
 
@@ -127,7 +126,6 @@ function App() {
               </Routes>
             </>
           )
-          
         } 
       </main>
     </>
