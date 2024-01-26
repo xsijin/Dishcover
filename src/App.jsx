@@ -90,7 +90,7 @@ function App() {
             </>
           )
           // LOGGED-IN USER: All public routes + editing routes available 
-          : user ? (
+          : user.firstName ? (
             <>
               <Routes>
                 <Route path="/" element={<PublicLandingPage />} />
