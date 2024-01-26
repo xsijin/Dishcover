@@ -7,7 +7,7 @@ import PublicDessertRecipes from './PublicDessertRecipes';
 function PublicLandingPage() {
     return (
         <div style={{
-            backgroundImage: `url('https://i.imgur.com/McGrLCC.png')`,
+            // backgroundImage: `url('https://i.imgur.com/McGrLCC.png')`,
             backgroundRepeat: 'repeat-y',
             backgroundAttachment: 'fixed',
             backgroundPosition: 'right'

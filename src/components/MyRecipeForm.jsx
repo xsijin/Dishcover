@@ -33,28 +33,47 @@ function MyRecipeForm({ handleSaveNewRecipe }) {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
 
-        const response = await fetch('https://ga-p3-backend.onrender.com/recipes/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                user: userId,
-                title: form.title,
-                tags: form.tags,
-                ingredients: form.ingredients,
-                preptime: form.preptime,
-                instructions: form.instructions,
-                picture_url: form.picture_url,
-            }),
-        });
+        try {
 
-        if (response.ok) {
-            const newRecipe = await response.json();
-            console.log(newRecipe);
-            handleSaveNewRecipe(newRecipe);
-        } else {
-            console.error('Failed to create new recipe');
+            const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+            if (!token) throw new Error('Token not found');
+    
+            const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Include the authorization header
+                },
+                body: JSON.stringify({
+                    user: userId,
+                    title: form.title,
+                    tags: form.tags,
+                    ingredients: form.ingredients,
+                    preptime: form.preptime,
+                    instructions: form.instructions,
+                    picture_url: form.picture_url,
+                }),
+            });
+
+            if (response.ok) {
+                const newRecipe = await response.json();
+                console.log(newRecipe);
+                handleSaveNewRecipe(newRecipe);
+            } else {
+                console.error('Failed to create new recipe');
+            }
+
+            setForm({
+                title: '',
+                tags: [],
+                ingredients: [],
+                preptime: '',
+                instructions: [],
+                picture_url: ''
+            })
+
+        } catch(err) {
+            console.error(err);
         }
 
     };

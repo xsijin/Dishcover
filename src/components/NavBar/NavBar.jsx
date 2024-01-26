@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar";
 import "./NavBar.css";
 import { logoutUser } from '../../service/users';
@@ -7,6 +7,30 @@ import { logoutUser } from '../../service/users';
 export default function NavBar({ username, userId }) {
   const navigate = useNavigate();
   const [selectedTheme, setSelectedTheme] = useState("light");
+
+  const [avatar, setAvatar] = useState(null);
+
+  useEffect(() => {
+      const fetchUser = async () => {
+        try {
+          const response = await fetch(   
+            `https://ga-p3-backend.onrender.com/users/showOne/${userId}`
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch user details");
+          }
+          const data = await response.json();
+          console.log("data:", data)
+          setAvatar(data.user.profilePicUrl);
+
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      fetchUser();
+
+  }, [userId]);
 
   const handleGoBack = () => {
     navigate(-1); // Equivalent to history.goBack()
@@ -84,7 +108,7 @@ export default function NavBar({ username, userId }) {
             <div className="w-10 rounded-full">
               <img
                 alt="Tailwind CSS Navbar component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                src={ avatar ? avatar : "https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png" }
               />
             </div>
           </div>
@@ -100,9 +124,6 @@ export default function NavBar({ username, userId }) {
               </Link>
             </li>
             <li>
-              <a>Settings</a>
-            </li>
-            <li>
               <Link to={"/MyRecipes"} className="justify-between">
                 My Recipes
               </Link>
@@ -113,9 +134,9 @@ export default function NavBar({ username, userId }) {
               </Link>
             </li>
             <li>
-              <button onClick={() => {
-                logoutUser();
-                navigate('/');
+              <button onClick={async () => {
+                await logoutUser();
+                window.location.reload();
               }}>Logout</button>
             </li>
           </ul>
