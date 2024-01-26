@@ -60,11 +60,14 @@ function MyRecipeEditing() {
     const handleSaveChanges = async () => {
 
         try {
+            const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+            if (!token) throw new Error('Token not found');
 
             const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/update/${params.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Include the authorization header
                 },
                 body: JSON.stringify({
                     title: form.title,
