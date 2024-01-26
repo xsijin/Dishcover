@@ -74,9 +74,11 @@ export default function NavBar({ username, userId, user }) {
             <li>
               <Link to="/">Homepage</Link>
             </li>
+            {username ? (
             <li>
               <Link to="/MyRecipes">Make a Dishcovery</Link>
             </li>
+            ) : null}
             {user && user.is_admin ? (
               <>
                 <li>

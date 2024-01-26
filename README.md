@@ -6,31 +6,33 @@ Welcome to **Dishcover**, your go-to platform for culinary exploration and creat
 
 ## Screenshots
 
-Homepage
+**Homepage**
 
 <img src="/src/assets/images/homepage.png">
 
-Login Page
+**Login Page**
 
 <img src="/src/assets/images/login.png">
 
-Create a Recipe
+**Create a Recipe**
 
 <img src="/src/assets/images/createrecipe.png">
 
-View Recipes
+**View Recipes**
 
 <img src="/src/assets/images/recipe.png">
 
-View Reviews
+**View Reviews**
 
 <img src="/src/assets/images/review.png">
 
 ## Technologies Used
 
-JavaScript, CSS, HTML, GitHub, React, React Router, Vite, Tailwind/DaisyUI, Mongoose, Express, Crypto, SplideJS/React-Splide
+**Frontend**: JavaScript, CSS, HTML, GitHub, Node.js, React, React Router, Vite, Tailwind CSS/DaisyUI, Splide, CryptoJS
 
-localStorage to store token
+**Backend**: Node.js, Express, Mongoose, MongoDB, JSON Web Token, Cors
+    
+**Client-Side Storage**: localStorage (for token storage)
 
 ## Getting Started
 
@@ -46,6 +48,8 @@ Planning:
 * [Trello Board](https://trello.com/b/dccanYjz/project3-rox)
 
 ## Authentication Flow
+
+JSON Web Tokens (JWT) is used for user authentication. When a user successfully logs in, a JWT is issued, and subsequent requests include the JWT to authenticate the user.
 
 Data flow diagram:
 
