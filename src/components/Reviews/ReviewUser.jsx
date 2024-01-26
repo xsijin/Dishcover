@@ -163,6 +163,9 @@ const ReviewUser = () => {
   // calls the delete function to delete review
   const handleConfirmDelete = async () => {
     try {
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      if (!token) throw new Error("Token not found");
+      
       const response = await fetch(
         `https://ga-p3-backend.onrender.com/reviews/delete/${reviewToDelete}`,
         {
