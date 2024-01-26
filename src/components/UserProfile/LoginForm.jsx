@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { getLoginDetails, loginUser } from "../../service/users";
 import { hashDataWithSaltRounds, storeToken } from "../../util/security";
+import { useNavigate } from "react-router";
 
 export default function LoginForm({ setLogin }) {
+    const navigate = useNavigate();
+
     const [loginInput, setLoginInput] = useState({
         email: "",
         password: ""
@@ -36,6 +39,8 @@ export default function LoginForm({ setLogin }) {
             storeToken(token);
             setLogin(true);
 
+            navigate("/");
+
         } catch(err) {
             console.error(err);
         }
@@ -63,7 +68,7 @@ export default function LoginForm({ setLogin }) {
                         <span className="lavel-text font-bold">Password</span>
                     </div>
                     <input 
-                    type="text" 
+                    type="password" 
                     name="password"
                     value={loginInput.password}
                     onChange={handleInputChange}

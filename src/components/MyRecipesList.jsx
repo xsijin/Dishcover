@@ -56,9 +56,18 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
   useEffect(() => {
     const getMyRecipes = async () => {
       if (!userId) return; // Add this line to prevent fetching when userId is null
-  
+
       try {
-        const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/user/${userId}`);
+
+        const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+        if (!token) throw new Error('Token not found');
+  
+        const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/user/${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}` // Include the authorization header
+          }
+        });
+
         if (response.ok) {
           const data = await response.json();
           console.log(data);
@@ -91,15 +100,17 @@ function MyRecipesList({ userRecipes, setUserRecipes }) {
   const handleDeleteRecipe = async (recipeId) => {
     console.log(recipeId);
     try {
-      const response = await fetch(
-        `https://ga-p3-backend.onrender.com/recipes/delete/${recipeId}`,
-        {
-          method: "DELETE",
+
+      const token = localStorage.getItem('token'); // Retrieve the token from localStorage
+      if (!token) throw new Error('Token not found');
+
+      const response = await fetch(`https://ga-p3-backend.onrender.com/recipes/delete/${recipeId}`, {
+          method: 'DELETE',
           headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}` // Include the authorization header
+          }
+      });
 
       if (response.ok) {
         const updatedRecipes = userRecipes.filter(

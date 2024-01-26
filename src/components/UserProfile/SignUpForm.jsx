@@ -12,6 +12,7 @@ export default function SignUpForm() {
         password: '',
         confirmPassword: ''
     });
+    const [signupSucc, setSignupSucc] = useState(false);
 
     const handleInputChange = (evt) => {
         setSignUpInput({
@@ -42,30 +43,19 @@ export default function SignUpForm() {
             console.log("signUpData ", signUpData);
             const user = await signUp(signUpData);
             console.log("user: ", user);
-    
-            // const response = await fetch('https://ga-p3-backend.onrender.com/users/create', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify({
-            //         firstName: signUpInput.firstName,
-            //         lastName: signUpInput.lastName,
-            //         email: signUpInput.email,
-            //         password: signUpInput.password
-            //     })
-            // });    
+
+            setSignUpInput({
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
+            })
+            setSignupSucc(true);
 
         } catch(err) {
             console.error(err);
         }
-
-        // if (response.ok) {
-        //     const newUser = await response.json();
-        //     console.log(newUser);
-        // } else {
-        //     console.error('Failed to create new user.');
-        // }
     }
 
     return (
@@ -136,6 +126,12 @@ export default function SignUpForm() {
                             placeholder="Type here" 
                             className="input input-bordered input-sm w-full max-w-xs" />
                     </label>
+
+                    {
+                        signupSucc
+                        ? <p className='text-success'>Sign Up Success!</p>
+                        : null
+                    }
 
                     <button className="btn btn-submit">Sign Up</button>
                 </form>
