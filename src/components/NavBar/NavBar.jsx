@@ -2,34 +2,32 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar";
 import "./NavBar.css";
-import { logoutUser } from '../../service/users';
+import { logoutUser } from "../../service/users";
 
-export default function NavBar({ username, userId }) {
+export default function NavBar({ username, userId, user }) {
   const navigate = useNavigate();
   const [selectedTheme, setSelectedTheme] = useState("light");
 
   const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
-      const fetchUser = async () => {
-        try {
-          const response = await fetch(   
-            `https://ga-p3-backend.onrender.com/users/showOne/${userId}`
-          );
-          if (!response.ok) {
-            throw new Error("Failed to fetch user details");
-          }
-          const data = await response.json();
-          console.log("data:", data)
-          setAvatar(data.user.profilePicUrl);
-
-        } catch (error) {
-          console.error(error);
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(
+          `https://ga-p3-backend.onrender.com/users/showOne/${userId}`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch user details");
         }
-      };
+        const data = await response.json();
+        console.log("data:", data);
+        setAvatar(data.user.profilePicUrl);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-      fetchUser();
-
+    fetchUser();
   }, [userId]);
 
   const handleGoBack = () => {
@@ -79,15 +77,19 @@ export default function NavBar({ username, userId }) {
             <li>
               <Link to="/MyRecipes">Make a Dishcovery</Link>
             </li>
-            <li>
-              <Link to="/modrecipescontrol">Manage Recipes (admin only)</Link>
-            </li>
-            <li>
-              <Link to="/ReviewAdmin">Manage Reviews (admin only)</Link>
-            </li>
-            <li>
-              <Link to="/users">Manage Users (admin only)</Link>
-            </li>
+            {user && user.is_admin ? (
+              <>
+                <li>
+                  <Link to="/modrecipescontrol">Admin: Manage Recipes</Link>
+                </li>
+                <li>
+                  <Link to="/ReviewAdmin">Admin: Manage Reviews</Link>
+                </li>
+                <li>
+                  <Link to="/users">Admin: Manage Users</Link>
+                </li>
+              </>
+            ) : null}
           </ul>
         </div>
 
@@ -95,24 +97,28 @@ export default function NavBar({ username, userId }) {
         <Link to="/" className="btn btn-ghost text-xl">
           Dishcover
         </Link>
-      
+
         {/* Avatar */}
-      <div className="dropdown dropdown-end">
-        {/* Conditional rendering for avatar */}
-        {username && (
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src={ avatar ? avatar : "https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png" }
-              />
+        <div className="dropdown dropdown-end">
+          {/* Conditional rendering for avatar */}
+          {username && (
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src={
+                    avatar
+                      ? avatar
+                      : "https://villagesonmacarthur.com/wp-content/uploads/2020/12/Blank-Avatar.png"
+                  }
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )}
           <ul
             tabIndex={0}
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
@@ -120,7 +126,6 @@ export default function NavBar({ username, userId }) {
             <li>
               <Link to={`/users/${userId}`} className="justify-between">
                 My Profile
-                <span className="badge">New</span>
               </Link>
             </li>
             <li>
@@ -134,17 +139,27 @@ export default function NavBar({ username, userId }) {
               </Link>
             </li>
             <li>
-              <button onClick={async () => {
-                await logoutUser();
-                window.location.reload();
-              }}>Logout</button>
+              <button
+                onClick={async () => {
+                  await logoutUser();
+                  window.location.reload();
+                }}
+              >
+                Logout
+              </button>
             </li>
           </ul>
         </div>
         <span className="flex-1 gap-2">
-        {username ? `Welcome, ${username}` : <>Welcome, <Link to="/login-signup">join us</Link>!</>}
-          </span>
-        </div>
+          {username ? (
+            `Welcome, ${username}`
+          ) : (
+            <>
+              Welcome, <Link to="/login-signup">join us</Link>!
+            </>
+          )}
+        </span>
+      </div>
 
       <div className="flex-1 gap-2">
         <div className="form-control">
@@ -184,25 +199,21 @@ export default function NavBar({ username, userId }) {
               <details>
                 <summary>Theme</summary>
                 <ul className="p-2 bg-base-100 rounded-t-none">
-                  {[
-                    "light",
-                    "forest",
-                    "night",
-                    "emerald",
-                    "winter"
-                  ].map((theme) => (
-                    <li key={theme}>
-                      <input
-                        type="radio"
-                        name="theme-dropdown"
-                        className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                        aria-label={theme}
-                        value={theme}
-                        checked={selectedTheme === theme}
-                        onChange={() => handleThemeChange(theme)}
-                      />
-                    </li>
-                  ))}
+                  {["light", "forest", "night", "emerald", "winter"].map(
+                    (theme) => (
+                      <li key={theme}>
+                        <input
+                          type="radio"
+                          name="theme-dropdown"
+                          className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                          aria-label={theme}
+                          value={theme}
+                          checked={selectedTheme === theme}
+                          onChange={() => handleThemeChange(theme)}
+                        />
+                      </li>
+                    )
+                  )}
                 </ul>
               </details>
             </li>

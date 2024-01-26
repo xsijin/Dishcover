@@ -6,7 +6,25 @@ Welcome to **Dishcover**, your go-to platform for culinary exploration and creat
 
 ## Screenshots
 
-Enter App's landing page and any other screenshots of interest
+Homepage
+
+<img src="/src/assets/images/homepage.png">
+
+Login Page
+
+<img src="/src/assets/images/login.png">
+
+Create a Recipe
+
+<img src="/src/assets/images/createrecipe.png">
+
+View Recipes
+
+<img src="/src/assets/images/recipe.png">
+
+View Reviews
+
+<img src="/src/assets/images/review.png">
 
 ## Technologies Used
 
@@ -94,10 +112,11 @@ Sample:
 
 ## Key Challenges / Learning / Takeaways
 
-1. Check git branch first before doing any work! This will save you headaches down the road trying to change commits to a different branch.
-2. Git pull often to reduce the chances of a merge conflict.
-3. Try to ensure all pull requests are approved first before making new changes to reduce the chances of a merge conflict.
-4. Communicate with team members which file we are working on to reduce the chances of a merge conflict.
+1. Authentication & JWT
+2. Check git branch first before doing any work! This will save you headaches down the road trying to change commits to a different branch.
+3. Git pull often to reduce the chances of a merge conflict.
+4. Try to ensure all pull requests are approved first before making new changes to reduce the chances of a merge conflict.
+5. Communicate with team members which file we are working on to reduce the chances of a merge conflict.
 
 ## Authors
 
