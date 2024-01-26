@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar";
 import "./NavBar.css";
+import { logoutUser } from '../../service/users';
 
 export default function NavBar({ username, userId }) {
   const navigate = useNavigate();
@@ -112,7 +113,10 @@ export default function NavBar({ username, userId }) {
               </Link>
             </li>
             <li>
-              <a>Logout</a>
+              <button onClick={() => {
+                logoutUser();
+                navigate('/');
+              }}>Logout</button>
             </li>
           </ul>
         </div>

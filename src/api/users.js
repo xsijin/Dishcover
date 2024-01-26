@@ -1,5 +1,7 @@
 // This is the base path of the Express route we'll define
-const BASE_URL = "https://ga-p3-backend.onrender.com/users";
+// const BASE_URL = "https://ga-p3-backend.onrender.com/users";
+
+const BASE_URL = "http://localhost:3000/users";
 
 export async function signUp(userData) {
   const createURL = BASE_URL + '/create';
@@ -65,6 +67,7 @@ export async function loginUser(userData) {
     // other than basic GET requests, include data, headers, etc.
     const logoutURL = BASE_URL + '/logout';
     console.log(logoutURL);
+    console.log("logoutUser userData:", userData);
     const res = await fetch(logoutURL, {
       method: "POST",
       headers: { "Content-Type": "application/json",  "Authorization": token},
@@ -72,6 +75,7 @@ export async function loginUser(userData) {
       // and assigned to a body property on the options object
       body: JSON.stringify(userData),
     });
+    console.log("logout res:", res);
     // Check if request was successful
     if (res.ok) {
       // res.json() will resolve to the JWT
