@@ -26,6 +26,10 @@ Welcome to **Dishcover**, your go-to platform for culinary exploration and creat
 
 <img src="/src/assets/images/review.png">
 
+**View Users**
+
+<img src="/src/assets/images/allUsers.png">
+
 ## Technologies Used
 
 **Frontend**: JavaScript, CSS, HTML, GitHub, Node.js, React, React Router, Vite, Tailwind CSS/DaisyUI, Splide, CryptoJS
