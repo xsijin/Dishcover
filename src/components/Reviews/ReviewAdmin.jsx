@@ -19,8 +19,17 @@ const ReviewAdmin = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
+        const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+        if (!token) throw new Error("Token not found");
+
         const response = await fetch(
-          `https://ga-p3-backend.onrender.com/reviews/admin/show`
+          `https://ga-p3-backend.onrender.com/reviews/admin/show`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Include the authorization header
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
@@ -76,12 +85,16 @@ const ReviewAdmin = () => {
     e.preventDefault();
 
     try {
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      if (!token) throw new Error("Token not found");
+
       const response = await fetch(
         `https://ga-p3-backend.onrender.com/reviews/update/${selectedReviewId}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Include the authorization header
           },
           body: JSON.stringify({
             title: editedReview.title,
@@ -101,7 +114,13 @@ const ReviewAdmin = () => {
 
       // Fetch the updated reviews again to reflect the changes immediately
       const updatedResponse = await fetch(
-        `https://ga-p3-backend.onrender.com/reviews/admin/show`
+        `https://ga-p3-backend.onrender.com/reviews/admin/show`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Include the authorization header
+          },
+        }
       );
       if (!updatedResponse.ok) {
         throw new Error("Failed to fetch updated reviews");
@@ -122,10 +141,17 @@ const ReviewAdmin = () => {
   // calls the delete function to delete review
   const handleConfirmDelete = async () => {
     try {
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      if (!token) throw new Error("Token not found");
+
       const response = await fetch(
         `https://ga-p3-backend.onrender.com/reviews/delete/${reviewToDelete}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Include the authorization header
+          },
         }
       );
 
@@ -329,8 +355,15 @@ const ReviewAdmin = () => {
                   </span>
 
                   <div>
-                  <Link to={`/PublicRecipeDetails/${review.recipe}?tab=review`}><StarRating star={review.rating} /></Link> by{" "}
-                    <Link to={`/users/${review.user}`}>{review.userFirstName} {review.userLastName}</Link>
+                    <Link
+                      to={`/PublicRecipeDetails/${review.recipe}?tab=review`}
+                    >
+                      <StarRating star={review.rating} />
+                    </Link>{" "}
+                    by{" "}
+                    <Link to={`/users/${review.user}`}>
+                      {review.userFirstName} {review.userLastName}
+                    </Link>
                     <br />
                     <span className="badge badge-md">
                       {formatDate(review.createdAt)}

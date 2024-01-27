@@ -36,7 +36,7 @@ function App() {
   return (
     <>
       <nav>
-        <NavBar username={user.user} userId={user.userId} />
+        <NavBar username={user.user} userId={user.userId} user={user} />
       </nav>
       <main className="navspace">
         {

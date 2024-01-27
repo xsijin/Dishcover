@@ -6,13 +6,33 @@ Welcome to **Dishcover**, your go-to platform for culinary exploration and creat
 
 ## Screenshots
 
-Enter App's landing page and any other screenshots of interest
+**Homepage**
+
+<img src="/src/assets/images/homepage.png">
+
+**Login Page**
+
+<img src="/src/assets/images/login.png">
+
+**Create a Recipe**
+
+<img src="/src/assets/images/createrecipe.png">
+
+**View Recipes**
+
+<img src="/src/assets/images/recipe.png">
+
+**View Reviews**
+
+<img src="/src/assets/images/review.png">
 
 ## Technologies Used
 
-JavaScript, CSS, HTML, GitHub, React, React Router, Vite, Tailwind/DaisyUI, Mongoose, Express, Crypto, SplideJS/React-Splide
+**Frontend**: JavaScript, CSS, HTML, GitHub, Node.js, React, React Router, Vite, Tailwind CSS/DaisyUI, Splide, CryptoJS
 
-localStorage to store token
+**Backend**: Node.js, Express, Mongoose, MongoDB, JSON Web Token, Cors
+    
+**Client-Side Storage**: localStorage (for token storage)
 
 ## Getting Started
 
@@ -28,6 +48,8 @@ Planning:
 * [Trello Board](https://trello.com/b/dccanYjz/project3-rox)
 
 ## Authentication Flow
+
+JSON Web Tokens (JWT) is used for user authentication. When a user successfully logs in, a JWT is issued, and subsequent requests include the JWT to authenticate the user.
 
 Data flow diagram:
 
@@ -94,10 +116,11 @@ Sample:
 
 ## Key Challenges / Learning / Takeaways
 
-1. Check git branch first before doing any work! This will save you headaches down the road trying to change commits to a different branch.
-2. Git pull often to reduce the chances of a merge conflict.
-3. Try to ensure all pull requests are approved first before making new changes to reduce the chances of a merge conflict.
-4. Communicate with team members which file we are working on to reduce the chances of a merge conflict.
+1. Authentication & JWT
+2. Check git branch first before doing any work! This will save you headaches down the road trying to change commits to a different branch.
+3. Git pull often to reduce the chances of a merge conflict.
+4. Try to ensure all pull requests are approved first before making new changes to reduce the chances of a merge conflict.
+5. Communicate with team members which file we are working on to reduce the chances of a merge conflict.
 
 ## Authors
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import StarRating from "./StarRating";
 import { Link } from "react-router-dom";
-import { getToken } from '../../util/security';
+import { getToken } from "../../util/security";
 import "./ReviewPage.css";
 
 const ReviewUser = () => {
@@ -21,18 +21,19 @@ const ReviewUser = () => {
 
   useEffect(() => {
     const token = getToken();
-    const payload = token ? JSON.parse(atob(token.split(".")[1])).payload : null;
+    const payload = token
+      ? JSON.parse(atob(token.split(".")[1])).payload
+      : null;
     console.log("payload", payload);
     if (payload && payload.userId) {
-        setUserId(payload.userId);
+      setUserId(payload.userId);
 
-    // Combine user and userLastName into a single string
-    const combinedUsername = `${payload.user} ${payload.userLastName}`;
-    setUsername(combinedUsername);
-
+      // Combine user and userLastName into a single string
+      const combinedUsername = `${payload.user} ${payload.userLastName}`;
+      setUsername(combinedUsername);
     }
   }, []);
-  
+
   // useEffect(() => {
   //   const fetchUserDetails = async () => {
   //     try {
@@ -112,12 +113,16 @@ const ReviewUser = () => {
     e.preventDefault();
 
     try {
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      if (!token) throw new Error("Token not found");
+
       const response = await fetch(
         `https://ga-p3-backend.onrender.com/reviews/update/${selectedReviewId}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Include the authorization header
           },
           body: JSON.stringify({
             title: editedReview.title,
@@ -158,10 +163,17 @@ const ReviewUser = () => {
   // calls the delete function to delete review
   const handleConfirmDelete = async () => {
     try {
+      const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+      if (!token) throw new Error("Token not found");
+      
       const response = await fetch(
         `https://ga-p3-backend.onrender.com/reviews/delete/${reviewToDelete}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Include the authorization header
+          },
         }
       );
 
@@ -367,7 +379,11 @@ const ReviewUser = () => {
                   </span>
 
                   <div>
-                    <Link to={`/PublicRecipeDetails/${review.recipe}?tab=review`}><StarRating star={review.rating} /></Link>
+                    <Link
+                      to={`/PublicRecipeDetails/${review.recipe}?tab=review`}
+                    >
+                      <StarRating star={review.rating} />
+                    </Link>
                     <br />
                     <span className="badge badge-md">
                       {formatDate(review.createdAt)}
